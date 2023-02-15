@@ -3,8 +3,7 @@
 using namespace std;
 
 /**
- * RowLayout class that implements the Layout interface
- * Paints a list of elements in a vertical row
+ * RowLayout is a layout that arranges elements in a row of fractional heights
  */
 class RowLayout : public Layout {
    public:

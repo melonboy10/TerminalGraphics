@@ -11,6 +11,9 @@ using namespace std;
 
 using namespace std;
 
+/**
+ * A class that represents a grid layout with fractional widths and heights.
+ */
 class GridLayout : public Layout {
    public:
     /**

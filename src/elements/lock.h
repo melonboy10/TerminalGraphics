@@ -2,9 +2,6 @@
 
 using namespace std;
 
-/**
- * A Lock element for the window
- */
 class Lock : public WindowElement {
 
    /**

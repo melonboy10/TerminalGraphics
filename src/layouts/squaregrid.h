@@ -2,6 +2,9 @@
 
 using namespace std;
 
+/**
+ * A layout class for arranging WindowElements in a square grid.
+ */
 class SquareGridLayout: public Layout {
     public:
         /**

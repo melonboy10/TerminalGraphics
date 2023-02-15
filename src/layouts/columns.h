@@ -4,7 +4,7 @@
 using namespace std;
 
 /**
- * A layout that arranges elements in a column
+ * A layout that arranges elements into columns of fractional widths
  */
 class ColumnLayout : public Layout {
    public:

@@ -5,7 +5,6 @@ using namespace std;
 
 /**
  * A class representing a horizontal layout of elements.
- * Extends Layout.
  */
 class HorizontalLayout : public Layout {
    public:

@@ -1,12 +1,12 @@
 #include "element.h"
 
-/**
-* This class extends WindowElement class.
-* It creates Spacer objects with given height.
-* @param height The height of Spacer
-*/
 class Spacer: public WindowElement {
   public:
+    /**
+    * This class extends WindowElement class.
+    * It creates Spacer objects with given height.
+    * @param height The height of Spacer
+    */
     Spacer(int height) : WindowElement(0.0, height) {}
     /**
     * This function is an override to the paint function in the WindowElement class. 

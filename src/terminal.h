@@ -47,7 +47,7 @@ class Terminal {
     static void checkScreenSize();
     
     /**
-     * Exits the Terminal window.
+     * Exits the Terminal window with a fancy animation.
      */
     static void exit();
 };
