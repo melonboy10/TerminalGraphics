@@ -38,6 +38,102 @@ enum State {
     ERROR = RED,
 };
 
+/**
+ * Returns the color code of the given color
+ * @param color The color for which to get the color code
+ * @return The color code of the given color
+ */
+string getColorCode(int color);
+
+/**
+ * Draws text on the console at the given position with the given color
+ * @param text The text to be drawn on the console
+ * @param x The X coordinate of the position at which to draw the text
+ * @param y The Y coordinate of the position at which to draw the text
+ * @param color The color of the text to be drawn on the console
+ */
+void drawText(string text, int x, int y, int color = WHITE);
+
+/**
+ * Clears the area of the console at the given position
+ * @param x The X coordinate of the position to be cleared
+ * @param y The Y coordinate of the position to be cleared
+ * @param width The width of the area to be cleared
+ * @param height The height of the area to be cleared
+ */
+void clearArea(int x, int y, int width, int height);
+
+/**
+ * Converts the given string to capital case
+ * @param text The string to be converted to capital case
+ * @return The given string converted to capital case
+ */
+string toCapitalCase(string text);
+
+/**
+ * Sets the console cursor position to the given position
+ * @param x The X coordinate of the console cursor position to be set
+ * @param y The Y coordinate of the console cursor position to be set
+ */
+void setCursorPosition(int x, int y);
+
+/**
+ * Shows the console cursor
+ */
+void showCursor();
+
+/**
+ * Hides the console cursor
+ */
+void hideCursor();
+
+/**
+ * Draws a box on the console at the given position with the given width and height
+ * @param x The X coordinate of the position at which to draw the box
+ * @param y The Y coordinate of the position at which to draw the box
+ * @param width The width of the box to be drawn on the console
+ * @param height The height of the box to be drawn on the console
+ */
+void drawBox(int x, int y, int width, int height);
+
+/**
+ * Draws a box with a title on the console at the given position with the given width, height and title
+ * @param x The X coordinate of the position at which to draw the box
+ * @param y The Y coordinate of the position at which to draw the box
+ * @param width The width of the box to be drawn on the console
+ * @param height The height of the box to be drawn on the console
+ * @param title The title of the box to be drawn on the console
+ */
+void drawBox(int x, int y, int width, int height, string title);
+
+/**
+ * Draws an image on the console at the given position with the given width and height
+ * @param path The path of the image to be drawn on the console
+ * @param x The X coordinate of the position at which to draw the image
+ * @param y The Y coordinate of the position at which to draw the image
+ * @param width The width of the image to be drawn on the console
+ * @param height The height of the image to be drawn on the console
+ */
+void drawImage(string path, int x, int y, int width, int height);
+
+/**
+ * Reads an image from the given file path
+ * @param path The path of the image file to be read
+ * @return A 2D vector representing the image read from the file
+ */
+vector<vector<int>> readImage(string path);
+
+/**
+ * Scales the given image to the given width and height
+ * @param image The image to be scaled as a 2D vector
+ * @param width The width to which to scale the image
+ * @param height The height to which to scale the image
+ * @return The given image scaled to the given width and height as a 2D vector
+ */
+vector<vector<int>> scaleImage(vector<vector<int>> image, int width, int height);
+
+//::
+
 string getColorCode(int color) {
     return "\033[" + to_string(color) + "m";
 }

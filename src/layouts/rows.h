@@ -2,14 +2,32 @@
 
 using namespace std;
 
+/**
+ * RowLayout class that implements the Layout interface
+ * Paints a list of elements in a vertical row
+ */
 class RowLayout : public Layout {
    public:
+    /**
+     * Constructs a RowLayout with the given array of heights
+     * @param heights array of heights of each element
+     */
     RowLayout(int* heights);
+
+    /**
+     * Paints the list of elements in a vertical row
+     * @param x the x coordinate of the starting position
+     * @param y the y coordinate of the starting position
+     * @param width the width of the layout
+     * @param height the height of the layout
+     * @param elements the list of WindowElements to paint
+     */
     void paint(int x, int y, int width, int height, vector<WindowElement*> elements) override;
 
    private:
     int* heights;
 };
+
 
 RowLayout::RowLayout(int* heights): heights(heights) {}
 

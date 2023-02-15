@@ -9,21 +9,49 @@
 
 using namespace std;
 
+/**
+ * Terminal class is responsible for managing the terminal and printing content to the terminal.
+ */
 class Terminal {
    public:
+   
+    /**
+     * Constructor method for Terminal class.
+     * Initializes the Terminal.
+     * @param layout: A pointer to a layout object.
+     */
     Terminal(Layout* layout);
-
+    
+    /**
+     * Destructor method for Terminal class.
+     * Exits the terminal.
+     */
+    ~Terminal();
+    
    private:
     const static struct winsize size;
     const static int minWidth = 100;
     const static int minHeight = 30;
 
     const static Group* rootWindow;
-
+    
+    /**
+     * Initializes the Terminal window.
+     */
     static void initTerminal();
+    
+    /**
+     * Checks if the size of the Terminal window is big enough to display all content.
+     * If the window is too small, prints an error message and exits the program.
+     */
     static void checkScreenSize();
+    
+    /**
+     * Exits the Terminal window.
+     */
     static void exit();
 };
+
 
 Terminal::Terminal(Layout* layout) {
     initTerminal();
@@ -38,6 +66,7 @@ void Terminal::initTerminal() {
     ioctl(STDOUT_FILENO, TIOCGWINSZ, &size);
 }
 
+// Checking the size of the terminal window and if it is too small, it will print an error message and exit the program.
 void Terminal::checkScreenSize() {
     if (size.ws_col < minWidth || size.ws_row < minHeight) {
         cout << getColorCode(LIGHT_CYAN) << "🚨 Screen size is too small." << endl;

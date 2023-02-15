@@ -3,11 +3,27 @@
 
 using namespace std;
 
+/**
+ * A vertical layout class for arranging WindowElements vertically.
+ */
 class VerticalLayout : public Layout {
    public:
+    /**
+     * Constructs a new VerticalLayout.
+     */
     VerticalLayout();
+
+    /**
+     * Paints the given vector of elements in a vertical layout.
+     * @param x the x-coordinate of the top-left corner of the layout
+     * @param y the y-coordinate of the top-left corner of the layout
+     * @param width the width of the layout
+     * @param height the height of the layout
+     * @param elements the vector of WindowElements to paint
+     */
     void paint(int x, int y, int width, int height, vector<WindowElement*> elements) override;
 };
+
 
 VerticalLayout::VerticalLayout() {}
 
