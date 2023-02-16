@@ -1,5 +1,7 @@
 #include "element.h"
 
+using namespace std;
+
 class Spacer: public WindowElement {
   public:
     /**
@@ -18,3 +20,5 @@ class Spacer: public WindowElement {
     */
     void paint(int x, int y, int width, int height) override {}
 }; 
+
+//::

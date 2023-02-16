@@ -1,5 +1,6 @@
 # split_file
-/out
+split/
+include/
 
 # General
 .DS_Store
@@ -29,7 +30,7 @@ Temporary Items
 .apdisk
 
 #vscode
-.vscode/*
+.vscode/
 
 # Local History for Visual Studio Code
 .history/

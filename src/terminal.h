@@ -1,11 +1,12 @@
 #include <iostream>
 #include <sys/ioctl.h>
 #include <unistd.h>
+#include <termios.h>
 #include <math.h>
 #include <string>
 #include <vector>
 #include "util.h"
-#include "group.h"
+#include "elements/group.h"
 
 using namespace std;
 
@@ -29,6 +30,7 @@ class Terminal {
     ~Terminal();
     
    private:
+    static termios oldTerminalSettings;
     const static struct winsize size;
     const static int minWidth = 100;
     const static int minHeight = 30;
@@ -59,11 +61,18 @@ Terminal::Terminal(Layout* layout) {
 }
 
 Terminal::~Terminal() {
+    printf("\033[?1049l");
+    tcsetattr(STDIN_FILENO, TCSANOW, &oldTerminalSettings);
     exit();
 }
 
 void Terminal::initTerminal() {
     ioctl(STDOUT_FILENO, TIOCGWINSZ, &size);
+    tcgetattr(STDIN_FILENO, &oldTerminalSettings);
+    termios new_attr = oldTerminalSettings;
+    new_attr.c_lflag &= ~(ECHO | ICANON);
+    tcsetattr(STDIN_FILENO, TCSANOW, &new_attr);
+    printf("\033[?1049h");
 }
 
 // Checking the size of the terminal window and if it is too small, it will print an error message and exit the program.
@@ -98,12 +107,5 @@ void Terminal::exit() {
 
         sleep(1);
     }
-
-    for (int i = 0; i < size.ws_col; i++) {
-        for (int i = 0; i < size.ws_row; i++) {
-            cout << "\b";
-        }
-        cout << "\b";
-    }
-    cout << "\033[2J\033[1;1H"<< "Goodbye. 👋" << endl;
+    cout << "\033[2J\033[1;1H" << "\033[1J" << "Goodbye. 👋" << endl;
 }

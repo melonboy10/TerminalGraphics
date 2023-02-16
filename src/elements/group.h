@@ -2,7 +2,7 @@
 #include <vector>
 #include "element.h"
 #include "spacer.h"
-#include "layout.h"
+#include "../layouts/layout.h"
 
 using namespace std;
 
@@ -116,7 +116,7 @@ void Group::setBackgroundColor(Color color) {
     this->backgroundColor = color;
 }
 
-void Group::addElement(WindowElement* element, int spacer = 0) {
+void Group::addElement(WindowElement* element, int spacer) {
     this->elements.push_back(element);
     if (spacer) {
         this->elements.push_back(new Spacer(spacer));

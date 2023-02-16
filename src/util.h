@@ -138,7 +138,7 @@ string getColorCode(int color) {
     return "\033[" + to_string(color) + "m";
 }
 
-void drawText(string text, int x, int y, int color = WHITE) {
+void drawText(string text, int x, int y, int color) {
     setCursorPosition(x, y);
     cout << getColorCode(color) << text << "\033[0m";
 }

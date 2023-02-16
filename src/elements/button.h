@@ -41,13 +41,12 @@ class Button : public WindowElement {
      */
     void click();
 
-
    private:
     string title;
     function<void()> action;
 };
 
-Button::Button(string title, float widthPercent): title(title), WindowElement(widthPercent, 3) {}
+Button::Button(string title, float widthPercent): WindowElement(widthPercent, 3), title(title) {}
 
 void Button::setTitle(string title) {
     this->title = title;
