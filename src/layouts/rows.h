@@ -11,7 +11,7 @@ class RowLayout : public Layout {
      * Constructs a RowLayout with the given array of heights
      * @param heights array of heights of each element
      */
-    RowLayout(int* heights);
+    RowLayout(int heights[]);
 
     /**
      * Paints the list of elements in a vertical row
@@ -28,7 +28,7 @@ class RowLayout : public Layout {
 };
 
 
-RowLayout::RowLayout(int* heights): heights(heights) {}
+RowLayout::RowLayout(int heights[]): heights(heights) {}
 
 void RowLayout::paint(int x, int y, int width, int height, vector<WindowElement*> elements) {
     int totalHeight = 0;

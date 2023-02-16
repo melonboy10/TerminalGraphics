@@ -12,7 +12,7 @@ class ColumnLayout : public Layout {
      * Constructor for ColumnLayout object
      * @param widths an array of integers representing the width of each element in the layout
      */
-    ColumnLayout(int* widths);
+    ColumnLayout(int widths[]);
 
     /**
      * Paints the layout on the screen
@@ -29,7 +29,7 @@ class ColumnLayout : public Layout {
 };
 
 
-ColumnLayout::ColumnLayout(int* widths): widths(widths) {}
+ColumnLayout::ColumnLayout(int widths[]): widths(widths) {}
 
 void ColumnLayout::paint(int x, int y, int width, int height, vector<WindowElement*> elements) {
     int totalWidth = 0;

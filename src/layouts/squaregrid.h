@@ -10,7 +10,7 @@ class SquareGridLayout: public Layout {
         /**
          * @param widths an array of integers representing the width of each element in the grid
          */
-        SquareGridLayout(int* widths);
+        SquareGridLayout(int widths[]);
         /**
          * A grid where the width of each element is the same as the height
          * @param x the x coordinate of the top-left corner of the grid
@@ -26,7 +26,7 @@ class SquareGridLayout: public Layout {
         // int scrollOffset = 0;
 };
 
-SquareGridLayout::SquareGridLayout(int* widths): widths(widths) {}
+SquareGridLayout::SquareGridLayout(int widths[]): widths(widths) {}
 
 void SquareGridLayout::paint(int x, int y, int width, int height, vector<WindowElement*> elements) {
     int totalWidth = 0;

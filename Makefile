@@ -116,6 +116,8 @@ clean:
 
 # Clear the header file then Split all header files into source files
 split_file:
+	mkdir -p $(SPLITDIR)
+	mkdir -p $(INCLUDEDIR)
 	> $(INCLUDEDIR)/$(LIBNAME).h
 	@for file in $(SPLITSRCS); do \
 		./split_file.sh $$file $(SPLITDIR) $(INCLUDEDIR)/$(LIBNAME).h; \

@@ -23,7 +23,7 @@ class GridLayout : public Layout {
      * @param widths the array of the column widths
      * @param heights the array of the row heights
      */
-    GridLayout(int* widths, int* heights);
+    GridLayout(int widths[], int heights[]);
 
     /**
      * Paints the grid layout on the screen with the given x and y positions,
@@ -43,10 +43,7 @@ class GridLayout : public Layout {
 };
 
 
-GridLayout::GridLayout(int* widths, int* heights) {
-    this->widths = widths;
-    this->heights = heights;
-}
+GridLayout::GridLayout(int widths[], int heights[]): widths(widths), heights(heights) {}
 
 void GridLayout::paint(int x, int y, int width, int height, vector<WindowElement*> elements) {
     int totalWidth = 0;

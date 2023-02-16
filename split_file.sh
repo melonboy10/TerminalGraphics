@@ -12,9 +12,6 @@ if [ ! -f $1 ]; then
   exit 1
 fi
 
-# make folder if it doesn't exist
-mkdir -p $2
-
 # Get path without src/
 filepath=$(dirname "$1")
 filepath="${filepath#src/}"

@@ -2,6 +2,8 @@
     "files.associations": {
         "tuple": "cpp",
         "filesystem": "cpp",
-        "iosfwd": "cpp"
+        "iosfwd": "cpp",
+        "chrono": "cpp",
+        "limits": "cpp"
     }
 }
