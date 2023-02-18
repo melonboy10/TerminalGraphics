@@ -62,6 +62,7 @@ void TextInput::setText(string text) {
     this->text = text;
 }
 void TextInput::paint(int x, int y, int width, int height) {
+    WindowElement::paint(x, y, width, height);
     for (int i = 0; i < width; i++) {
         drawText("─", x + i, y, state);
         drawText(" ", x + i, y + 1, state);

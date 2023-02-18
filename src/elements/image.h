@@ -46,6 +46,7 @@ void Image::setImage(string path) {
 }
 
 void Image::paint(int x, int y, int width, int height) {
+    WindowElement::paint(x, y, width, height);
     if (path.length() > 0) {
         drawImage(path, x, y, width, height);
     }

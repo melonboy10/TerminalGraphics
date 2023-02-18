@@ -40,6 +40,7 @@ class Text : public WindowElement {
 Text::Text(string text, float widthPercent) : text(text), WindowElement(1, widthPercent) {}
 
 void Text::paint(int x, int y, int width, int height) {
+    WindowElement::paint(x, y, width, height);
     int line = 0;
     int start = 0;
     int end = 0;

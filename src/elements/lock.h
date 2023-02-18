@@ -3,10 +3,9 @@
 using namespace std;
 
 class Lock : public WindowElement {
-
-   /**
-    * Creates a new lock element with default dimensions
-    */
+    /**
+     * Creates a new lock element with default dimensions
+     */
     Lock();
 
     /**
@@ -31,14 +30,14 @@ class Lock : public WindowElement {
     void setLocked(bool locked);
 
    private:
-    bool locked;  // whether the lock is active or not
+    bool locked;                // whether the lock is active or not
     string lockedMessage = "";  // message to display when the lock is active
 };
-
 
 Lock::Lock() : locked(true), WindowElement(20, 15) {}
 
 void Lock::paint(int x, int y, int width, int height) {
+    WindowElement::paint(x, y, width, height);
     if (locked) {
         drawText("     .--------.     ", x, y);
         drawText("    / .------. \\    ", x, y + 1);

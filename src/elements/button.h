@@ -60,6 +60,7 @@ void Button::setTitle(string title) {
 }
 
 void Button::paint(int x, int y, int width, int height) {
+    WindowElement::paint(x, y, width, height);
     for (int i = 0; i < width; i++) {
         drawText("─", x + i, y, (selected ? CYAN : state));
         drawText(" ", x + i, y + 1);

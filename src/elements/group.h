@@ -103,6 +103,7 @@ Group::~Group() {
 }
 
 void Group::paint(int x, int y, int width, int height) {
+    WindowElement::paint(x, y, width, height);
     if (this->hidden) return;
     if (!this->borderHidden) drawBox(x, y, width, height, title);
 
