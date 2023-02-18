@@ -41,7 +41,7 @@ void ColumnLayout::paint(int x, int y, int width, int height, vector<WindowEleme
 
     int xOffset = 0;
     for (int i = 0; i < numElements; i++) {
-        elements[i]->paint(x + xOffset, y, width, widths[i] / totalWidth * height);
-        xOffset += widths[i] / totalWidth * height;
+        elements[i]->paint(x + xOffset, y, widths[i] / totalWidth * width, height);
+        xOffset += widths[i] / totalWidth * width;
     }
 }
