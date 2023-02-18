@@ -118,6 +118,7 @@ split:
 	> $(INCLUDEDIR)/$(LIBNAME).h
 	@for file in $(SPLITSRCS); do \
 		./split_file.sh $$file $(SPLITDIR) $(INCLUDEDIR)/$(LIBNAME).h; \
+	done
 
 # Create all neccessary directories
 $(SUBDIRECTORIES):

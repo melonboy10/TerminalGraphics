@@ -23,7 +23,9 @@ class Spacer : public WindowElement {
      * @param width The width of the Spacer object
      * @param height The height of the Spacer object
      */
-    void paint(int x, int y, int width, int height) override { WindowElement::paint(x, y, width, height); }
+    void paint(int x, int y, int width, int height) override;
 };
 
-//::
+void Spacer::paint(int x, int y, int width, int height) {
+    WindowElement::paint(x, y, width, height);
+}
