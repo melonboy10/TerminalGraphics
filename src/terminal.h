@@ -94,23 +94,23 @@ void Terminal::exit() {
     showCursor();
     setCursorPosition(0, 0);
 
-    for (int t = 5; t > 0; t--) {
-        int time = t * t;
-        for (int i = 0; i < size.ws_col; i++) {
-            float x = (float)i / (float)size.ws_col * 2 - 1;
-            float eqTop = -pow(abs(x), time) + 1;
-            float eqBottom = pow(abs(x), time) - 1;
+    // for (int t = 5; t > 0; t--) {
+    //     int time = t * t;
+    //     for (int i = 0; i < size.ws_col; i++) {
+    //         float x = (float)i / (float)size.ws_col * 2 - 1;
+    //         float eqTop = -pow(abs(x), time) + 1;
+    //         float eqBottom = pow(abs(x), time) - 1;
 
-            for (int i = 0; i < size.ws_row; i++) {
-                float y = (float)i / (float)size.ws_row * 2 - 1;
-                if (y < eqTop && y > eqBottom) {
-                    cout << "▓";
-                }
-            }
-        }
+    //         for (int i = 0; i < size.ws_row; i++) {
+    //             float y = (float)i / (float)size.ws_row * 2 - 1;
+    //             if (y < eqTop && y > eqBottom) {
+    //                 cout << "▓";
+    //             }
+    //         }
+    //     }
 
-        sleep(1);
-    }
+    //     sleep(1);
+    // }
     cout << "\033[2J\033[1;1H"
          << "\033[1J"
          << "Goodbye. 👋" << endl;
