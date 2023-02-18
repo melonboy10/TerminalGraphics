@@ -1,5 +1,5 @@
-#include <iostream>
 #include <fstream>
+#include <iostream>
 #include <string>
 #include <vector>
 
@@ -184,28 +184,28 @@ void hideCursor() {
 }
 
 void drawBox(int x, int y, int width, int height) {
-    drawText("╭", x, 0);
+    drawText("╭", x, y);
     drawText("╰", x, height);
 
-    drawText("╮", x + width - 1, 0);
+    drawText("╮", x + width - 1, y);
     drawText("╯", x + width - 1, height);
 
     // Draw side borders
     for (int i = 1; i < height - 1; i++) {
-        drawText("│", x, i);
-        drawText("│", x + width - 1, i);
+        drawText("│", x, y + i);
+        drawText("│", x + width - 1, y + i);
     }
 
     // Draw top & bottom border
     for (int i = 1; i < width - 1; i++) {
-        drawText("─", x + i, 0);
+        drawText("─", x + i, y);
         drawText("─", x + i, height);
     }
 }
 
 void drawBox(int x, int y, int width, int height, string title) {
     drawBox(x, y, width, height);
-    drawText("┤" + title + "├", x + 1, 0);
+    drawText("┤" + title + "├", x + 1, y);
 }
 
 void drawImage(string path, int x, int y, int width, int height) {
