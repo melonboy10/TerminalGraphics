@@ -4,9 +4,15 @@
 
 using namespace std;
 
+/**
+ * Constructor for TextInput object
+ * @param title the title of the text input
+ * @param templateText the template text to be shown if input is empty
+ * @param widthPercent the percentage of the screen's width the text input should take up, defaults to 0.6
+ */
 class TextInput : public WindowElement {
    public:
-   /**
+    /**
      * Constructor for TextInput object
      * @param title the title of the text input
      * @param templateText the template text to be shown if input is empty
@@ -41,14 +47,13 @@ class TextInput : public WindowElement {
      */
     string getInput();
 
-
    private:
     string title;
     string text = "";
     string templateText;
 };
 
-TextInput::TextInput(string title, string templateText, float widthPercent): title(title), templateText(templateText), WindowElement(widthPercent, 3) {}
+TextInput::TextInput(string title, string templateText, float widthPercent) : title(title), templateText(templateText), WindowElement(widthPercent, 3) {}
 
 void TextInput::setTitle(string title) {
     this->title = title;

@@ -1,23 +1,29 @@
-#include "layout.h"
 #include <vector>
+
+#include "layout.h"
 
 using namespace std;
 
 /**
  * A class that represents a grid layout.
  */
-#include "layout.h"
 #include <vector>
+
+#include "layout.h"
 
 using namespace std;
 
 /**
- * A class that represents a grid layout with fractional widths and heights.
+ * A constructor that initializes a GridLayout instance with the provided
+ * widths and heights.
+ *
+ * @param widths the array of the column widths
+ * @param heights the array of the row heights
  */
 class GridLayout : public Layout {
    public:
     /**
-     * A constructor that initializes a GridLayout instance with the provided 
+     * A constructor that initializes a GridLayout instance with the provided
      * widths and heights.
      *
      * @param widths the array of the column widths
@@ -38,12 +44,11 @@ class GridLayout : public Layout {
     void paint(int x, int y, int width, int height, vector<WindowElement*> elements) override;
 
    private:
-    int* widths; // an array of the column widths
-    int* heights; // an array of the row heights
+    int* widths;   // an array of the column widths
+    int* heights;  // an array of the row heights
 };
 
-
-GridLayout::GridLayout(int widths[], int heights[]): widths(widths), heights(heights) {}
+GridLayout::GridLayout(int widths[], int heights[]) : widths(widths), heights(heights) {}
 
 void GridLayout::paint(int x, int y, int width, int height, vector<WindowElement*> elements) {
     int totalWidth = 0;

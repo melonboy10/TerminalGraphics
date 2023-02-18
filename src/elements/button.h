@@ -4,6 +4,13 @@
 
 using namespace std;
 
+/**
+ * A Button is a WindowElement that can be clicked. It has a setAction method that can be used
+ * to specify a function that should be called when the Button is clicked.
+ * It also has a paint method that paints the button in the console window.
+ * @param title The text that is displayed on the button.
+ * @param widthPercent The percentage of the parent width that the Button should take up.
+ */
 class Button : public WindowElement {
    public:
     /**
@@ -46,7 +53,7 @@ class Button : public WindowElement {
     function<void()> action;
 };
 
-Button::Button(string title, float widthPercent): WindowElement(widthPercent, 3), title(title) {}
+Button::Button(string title, float widthPercent) : WindowElement(widthPercent, 3), title(title) {}
 
 void Button::setTitle(string title) {
     this->title = title;

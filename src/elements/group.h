@@ -8,7 +8,8 @@
 using namespace std;
 
 /**
- * Class representing a group of WindowElements
+ * Constructor for Group
+ * @param layout A pointer to the layout of the Group
  */
 class Group : public WindowElement {
    public:

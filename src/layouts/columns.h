@@ -5,7 +5,8 @@
 using namespace std;
 
 /**
- * A layout that arranges elements into columns of fractional widths
+ * Constructor for ColumnLayout object
+ * @param widths an array of integers representing the width of each element in the layout
  */
 class ColumnLayout : public Layout {
    public:

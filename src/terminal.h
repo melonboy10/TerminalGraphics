@@ -13,7 +13,9 @@
 using namespace std;
 
 /**
- * Terminal class is responsible for managing the terminal and printing content to the terminal.
+ * Constructor method for Terminal class.
+ * Initializes the Terminal.
+ * @param layout: A pointer to a layout object.
  */
 class Terminal {
    public:

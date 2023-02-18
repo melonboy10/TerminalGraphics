@@ -3,7 +3,8 @@
 using namespace std;
 
 /**
- * RowLayout is a layout that arranges elements in a row of fractional heights
+ * Constructs a RowLayout with the given array of heights
+ * @param heights array of heights of each element
  */
 class RowLayout : public Layout {
    public:
@@ -27,8 +28,7 @@ class RowLayout : public Layout {
     int* heights;
 };
 
-
-RowLayout::RowLayout(int heights[]): heights(heights) {}
+RowLayout::RowLayout(int heights[]) : heights(heights) {}
 
 void RowLayout::paint(int x, int y, int width, int height, vector<WindowElement*> elements) {
     int totalHeight = 0;

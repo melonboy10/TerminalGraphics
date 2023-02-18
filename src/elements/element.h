@@ -3,8 +3,9 @@
 using namespace std;
 
 /**
- * This class represents an element in a window.
- * This class can be used to create any type of window element.
+ * Constructs a new window element with a given width and height.
+ * @param width the width of the window
+ * @param height the height of the window
  */
 class WindowElement {
    public:
