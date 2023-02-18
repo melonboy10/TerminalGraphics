@@ -97,7 +97,7 @@ DEPFLAGS = -MT $@ -MMD -MP -MF $(DEPDIR)/$*.d
 COMPILE = $(CC) $(DEPFLAGS) $(CFLAGS) -c
 
 # Declare phony targets (targets without a corresponding file)
-.PHONY: all debug release clean split_file
+.PHONY: all debug release clean split
 
 # Run the program every time make is run
 all: release
@@ -113,6 +113,11 @@ release: $(LIB)
 # Delete all build files
 clean:
 	$(CLEAN)
+
+split:
+	> $(INCLUDEDIR)/$(LIBNAME).h
+	@for file in $(SPLITSRCS); do \
+		./split_file.sh $$file $(SPLITDIR) $(INCLUDEDIR)/$(LIBNAME).h; \
 
 # Create all neccessary directories
 $(SUBDIRECTORIES):
