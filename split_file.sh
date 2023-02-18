@@ -46,7 +46,7 @@ echo "#include \"$filename.h\"" >> "$2/$filepath/$filename.cpp"
 
 # Add the header to the include file but only the lines that don't have " in them
 header=$(echo "$header" | awk '!/"/')
-echo "$header" >> "$3"
+# echo "$header" >> "$3"
 
 # Add blank line to both files
 echo >> "$2/$filepath/$filename.h"
