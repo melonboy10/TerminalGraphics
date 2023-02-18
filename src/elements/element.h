@@ -126,8 +126,8 @@ void WindowElement::paint(int x, int y, int width, int height) {
     this->cachedY = y;
     this->cachedWidth = width;
     this->cachedHeight = height;
-    cout << "Painting element at " << x << ", " << y << " with size " << width << ", " << height << endl
-         << endl
+    cout << endl
+         << "Painting element at " << x << ", " << y << " with size " << width << ", " << height << endl
          << endl;
 }
 

@@ -34,11 +34,11 @@ ColumnLayout::ColumnLayout(int widths[]) : widths(widths) {}
 
 void ColumnLayout::paint(int x, int y, int width, int height, vector<WindowElement*> elements) {
     int totalWidth = 0;
-    int numElements = min(elements.size(), sizeof(widths) / sizeof(int));
-    for (int i = 0; i < numElements; i++) {
+    for (int i = 0; i < sizeof(widths) / sizeof(int); i++) {
         totalWidth += widths[i];
     }
 
+    int numElements = min(elements.size(), sizeof(widths) / sizeof(int));
     int xOffset = 0;
     for (int i = 0; i < numElements; i++) {
         elements[i]->paint(x + xOffset, y, widths[i] / totalWidth * width, height);
