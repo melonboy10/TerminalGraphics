@@ -16,7 +16,7 @@ class Text : public WindowElement {
      * @param text the string to be displayed
      * @param widthPercent the percentage of the width of the window that the Text should take up.
      */
-    Text(string text, float widthPercent);
+    Text(string text, float widthPercent = 0.5);
 
     /**
      * Sets the text of the Text object.

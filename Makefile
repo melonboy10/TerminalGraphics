@@ -97,10 +97,10 @@ DEPFLAGS = -MT $@ -MMD -MP -MF $(DEPDIR)/$*.d
 COMPILE = $(CC) $(DEPFLAGS) $(CFLAGS) -c
 
 # Declare phony targets (targets without a corresponding file)
-.PHONY: all debug release clean
+.PHONY: all debug release clean split_file
 
 # Run the program every time make is run
-all: split_file release
+all: release
 
 # Apply debug compiler flags & build library
 debug: CFLAGS += $(DEBUGFLAGS)
@@ -113,15 +113,6 @@ release: $(LIB)
 # Delete all build files
 clean:
 	$(CLEAN)
-
-# Clear the header file then Split all header files into source files
-split_file:
-	mkdir -p $(SPLITDIR)
-	mkdir -p $(INCLUDEDIR)
-	> $(INCLUDEDIR)/$(LIBNAME).h
-	@for file in $(SPLITSRCS); do \
-		./split_file.sh $$file $(SPLITDIR) $(INCLUDEDIR)/$(LIBNAME).h; \
-	done
 
 # Create all neccessary directories
 $(SUBDIRECTORIES):
@@ -136,6 +127,10 @@ $(LIB): $(SRCS:%.cpp=$(OBJDIR)/%.o)
 # Compile all object files
 $(OBJDIR)/%.o : $(SPLITDIR)/%.cpp $(DEPDIR)/%.d | $(SUBDIRECTORIES)
 	$(COMPILE) $(OUTPUT_OPTION) $<
+
+# Split header files into source files
+$(SPLITDIR)/%.cpp: $(SRCDIR)/%.h | $(SUBDIRECTORIES)
+	./split_file.sh $< $(SPLITDIR) $(INCLUDEDIR)/$(LIBNAME).h
 
 # Include all dependency files (so make knows which files to recompile when a header file is updated)
 DEPFILES := $(SRCS:%.cpp=$(DEPDIR)/%.d)

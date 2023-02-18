@@ -32,13 +32,13 @@ class Terminal {
      */
     ~Terminal();
 
+    static Group* rootWindow;
+
    private:
     static termios oldTerminalSettings;
     static struct winsize size;
     const static int minWidth = 100;
     const static int minHeight = 30;
-
-    static Group* rootWindow;
 
     /**
      * Initializes the Terminal window.
@@ -64,6 +64,7 @@ Group* Terminal::rootWindow;
 Terminal::Terminal(Layout* layout) {
     initTerminal();
     rootWindow = new Group(layout);
+    rootWindow->paint(0, 0, size.ws_col, size.ws_row);
 }
 
 Terminal::~Terminal() {
