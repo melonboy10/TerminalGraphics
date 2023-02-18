@@ -105,9 +105,12 @@ Group::~Group() {
 void Group::paint(int x, int y, int width, int height) {
     WindowElement::paint(x, y, width, height);
     if (this->hidden) return;
-    if (!this->borderHidden) drawBox(x, y, width, height, title);
-
-    this->layout->paint(x + 1, y + 1, width - 2, height - 2, this->elements);
+    if (!this->borderHidden) {
+        drawBox(x, y, width, height, title);
+        this->layout->paint(x, y, width, height, this->elements);
+    } else {
+        this->layout->paint(x + 1, y + 1, width - 2, height - 2, this->elements);
+    }
 }
 
 void Group::setTitle(string title) {

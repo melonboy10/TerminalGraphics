@@ -32,14 +32,14 @@ RowLayout::RowLayout(int heights[]) : heights(heights) {}
 
 void RowLayout::paint(int x, int y, int width, int height, vector<WindowElement*> elements) {
     int totalHeight = 0;
-    int numElements = min(elements.size(), sizeof(heights) / sizeof(int));
-    for (int i = 0; i < numElements; i++) {
+    for (int i = 0; i < sizeof(heights) / sizeof(int); i++) {
         totalHeight += heights[i];
     }
-
+    int segment = height / totalHeight;
+    int numElements = min(elements.size(), sizeof(heights) / sizeof(int));
     int yOffset = 0;
     for (int i = 0; i < numElements; i++) {
-        elements[i]->paint(x, y + yOffset, width, heights[i] / totalHeight * height);
-        yOffset += heights[i] / totalHeight * height;
+        elements[i]->paint(x, y + yOffset, width, segment * heights[i]);
+        yOffset += segment * heights[i];
     }
 }

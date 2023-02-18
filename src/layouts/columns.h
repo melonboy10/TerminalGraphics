@@ -37,11 +37,11 @@ void ColumnLayout::paint(int x, int y, int width, int height, vector<WindowEleme
     for (int i = 0; i < sizeof(widths) / sizeof(int); i++) {
         totalWidth += widths[i];
     }
-
+    int segment = width / totalWidth;
     int numElements = min(elements.size(), sizeof(widths) / sizeof(int));
     int xOffset = 0;
     for (int i = 0; i < numElements; i++) {
-        elements[i]->paint(x + xOffset, y, (double)widths[i] / totalWidth * width, height);
-        xOffset += (double)widths[i] / totalWidth * width;
+        elements[i]->paint(x + xOffset, y, segment * widths[i], height);
+        xOffset += segment * widths[i];
     }
 }

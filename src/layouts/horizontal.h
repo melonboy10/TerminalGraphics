@@ -1,5 +1,6 @@
-#include "layout.h"
 #include <tuple>
+
+#include "layout.h"
 
 using namespace std;
 
@@ -23,7 +24,6 @@ class HorizontalLayout : public Layout {
     void paint(int x, int y, int width, int height, vector<WindowElement*> elements) override;
 };
 
-
 HorizontalLayout::HorizontalLayout() {}
 
 void HorizontalLayout::paint(int x, int y, int width, int height, vector<WindowElement*> elements) {
@@ -36,7 +36,7 @@ void HorizontalLayout::paint(int x, int y, int width, int height, vector<WindowE
 
     int xOffset = 0;
     for (int i = 0; i < elements.size(); i++) {
-        elements[i]->paint(x + xOffset, y, get<0>(sizes[i]), height);
+        elements[i]->paint(x + (width + xOffset) / 2, y, get<0>(sizes[i]), height);
         xOffset += get<0>(sizes[i]) / totalWidth * width;
     }
 }

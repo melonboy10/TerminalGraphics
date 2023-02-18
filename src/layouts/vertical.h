@@ -1,5 +1,6 @@
-#include "layout.h"
 #include <tuple>
+
+#include "layout.h"
 
 using namespace std;
 
@@ -24,7 +25,6 @@ class VerticalLayout : public Layout {
     void paint(int x, int y, int width, int height, vector<WindowElement*> elements) override;
 };
 
-
 VerticalLayout::VerticalLayout() {}
 
 void VerticalLayout::paint(int x, int y, int width, int height, vector<WindowElement*> elements) {
@@ -37,7 +37,7 @@ void VerticalLayout::paint(int x, int y, int width, int height, vector<WindowEle
 
     int yOffset = 0;
     for (int i = 0; i < elements.size(); i++) {
-        elements[i]->paint(x, y + yOffset, width, get<1>(sizes[i]));
+        elements[i]->paint(x, y + (height - yOffset) / 2, width, get<1>(sizes[i]));
         yOffset += get<1>(sizes[i]) / totalHeight * height;
     }
 }
