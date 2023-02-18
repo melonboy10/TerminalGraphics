@@ -130,6 +130,7 @@ void Group::addElement(WindowElement* element, int spacer) {
     if (spacer) {
         this->elements.push_back(new Spacer(spacer));
     }
+    paint(cachedX, cachedY, cachedWidth, cachedHeight);
 }
 
 WindowElement* Group::getElement(int index) {
