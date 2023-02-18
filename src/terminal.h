@@ -1,12 +1,14 @@
-#include <iostream>
-#include <sys/ioctl.h>
-#include <unistd.h>
-#include <termios.h>
 #include <math.h>
+#include <sys/ioctl.h>
+#include <termios.h>
+#include <unistd.h>
+
+#include <iostream>
 #include <string>
 #include <vector>
-#include "util.h"
+
 #include "elements/group.h"
+#include "util.h"
 
 using namespace std;
 
@@ -15,45 +17,47 @@ using namespace std;
  */
 class Terminal {
    public:
-   
     /**
      * Constructor method for Terminal class.
      * Initializes the Terminal.
      * @param layout: A pointer to a layout object.
      */
     Terminal(Layout* layout);
-    
+
     /**
      * Destructor method for Terminal class.
      * Exits the terminal.
      */
     ~Terminal();
-    
+
    private:
     static termios oldTerminalSettings;
-    const static struct winsize size;
+    static struct winsize size;
     const static int minWidth = 100;
     const static int minHeight = 30;
 
-    const static Group* rootWindow;
-    
+    static Group* rootWindow;
+
     /**
      * Initializes the Terminal window.
      */
     static void initTerminal();
-    
+
     /**
      * Checks if the size of the Terminal window is big enough to display all content.
      * If the window is too small, prints an error message and exits the program.
      */
     static void checkScreenSize();
-    
+
     /**
      * Exits the Terminal window with a fancy animation.
      */
     static void exit();
 };
 
+termios Terminal::oldTerminalSettings;
+struct winsize Terminal::size;
+Group* Terminal::rootWindow;
 
 Terminal::Terminal(Layout* layout) {
     initTerminal();
@@ -107,5 +111,7 @@ void Terminal::exit() {
 
         sleep(1);
     }
-    cout << "\033[2J\033[1;1H" << "\033[1J" << "Goodbye. 👋" << endl;
+    cout << "\033[2J\033[1;1H"
+         << "\033[1J"
+         << "Goodbye. 👋" << endl;
 }

@@ -1,5 +1,6 @@
-#include "layout.h"
 #include <vector>
+
+#include "layout.h"
 
 using namespace std;
 
@@ -28,8 +29,7 @@ class ColumnLayout : public Layout {
     int* widths;
 };
 
-
-ColumnLayout::ColumnLayout(int widths[]): widths(widths) {}
+ColumnLayout::ColumnLayout(int widths[]) : widths(widths) {}
 
 void ColumnLayout::paint(int x, int y, int width, int height, vector<WindowElement*> elements) {
     int totalWidth = 0;

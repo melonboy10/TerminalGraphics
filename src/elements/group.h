@@ -1,8 +1,9 @@
 #include <string>
 #include <vector>
+
+#include "../layouts/layout.h"
 #include "element.h"
 #include "spacer.h"
-#include "../layouts/layout.h"
 
 using namespace std;
 
@@ -22,6 +23,10 @@ class Group : public WindowElement {
      * @param title The title of the Group
      */
     Group(Layout* layout, string title);
+    /**
+     * Destructor for Group
+     */
+    ~Group();
     /**
      * Adds a WindowElement to the Group
      * @param element A pointer to the WindowElement to add
@@ -80,17 +85,20 @@ class Group : public WindowElement {
     Layout* layout;
 };
 
-
-Group::Group(Layout* layout): WindowElement(1.0, 1.0) {
+Group::Group(Layout* layout) : WindowElement(1.0, 1.0) {
     this->title = "";
     this->layout = layout;
     this->borderHidden = true;
 }
 
-Group::Group(Layout* layout, string title): WindowElement(1.0, 1.0) {
+Group::Group(Layout* layout, string title) : WindowElement(1.0, 1.0) {
     this->title = title;
     this->layout = layout;
     this->borderHidden = false;
+}
+
+Group::~Group() {
+    delete this->layout;
 }
 
 void Group::paint(int x, int y, int width, int height) {
