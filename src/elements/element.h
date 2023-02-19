@@ -122,12 +122,9 @@ void WindowElement::setHidden(bool hidden) {
 }
 
 void WindowElement::paint(int x, int y, int width, int height) {
-    clearArea(x, y, width, height);
     clearArea(cachedX, cachedY, cachedWidth, cachedHeight);
-    this->cachedX = x;
-    this->cachedY = y;
-    this->cachedWidth = width;
-    this->cachedHeight = height;
+    clearArea(x, y, width, height);
+    setValues(x, y, width, height);
 }
 
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
