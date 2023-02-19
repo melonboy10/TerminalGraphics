@@ -72,12 +72,13 @@ Terminal::Terminal(Layout* layout) {
     initTerminal();
     rootWindow = new Group(layout);
     rootWindow->paint(0, 0, size.ws_col, size.ws_row);
-    exitFlag = false;
+    // exitFlag = false;
 }
 
 Terminal::~Terminal() {
     printf("\033[?1049l");  // Disable alternate screen buffer
     printf("\033[?25h");    // Show cursor
+    printf("\033[?1000l");  // Disable mouse input
     tcsetattr(STDIN_FILENO, TCSANOW, &oldTerminalSettings);
     exit();
 }
@@ -90,6 +91,7 @@ void Terminal::initTerminal() {
     tcsetattr(STDIN_FILENO, TCSANOW, &new_attr);
     printf("\033[?1049h");  // Enable alternate screen buffer
     printf("\033[?25l");    // Hide cursor
+    printf("\033[?1000h");  // Enable mouse input
 }
 
 // Checking the size of the terminal window and if it is too small, it will print an error message and exit the program.
