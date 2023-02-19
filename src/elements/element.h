@@ -68,6 +68,22 @@ class WindowElement {
     void setSelected(bool selected);
 
     /**
+     * Sends a mouse event to the window element
+     * @param x the x position of the mouse
+     * @param y the y position of the mouse
+     */
+    void sendMouseEvent(int x, int y);
+
+    /**
+     * Sends a key event to the window element
+     * @param key the key code
+     * @param scancode the scancode
+     * @param action the action
+     * @param mods the mods
+     */
+    void sendKeyEvent(int key, int scancode, int action, int mods);
+
+    /**
      * Sets the state of the window element
      * @param state the new state
      */

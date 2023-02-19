@@ -43,7 +43,22 @@ class Text : public WindowElement {
     string text = "";
 };
 
-Text::Text(string text) : text(text), WindowElement(text.find('\n') == string::npos ? (int)text.length() : (int)text.find('\n'), (int)count(text.begin(), text.end(), '\n') + 1) {}
+Text::Text(string text) : text(text), WindowElement(1, 1) {
+    height = (int)count(text.begin(), text.end(), '\n') + 1;
+
+    int* widths = new int[height];
+    int i = 0;
+    int start = 0;
+    int end = 0;
+    while (end != string::npos) {
+        end = text.find('\n', start);
+        widths[i] = (int)text.substr(start, end - start).length();
+        start = end + 1;
+        i++;
+    }
+
+    width = *max_element(widths, widths + height);
+}
 
 Text::Text(string text, float widthPercent) : text(text), WindowElement(widthPercent, 1) {}
 
