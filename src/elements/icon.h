@@ -56,7 +56,7 @@ void Icon::paint(int x, int y, int width, int height) {
     string line;
     int lineNum = 0;
     while (getline(file, line)) {
-        drawText(line, x, y + lineNum * 20);
+        drawText(line, x, y + lineNum);
         lineNum++;
     }
 }
