@@ -122,8 +122,8 @@ void Terminal::checkInputs() {
     for (int i = 0; i < n; i++) {
         if (buf[i] == '\033' && i + 2 < n && buf[i + 1] == '[' && buf[i + 2] == 'M') {
             int button = buf[i + 3] & 0x03;
-            int col = buf[i + 4] - 1;
-            int row = buf[i + 5] - 1;
+            int col = buf[i + 4] - 32;
+            int row = buf[i + 5] - 32;
 
             std::cout << "Mouse event:\n\nbutton=" << button << ", \nrow=" << row << ", \ncol=" << col << std::flush;
             rootWindow->sendMouseEvent(button, col, row);
