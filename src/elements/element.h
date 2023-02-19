@@ -140,7 +140,9 @@ void WindowElement::paint(int x, int y, int width, int height) {
     setValues(x, y, width, height);
 }
 
-// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+void WindowElement::sendMouseEvent(int button, int x, int y) {}
+
+void WindowElement::sendKeyEvent(int key) {}
 
 tuple<int, int> WindowElement::getFixedSize(int parentWidth, int parentHeight) {
     int width = this->width;
