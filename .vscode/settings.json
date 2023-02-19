@@ -4,6 +4,7 @@
         "filesystem": "cpp",
         "iosfwd": "cpp",
         "chrono": "cpp",
-        "limits": "cpp"
+        "limits": "cpp",
+        "string": "cpp"
     }
 }

@@ -106,10 +106,10 @@ void Group::paint(int x, int y, int width, int height) {
     WindowElement::paint(x, y, width, height);
     if (this->hidden) return;
     if (!this->borderHidden) {
-        drawBox(x, y, width, height, title);
-        this->layout->paint(x, y, width, height, this->elements);
-    } else {
+        drawBox(x, y, width, height, "X" + to_string(x) + " Y" + to_string(y) + " W" + to_string(width) + " H" + to_string(height));
         this->layout->paint(x + 1, y + 1, width - 2, height - 2, this->elements);
+    } else {
+        this->layout->paint(x, y, width, height, this->elements);
     }
 }
 

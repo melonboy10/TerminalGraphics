@@ -68,7 +68,8 @@ Terminal::Terminal(Layout* layout) {
 }
 
 Terminal::~Terminal() {
-    printf("\033[?1049l");
+    printf("\033[?1049l");  // Disable alternate screen buffer
+    printf("\033[?25h");    // Show cursor
     tcsetattr(STDIN_FILENO, TCSANOW, &oldTerminalSettings);
     exit();
 }
@@ -79,7 +80,8 @@ void Terminal::initTerminal() {
     termios new_attr = oldTerminalSettings;
     new_attr.c_lflag &= ~(ECHO | ICANON);
     tcsetattr(STDIN_FILENO, TCSANOW, &new_attr);
-    printf("\033[?1049h");
+    printf("\033[?1049h");  // Enable alternate screen buffer
+    printf("\033[?25l");    // Hide cursor
 }
 
 // Checking the size of the terminal window and if it is too small, it will print an error message and exit the program.
