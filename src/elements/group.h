@@ -35,6 +35,12 @@ class Group : public WindowElement {
      */
     void addElement(WindowElement* element, int spacer = 0);
     /**
+     * Adds a WindowElement to the Group
+     * @param element A pointer to the WindowElement to add
+     * @param spacer An integer representing the size of the Spacer to add after the WindowElement
+     */
+    void addElement(WindowElement* element, float spacer = 0.0);
+    /**
      * Returns the WindowElement at the specified index
      * @param index The index of the WindowElement to return
      * @return The WindowElement at the specified index
@@ -122,6 +128,14 @@ void Group::setBackgroundColor(Color color) {
 }
 
 void Group::addElement(WindowElement* element, int spacer) {
+    this->elements.push_back(element);
+    if (spacer) {
+        this->elements.push_back(new Spacer(spacer));
+    }
+    paint(cachedX, cachedY, cachedWidth, cachedHeight);
+}
+
+void Group::addElement(WindowElement* element, float spacer) {
     this->elements.push_back(element);
     if (spacer) {
         this->elements.push_back(new Spacer(spacer));

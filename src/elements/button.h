@@ -66,7 +66,7 @@ class Button : public WindowElement {
     function<void()> action;
 };
 
-Button::Button(string title, function<void()> action) : WindowElement((int)title.length() + 2, 3), title(title), action(action) {}
+Button::Button(string title, function<void()> action) : WindowElement((int)title.length() + 1, 3), title(title), action(action) {}
 
 Button::Button(string title, float widthPercent, function<void()> action) : WindowElement(widthPercent, 3), title(title), action(action) {}
 
