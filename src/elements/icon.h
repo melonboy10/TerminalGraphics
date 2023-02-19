@@ -51,7 +51,7 @@ void Icon::setIcon(string path) {
 
 void Icon::paint(int x, int y, int width, int height) {
     WindowElement::paint(x, y, width, height);
-    // Draw all text from the file
+
     ifstream file(path);
     string line;
     int lineNum = 0;
@@ -59,4 +59,6 @@ void Icon::paint(int x, int y, int width, int height) {
         drawText(line, x, y + lineNum);
         lineNum++;
     }
+    printf("\033[0m");
+    file.close();
 }
