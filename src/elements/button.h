@@ -88,7 +88,7 @@ void Button::paint(int x, int y, int width, int height) {
     drawText("╰", x, y + 2, (selected ? CYAN : state));
     drawText("╯", x + width, y + 2, (selected ? CYAN : state));
 
-    int titleX = x + (width / 2) - (title.length() / 2);
+    int titleX = x + (width / 2) - (title.length() / 2) + 1;
     drawText(title, titleX, y + 1, (selected ? CYAN : state));
 }
 
