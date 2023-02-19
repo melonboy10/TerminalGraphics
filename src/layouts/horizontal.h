@@ -36,7 +36,7 @@ void HorizontalLayout::paint(int x, int y, int width, int height, vector<WindowE
 
     int xOffset = 0;
     for (int i = 0; i < elements.size(); i++) {
-        elements[i]->paint(x + (width + xOffset) / 2, y, get<0>(sizes[i]), height);
-        xOffset += width / totalWidth * get<0>(sizes[i]);
+        elements[i]->paint(x + (width - totalWidth) / 2 + xOffset, y, get<0>(sizes[i]), height);
+        xOffset += get<0>(sizes[i]) / totalWidth * width;
     }
 }
