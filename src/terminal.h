@@ -116,6 +116,8 @@ void Terminal::checkInputs() {
 
             std::cout << "Mouse event:\n\nbutton=" << button << ", \nrow=" << row << ", \ncol=" << col << std::flush;
             rootWindow->sendMouseEvent(button, col, row);
+        } else if (buf[i] == 'q') {
+            exit();
         }
     }
 }
