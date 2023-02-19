@@ -46,10 +46,10 @@ class Terminal {
    private:
     static termios oldTerminalSettings;
     static struct winsize size;
+    static struct pollfd fds[1];
     const static int minWidth = 100;
     const static int minHeight = 30;
     static bool exitFlag;
-    static struct pollfd fds[1];
 
     /**
      * Initializes the Terminal window.
@@ -71,12 +71,13 @@ class Terminal {
 termios Terminal::oldTerminalSettings;
 struct winsize Terminal::size;
 Group* Terminal::rootWindow;
+struct pollfd Terminal::fds[1];
+bool Terminal::exitFlag = false;
 
 Terminal::Terminal(Layout* layout) {
     initTerminal();
     rootWindow = new Group(layout);
     rootWindow->paint(0, 0, size.ws_col, size.ws_row);
-    // exitFlag = false;
 }
 
 Terminal::~Terminal() {
