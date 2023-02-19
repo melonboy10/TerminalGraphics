@@ -90,8 +90,8 @@ void Terminal::initTerminal() {
     new_attr.c_lflag &= ~(ECHO | ICANON);
     tcsetattr(STDIN_FILENO, TCSANOW, &new_attr);
     printf("\033[?1049h");  // Enable alternate screen buffer
-    printf("\033[?25l");    // Hide cursor
     printf("\033[?1000h");  // Enable mouse input
+    hideCursor();
 }
 
 // Checking the size of the terminal window and if it is too small, it will print an error message and exit the program.
@@ -117,9 +117,10 @@ void Terminal::checkInputs() {
             std::cout << "Mouse event:\n\nbutton=" << button << ", \nrow=" << row << ", \ncol=" << col << std::flush;
             rootWindow->sendMouseEvent(button, col, row);
         } else if (buf[i] == 'q') {
-            exit();
+            Terminal::exit();
         }
     }
+    printf("\033[?1003l");
 }
 
 void Terminal::exit() {
@@ -136,7 +137,7 @@ void Terminal::exit() {
     //         float x = (float)i / (float)size.ws_col * 2 - 1;
     //         float eqTop = -pow(abs(x), time) + 1;
     //         float eqBottom = pow(abs(x), time) - 1;
-
+    //
     //         for (int i = 0; i < size.ws_row; i++) {
     //             float y = (float)i / (float)size.ws_row * 2 - 1;
     //             if (y < eqTop && y > eqBottom) {
@@ -144,10 +145,29 @@ void Terminal::exit() {
     //             }
     //         }
     //     }
-
+    //
     //     sleep(1);
     // }
     cout << "\033[2J\033[1;1H"
          << "\033[1J"
          << "Goodbye. 👋" << endl;
+}
+
+void restoreTerminalAttributes(struct termios* orig_attr) {
+    tcsetattr(STDIN_FILENO, TCSANOW, orig_attr);
+}
+
+void setRawMode(struct termios* orig_attr) {
+    struct termios raw_attr;
+
+    // Get the current terminal attributes
+    tcgetattr(STDIN_FILENO, orig_attr);
+
+    // Copy the current attributes to the raw attributes
+    raw_attr = *orig_attr;
+
+    // Set the raw attributes
+    cfmakeraw(&raw_attr);
+    raw_attr.c_lflag &= ~(ICANON | ECHO);
+    tcsetattr(STDIN_FILENO, TCSANOW, &raw_attr);
 }
