@@ -58,6 +58,14 @@ class Group : public WindowElement {
      */
     void paint(int x, int y, int width, int height) override;
     /**
+     * This function is an override to the sendMouseEvent function in the WindowElement class.
+     * It does not send any mouse events.
+     * @param button The button that was pressed
+     * @param x The x coordinate of the mouse
+     * @param y The y coordinate of the mouse
+     */
+    void sendMouseEvent(int button, int x, int y) override;
+    /**
      * Sets the title of the Group
      * @param title The title of the Group
      */
@@ -148,4 +156,11 @@ void Group::removeAllElements() {
         delete this->elements[i];
     }
     this->elements.clear();
+}
+
+void Group::sendMouseEvent(int button, int x, int y) {
+    if (this->hidden) return;
+    for (int i = 0; i < this->elements.size(); i++) {
+        this->elements[i]->sendMouseEvent(button, x, y);
+    }
 }

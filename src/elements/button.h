@@ -57,6 +57,14 @@ class Button : public WindowElement {
     void paint(int x, int y, int width, int height) override;
 
     /**
+     * Simulates a mouse event on the button.
+     * @param button The button that was pressed.
+     * @param x The x-coordinate of the mouse.
+     * @param y The y-coordinate of the mouse.
+     */
+    void sendMouseEvent(int button, int x, int y) override;
+
+    /**
      * Simulates a click of the button by executing its action function.
      */
     void click();
@@ -92,6 +100,11 @@ void Button::paint(int x, int y, int width, int height) {
     drawText(title, titleX, y + 1, (selected ? CYAN : state));
 }
 
-void Button::click() {
-    action();
+void Button::sendMouseEvent(int button, int x, int y) {
+    if (cachedX <= x && x <= cachedX + cachedWidth && cachedY <= y && y <= cachedY + cachedHeight) {
+        if (button == 1) {
+            setSelected(true);
+            click();
+        }
+    }
 }

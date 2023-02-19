@@ -72,7 +72,7 @@ class WindowElement {
      * @param x the x position of the mouse
      * @param y the y position of the mouse
      */
-    void sendMouseEvent(int x, int y);
+    virtual void sendMouseEvent(int button, int x, int y);
 
     /**
      * Sends a key event to the window element
@@ -81,7 +81,7 @@ class WindowElement {
      * @param action the action
      * @param mods the mods
      */
-    void sendKeyEvent(int key, int scancode, int action, int mods);
+    virtual void sendKeyEvent(int key, int scancode, int action, int mods);
 
     /**
      * Sets the state of the window element
