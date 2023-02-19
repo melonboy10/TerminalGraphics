@@ -19,8 +19,10 @@ class Button : public WindowElement {
      * It also has a paint method that paints the button in the console window.
      * @param title The text that is displayed on the button.
      * @param widthPercent The percentage of the parent width that the Button should take up.
+     * @param action The function that will be executed when the button is clicked.
      */
-    Button(string title, float widthPercent = 0.3);
+    Button(
+        string title, function<void()> action = []() {}, float widthPercent = 0.5);
 
     /**
      * Sets the title of the Button.
@@ -53,7 +55,7 @@ class Button : public WindowElement {
     function<void()> action;
 };
 
-Button::Button(string title, float widthPercent) : WindowElement(widthPercent, 3), title(title) {}
+Button::Button(string title, function<void()> action, float widthPercent) : WindowElement(widthPercent, 3), title(title), action(action) {}
 
 void Button::setTitle(string title) {
     this->title = title;

@@ -14,7 +14,7 @@ class Spacer : public WindowElement {
      * It creates Spacer objects with given height.
      * @param height The height of Spacer
      */
-    Spacer(int height) : WindowElement(0.0, height) {}
+    Spacer(int size) : WindowElement(size, size) {}
     /**
      * This function is an override to the paint function in the WindowElement class.
      * It does not paint any text or spaces.
