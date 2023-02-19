@@ -41,16 +41,6 @@ class Terminal {
      */
     static void checkInputs();
 
-    static Group* rootWindow;
-
-   private:
-    static termios oldTerminalSettings;
-    static struct winsize size;
-    static struct pollfd fds[1];
-    const static int minWidth = 100;
-    const static int minHeight = 30;
-    static bool exitFlag;
-
     /**
      * Initializes the Terminal window.
      */
@@ -66,6 +56,14 @@ class Terminal {
      * Exits the Terminal window with a fancy animation.
      */
     static void exit();
+
+    static Group* rootWindow;
+    static termios oldTerminalSettings;
+    static struct winsize size;
+    static struct pollfd fds[1];
+    static bool exitFlag;
+    const static int minWidth = 100;
+    const static int minHeight = 30;
 };
 
 termios Terminal::oldTerminalSettings;
@@ -116,6 +114,7 @@ void Terminal::checkScreenSize() {
 }
 
 void Terminal::checkInputs() {
+    printf("\033[?1003l");
     poll(fds, 1, -1);
 
     char buf[1024];
@@ -163,23 +162,4 @@ void Terminal::exit() {
     cout << "\033[2J\033[1;1H"
          << "\033[1J"
          << "Goodbye. 👋" << endl;
-}
-
-void restoreTerminalAttributes(struct termios* orig_attr) {
-    tcsetattr(STDIN_FILENO, TCSANOW, orig_attr);
-}
-
-void setRawMode(struct termios* orig_attr) {
-    struct termios raw_attr;
-
-    // Get the current terminal attributes
-    tcgetattr(STDIN_FILENO, orig_attr);
-
-    // Copy the current attributes to the raw attributes
-    raw_attr = *orig_attr;
-
-    // Set the raw attributes
-    cfmakeraw(&raw_attr);
-    raw_attr.c_lflag &= ~(ICANON | ECHO);
-    tcsetattr(STDIN_FILENO, TCSANOW, &raw_attr);
 }
