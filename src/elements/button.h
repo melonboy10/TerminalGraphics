@@ -68,6 +68,8 @@ class Button : public WindowElement {
 
 Button::Button(string title, function<void()> action, float widthPercent) : WindowElement(widthPercent, 3), title(title), action(action) {}
 
+Button::Button(string title, float widthPercent, function<void()> action) : WindowElement(widthPercent, 3), title(title), action(action) {}
+
 void Button::setTitle(string title) {
     this->title = title;
 }
