@@ -22,7 +22,7 @@ class Button : public WindowElement {
      * @param widthPercent The percentage of the parent width that the Button should take up.
      */
     Button(
-        string title, function<void()> action = []() {}, float widthPercent = 0.5);
+        string title, function<void()> action = []() {});
 
     /**
      * A Button is a WindowElement that can be clicked. It has a setAction method that can be used
@@ -66,7 +66,7 @@ class Button : public WindowElement {
     function<void()> action;
 };
 
-Button::Button(string title, function<void()> action, float widthPercent) : WindowElement(widthPercent, 3), title(title), action(action) {}
+Button::Button(string title, function<void()> action) : WindowElement((int)title.length() + 2, 3), title(title), action(action) {}
 
 Button::Button(string title, float widthPercent, function<void()> action) : WindowElement(widthPercent, 3), title(title), action(action) {}
 

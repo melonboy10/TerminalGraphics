@@ -59,7 +59,7 @@ echo "using namespace std;" >> "$2/$filepath/$filename.cpp"
 echo >> "$2/$filepath/$filename.cpp"
 
 # Add the namespace to the header
-awk '/namespace/{flag=1;next}/::/{flag=2}flag==1{print >> "'"$3"'"}' $1
+# awk '/namespace/{flag=1;next}/::/{flag=2}flag==1{print >> "'"$3"'"}' $1
 awk '/namespace/{flag=1;next}/::/{flag=2}flag{print >> ("'$2'/'$filepath'/'$filename'." (flag==2?"cpp":"h"))}' $1
 
 echo "#endif" >> "$2/$filepath/$filename.h"
