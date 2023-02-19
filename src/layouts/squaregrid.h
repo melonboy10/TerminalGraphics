@@ -23,24 +23,23 @@ class SquareGridLayout : public Layout {
 
    private:
     int* widths;
-    // int scrollOffset = 0;
+    int scrollOffset = 0;
 };
 
 SquareGridLayout::SquareGridLayout(int widths[]) : widths(widths) {}
 
 void SquareGridLayout::paint(int x, int y, int width, int height, vector<WindowElement*> elements) {
     int totalWidth = 0;
-    int numElements = min(elements.size(), sizeof(widths) / sizeof(int));
-    for (int i = 0; i < numElements; i++) {
+    for (int i = 0; i < sizeof(widths) / sizeof(int); i++) {
         totalWidth += widths[i];
     }
 
     int xOffset = 0;
     int yOffset = 0;
-    for (int i = 0; i < numElements; i++) {
-        elements[i]->paint(x + xOffset, y + yOffset, widths[i] / totalWidth * width, widths[i] / totalWidth * width);
+    for (int i = 0; i < elements.size(); i++) {
+        elements[i]->paint(x + xOffset, y + yOffset, width / totalWidth * widths[i], width / totalWidth * widths[i]);
         xOffset += widths[i] / totalWidth * width;
-        if (xOffset >= width) {
+        if (i % (sizeof(widths) / sizeof(int)) == sizeof(widths) / sizeof(int) - 1) {
             xOffset = 0;
             yOffset += widths[i] / totalWidth * width;
         }

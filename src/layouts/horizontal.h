@@ -30,7 +30,7 @@ void HorizontalLayout::paint(int x, int y, int width, int height, vector<WindowE
     vector<tuple<int, int>> sizes;
     int totalWidth = 0;
     for (int i = 0; i < elements.size(); i++) {
-        sizes.push_back(elements[i]->getFixedSize(width, height));
+        sizes.push_back(elements[i]->getFixedSize(width - totalWidth, height));
         totalWidth += get<0>(sizes[i]);
     }
 

@@ -138,7 +138,7 @@ void Terminal::exit() {
     showCursor();
     setCursorPosition(0, 0);
 
-    // printf("\033[?1049l");  // Disable alternate screen buffer
+    printf("\033[?1049l");  // Disable alternate screen buffer
     printf("\033[?1000l");  // Disable mouse input
     oldTerminalSettings.c_lflag |= ICANON | ECHO;
     tcsetattr(STDIN_FILENO, TCSANOW, &oldTerminalSettings);
@@ -163,18 +163,4 @@ void Terminal::exit() {
     cout << "\033[2J\033[1;1H"
          << "\033[1J"
          << "Goodbye. 👋" << endl;
-
-    struct termios term;
-    if (tcgetattr(STDIN_FILENO, &term) < 0) {
-        perror("tcgetattr");
-        std::exit(1);
-    }
-
-    printf("Current terminal settings:\n");
-    printf("  c_iflag: %08x\n", term.c_iflag);
-    printf("  c_oflag: %08x\n", term.c_oflag);
-    printf("  c_cflag: %08x\n", term.c_cflag);
-    printf("  c_lflag: %08x\n", term.c_lflag);
-    printf("  c_cc[VMIN]: %d\n", term.c_cc[VMIN]);
-    printf("  c_cc[VTIME]: %d\n", term.c_cc[VTIME]);
 }
