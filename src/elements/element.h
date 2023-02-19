@@ -77,11 +77,8 @@ class WindowElement {
     /**
      * Sends a key event to the window element
      * @param key the key code
-     * @param scancode the scancode
-     * @param action the action
-     * @param mods the mods
      */
-    virtual void sendKeyEvent(int key, int scancode, int action, int mods);
+    virtual void sendKeyEvent(int key);
 
     /**
      * Sets the state of the window element

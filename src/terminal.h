@@ -32,6 +32,12 @@ class Terminal {
      */
     ~Terminal();
 
+    /**
+     * Checks if the user has pressed any keys.
+     * If the user has pressed a key, it is handled.
+     */
+    static void checkInputs();
+
     static Group* rootWindow;
 
    private:
@@ -51,12 +57,6 @@ class Terminal {
      * If the window is too small, prints an error message and exits the program.
      */
     static void checkScreenSize();
-
-    /**
-     * Checks if the user has pressed any keys.
-     * If the user has pressed a key, it is handled.
-     */
-    static void checkInputs();
 
     /**
      * Exits the Terminal window with a fancy animation.

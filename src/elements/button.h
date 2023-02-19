@@ -104,7 +104,7 @@ void Button::sendMouseEvent(int button, int x, int y) {
     if (cachedX <= x && x <= cachedX + cachedWidth && cachedY <= y && y <= cachedY + cachedHeight) {
         if (button == 1) {
             setSelected(true);
-            click();
+            action();
         }
     }
 }
