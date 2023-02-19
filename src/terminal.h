@@ -142,6 +142,7 @@ void Terminal::exit() {
     // printf("\033[?1000l");  // Disable mouse input
     // oldTerminalSettings.c_lflag |= ICANON | ECHO;
     // tcsetattr(STDIN_FILENO, TCSANOW, &oldTerminalSettings);
+    tcflush(STDIN_FILENO, TCIFLUSH);
 
     // for (int t = 5; t > 0; t--) {
     //     int time = t * t;
