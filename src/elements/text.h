@@ -14,9 +14,15 @@ class Text : public WindowElement {
     /**
      * Creates a new Text object.
      * @param text the string to be displayed
+     */
+    Text(string text);
+
+    /**
+     * Creates a new Text object.
+     * @param text the string to be displayed
      * @param widthPercent the percentage of the width of the window that the Text should take up.
      */
-    Text(string text, float widthPercent = 0.5);
+    Text(string text, float widthPercent);
 
     /**
      * Sets the text of the Text object.
@@ -36,6 +42,8 @@ class Text : public WindowElement {
    private:
     string text = "";
 };
+
+Text::Text(string text) : text(text), WindowElement(text.find('\n') == string::npos ? (int)text.length() : (int)text.find('\n'), (int)count(text.begin(), text.end(), '\n') + 1) {}
 
 Text::Text(string text, float widthPercent) : text(text), WindowElement(widthPercent, 1) {}
 
