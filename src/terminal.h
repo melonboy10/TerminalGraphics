@@ -138,10 +138,10 @@ void Terminal::exit() {
     showCursor();
     setCursorPosition(0, 0);
 
-    // printf("\033[?1049l");  // Disable alternate screen buffer
-    // printf("\033[?1000l");  // Disable mouse input
-    // oldTerminalSettings.c_lflag |= ICANON | ECHO;
-    // tcsetattr(STDIN_FILENO, TCSANOW, &oldTerminalSettings);
+    printf("\033[?1049l");  // Disable alternate screen buffer
+    printf("\033[?1000l");  // Disable mouse input
+    oldTerminalSettings.c_lflag |= ICANON | ECHO;
+    tcsetattr(STDIN_FILENO, TCSANOW, &oldTerminalSettings);
     tcflush(STDIN_FILENO, TCIFLUSH);
 
     // for (int t = 5; t > 0; t--) {
