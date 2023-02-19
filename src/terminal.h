@@ -1,4 +1,7 @@
 #include <math.h>
+#include <poll.h>
+#include <stdio.h>
+#include <stdlib.h>
 #include <sys/ioctl.h>
 #include <termios.h>
 #include <unistd.h>
@@ -46,6 +49,7 @@ class Terminal {
     const static int minWidth = 100;
     const static int minHeight = 30;
     static bool exitFlag;
+    static struct pollfd fds[1];
 
     /**
      * Initializes the Terminal window.
@@ -85,13 +89,18 @@ Terminal::~Terminal() {
 
 void Terminal::initTerminal() {
     ioctl(STDOUT_FILENO, TIOCGWINSZ, &size);
+
     tcgetattr(STDIN_FILENO, &oldTerminalSettings);
     termios new_attr = oldTerminalSettings;
     new_attr.c_lflag &= ~(ECHO | ICANON);
     tcsetattr(STDIN_FILENO, TCSANOW, &new_attr);
+
     printf("\033[?1049h");  // Enable alternate screen buffer
     printf("\033[?1000h");  // Enable mouse input
     hideCursor();
+
+    fds[0].fd = STDIN_FILENO;
+    fds[0].events = POLLIN;
 }
 
 // Checking the size of the terminal window and if it is too small, it will print an error message and exit the program.
@@ -106,6 +115,8 @@ void Terminal::checkScreenSize() {
 }
 
 void Terminal::checkInputs() {
+    poll(fds, 1, -1);
+
     char buf[1024];
     int n = read(STDIN_FILENO, buf, sizeof(buf));
     for (int i = 0; i < n; i++) {
