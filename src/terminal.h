@@ -140,6 +140,7 @@ void Terminal::exit() {
 
     printf("\033[?1049l");  // Disable alternate screen buffer
     printf("\033[?1000l");  // Disable mouse input
+    oldTerminalSettings.c_lflag |= ICANON | ECHO;
     tcsetattr(STDIN_FILENO, TCSANOW, &oldTerminalSettings);
 
     // for (int t = 5; t > 0; t--) {
