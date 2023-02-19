@@ -87,14 +87,18 @@ Terminal::~Terminal() {
 }
 
 void Terminal::initTerminal() {
-    ioctl(STDOUT_FILENO, TIOCGWINSZ, &size);
+    // printf("\033[?1049h");  // Enable alternate screen buffer
+
+    struct termios raw_attr;
 
     tcgetattr(STDIN_FILENO, &oldTerminalSettings);
-    termios new_attr = oldTerminalSettings;
-    new_attr.c_lflag &= ~(ECHO | ICANON);
-    tcsetattr(STDIN_FILENO, TCSANOW, &new_attr);
+    raw_attr = oldTerminalSettings;
+    cfmakeraw(&raw_attr);
+    raw_attr.c_lflag &= ~(ICANON | ECHO);
+    tcsetattr(STDIN_FILENO, TCSANOW, &raw_attr);
 
-    printf("\033[?1049h");  // Enable alternate screen buffer
+    ioctl(STDOUT_FILENO, TIOCGWINSZ, &size);
+
     printf("\033[?1000h");  // Enable mouse input
     hideCursor();
 
@@ -127,7 +131,7 @@ void Terminal::checkInputs() {
 
             std::cout << "Mouse event:\n\nbutton=" << button << ", \nrow=" << row << ", \ncol=" << col << std::flush;
             rootWindow->sendMouseEvent(button, col, row);
-        } else if (buf[i] == 'q') {
+        } else if (buf[i] == 'q' || buf[i] == '\33') {
             Terminal::exit();
         }
     }
@@ -138,9 +142,7 @@ void Terminal::exit() {
     showCursor();
     setCursorPosition(0, 0);
 
-    printf("\033[?1049l");  // Disable alternate screen buffer
     printf("\033[?1000l");  // Disable mouse input
-    oldTerminalSettings.c_lflag |= ICANON | ECHO;
     tcsetattr(STDIN_FILENO, TCSANOW, &oldTerminalSettings);
     tcflush(STDIN_FILENO, TCIFLUSH);
 
