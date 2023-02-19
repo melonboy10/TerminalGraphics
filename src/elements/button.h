@@ -18,11 +18,22 @@ class Button : public WindowElement {
      * to specify a function that should be called when the Button is clicked.
      * It also has a paint method that paints the button in the console window.
      * @param title The text that is displayed on the button.
+     * @param action The function that will be executed when the button is clicked.
+     * @param widthPercent The percentage of the parent width that the Button should take up.
+     */
+    Button(
+        string title, function<void()> action = []() {}, float widthPercent = 0.5);
+
+    /**
+     * A Button is a WindowElement that can be clicked. It has a setAction method that can be used
+     * to specify a function that should be called when the Button is clicked.
+     * It also has a paint method that paints the button in the console window.
+     * @param title The text that is displayed on the button.
      * @param widthPercent The percentage of the parent width that the Button should take up.
      * @param action The function that will be executed when the button is clicked.
      */
     Button(
-        string title, function<void()> action = []() {}, float widthPercent = 0.5);
+        string title, float widthPercent, function<void()> action = []() {});
 
     /**
      * Sets the title of the Button.
