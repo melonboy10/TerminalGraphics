@@ -185,10 +185,10 @@ void hideCursor() {
 
 void drawBox(int x, int y, int width, int height) {
     drawText("╭", x, y);
-    drawText("╰", x, y + height);
+    drawText("╰", x, y + height - 1);
 
     drawText("╮", x + width - 1, y);
-    drawText("╯", x + width - 1, y + height);
+    drawText("╯", x + width - 1, y + height - 1);
 
     // Draw side borders
     for (int i = 1; i < height - 1; i++) {
@@ -199,7 +199,7 @@ void drawBox(int x, int y, int width, int height) {
     // Draw top & bottom border
     for (int i = 1; i < width - 1; i++) {
         drawText("─", x + i, y);
-        drawText("─", x + i, y + height);
+        drawText("─", x + i, y + height - 1);
     }
 }
 
