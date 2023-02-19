@@ -37,7 +37,7 @@ class Text : public WindowElement {
     string text = "";
 };
 
-Text::Text(string text, float widthPercent) : text(text), WindowElement(1, widthPercent) {}
+Text::Text(string text, float widthPercent) : text(text), WindowElement(widthPercent, 1) {}
 
 void Text::paint(int x, int y, int width, int height) {
     WindowElement::paint(x, y, width, height);
