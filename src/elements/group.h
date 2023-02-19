@@ -82,21 +82,13 @@ class Group : public WindowElement {
     string title;
     bool borderHidden;
     Color backgroundColor;
-    vector<WindowElement*> elements = vector<WindowElement*>();
+    vector<WindowElement*> elements;
     Layout* layout;
 };
 
-Group::Group(Layout* layout) : WindowElement(1.0, 1.0) {
-    this->title = "";
-    this->layout = layout;
-    this->borderHidden = true;
-}
+Group::Group(Layout* layout) : title(""), layout(layout), borderHidden(true), WindowElement(1.0, 1.0) {}
 
-Group::Group(Layout* layout, string title) : WindowElement(1.0, 1.0) {
-    this->title = title;
-    this->layout = layout;
-    this->borderHidden = false;
-}
+Group::Group(Layout* layout, string title) : title(title), layout(layout), borderHidden(false), WindowElement(1.0, 1.0) {}
 
 Group::~Group() {
     delete this->layout;
