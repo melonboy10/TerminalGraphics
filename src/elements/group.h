@@ -133,9 +133,6 @@ void Group::setBackgroundColor(Color color) {
 }
 
 void Group::addElement(WindowElement* element, int spacer) {
-    if (element->parent != nullptr) {
-        return;
-    }
     this->elements.push_back(element);
     if (spacer) {
         this->elements.push_back(new Spacer(spacer));
