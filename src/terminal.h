@@ -75,7 +75,7 @@ bool Terminal::exitFlag = false;
 Terminal::Terminal(Layout* layout) {
     initTerminal();
     rootWindow = new Group(layout);
-    rootWindow->paint(0, 0, size.ws_col, size.ws_row);
+    // rootWindow->paint(0, 0, size.ws_col, size.ws_row);
 }
 
 Terminal::~Terminal() {
