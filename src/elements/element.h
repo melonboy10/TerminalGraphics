@@ -77,7 +77,7 @@ class WindowElement {
     /**
      * Selects the window element
      */
-    void select();
+    virtual void select();
 
     /**
      * Sends a key event to the window element
