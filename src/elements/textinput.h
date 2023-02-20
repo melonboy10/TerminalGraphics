@@ -53,7 +53,9 @@ class TextInput : public WindowElement {
     string templateText;
 };
 
-TextInput::TextInput(string title, string templateText, float widthPercent) : title(title), templateText(templateText), WindowElement(widthPercent, 3) {}
+TextInput::TextInput(string title, string templateText, float widthPercent) : title(title), templateText(templateText), WindowElement(widthPercent, 3) {
+    this->selectable = true;
+}
 
 void TextInput::setTitle(string title) {
     this->title = title;
