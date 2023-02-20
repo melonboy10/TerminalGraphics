@@ -32,7 +32,7 @@ class SquareGridLayout : public Layout {
 
    private:
     int numColumns;
-    int scrollOffset = 1;
+    int scrollOffset = 0;
 };
 
 SquareGridLayout::SquareGridLayout(int numColumns) : numColumns(numColumns) {}
@@ -41,7 +41,7 @@ void SquareGridLayout::paint(int x, int y, int width, int height, vector<WindowE
     int columnWidth = width / numColumns;
     int maxNumberOfRows = height / columnWidth / 2 + 1;
     int xOffset = 0;
-    int yOffset = -scrollOffset * columnWidth;
+    int yOffset = -scrollOffset * columnWidth / 2;
 
     int numElements = min((int)elements.size(), maxNumberOfRows * numColumns);
 
