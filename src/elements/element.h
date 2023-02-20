@@ -135,7 +135,9 @@ WindowElement::WindowElement(double widthPercent, double heightPercent) : widthP
 WindowElement::~WindowElement() {}
 
 void WindowElement::setSelected(bool selected) {
-    WindowElement::focusedElement->setSelected(false);
+    if (WindowElement::focusedElement != nullptr && WindowElement::focusedElement != this) {
+        WindowElement::focusedElement->setSelected(false);
+    }
     WindowElement::focusedElement = this;
     this->selected = selected;
     paint(this->cachedX, this->cachedY, this->cachedWidth, this->cachedHeight);
