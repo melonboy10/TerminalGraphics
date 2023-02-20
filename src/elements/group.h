@@ -173,7 +173,7 @@ void Group::arrowKeyEvent(ArrowKey key, WindowElement* element) {
 }
 
 bool Group::select() {
-    if (!selectable) {
+    if (!WindowElement::select()) {
         for (int i = 0; i < elements.size(); i++) {
             if (elements[i]->select()) {
                 break;
