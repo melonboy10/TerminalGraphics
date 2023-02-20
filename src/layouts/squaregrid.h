@@ -50,7 +50,7 @@ void SquareGridLayout::paint(int x, int y, int width, int height, vector<WindowE
         drawBox(x + xOffset, y + yOffset, columnWidth, columnWidth);
 
         // elements[i]->paint(22, 22, 22, 22);
-        // elements[i]->paint(x + xOffset, y + yOffset, columnWidth, columnWidth);
+        // elements[i]->paint(x + xOffset, y + yOffset, 25, 25);
         xOffset += columnWidth;
         if (i % numColumns == 0) {
             xOffset = 0;
