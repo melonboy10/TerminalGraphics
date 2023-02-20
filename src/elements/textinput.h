@@ -58,13 +58,13 @@ class TextInput : public WindowElement {
      * Sets the exit action of the text input
      * @param exitAction the exit action to be set
      */
-    void setExitAction(function<void()> exitAction);
+    void setExitAction(function<void(string)> exitAction);
 
    private:
     string title;
     string text = "";
     string templateText;
-    function<void()> exitAction;
+    function<void(string)> exitAction;
 };
 
 TextInput::TextInput(string title, string templateText, float widthPercent) : title(title), templateText(templateText), WindowElement(widthPercent, 3) {
@@ -77,7 +77,7 @@ void TextInput::setTitle(string title) {
 void TextInput::setText(string text) {
     this->text = text;
 }
-void TextInput::setExitAction(function<void()> exitAction) {
+void TextInput::setExitAction(function<void(string)> exitAction) {
     this->exitAction = exitAction;
 }
 
@@ -115,7 +115,7 @@ void TextInput::keyEvent(int key) {
         }
     } else if (key == Key::ENTER) {
         if (exitAction != nullptr) {
-            exitAction();
+            exitAction(text);
         }
     } else {
         text += (char)key;
@@ -125,7 +125,7 @@ void TextInput::keyEvent(int key) {
 
 void TextInput::arrowKeyEvent(ArrowKey key, WindowElement* element) {
     if (exitAction != nullptr) {
-        exitAction();
+        exitAction(text);
     }
     WindowElement::arrowKeyEvent(key, element);
 }

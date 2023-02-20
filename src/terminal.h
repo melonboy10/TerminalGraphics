@@ -135,13 +135,12 @@ void Terminal::checkInputs() {
                 if (arrow != ArrowKey::NONE) {
                     WindowElement::focusedElement->arrowKeyEvent(arrow, WindowElement::focusedElement);
                 }
-                continue;  // Skip the rest of the loop
             }
         } else {
             WindowElement::focusedElement->keyEvent(c);
         }
 
-        rootWindow->paint(0, 0, size.ws_col, size.ws_row);
+        // rootWindow->paint(0, 0, size.ws_col, size.ws_row);
         cout.flush();
     }
 }

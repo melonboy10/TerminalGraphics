@@ -85,6 +85,16 @@ void drawText(string text, int x, int y, int color = WHITE);
 void clearArea(int x, int y, int width, int height);
 
 /**
+ * Fills the area of the console at the given position with the given color
+ * @param x The X coordinate of the position to be filled
+ * @param y The Y coordinate of the position to be filled
+ * @param width The width of the area to be filled
+ * @param height The height of the area to be filled
+ * @param color The color of the area to be filled
+ */
+void fillArea(int x, int y, int width, int height, int color = WHITE);
+
+/**
  * Converts the given string to capital case
  * @param text The string to be converted to capital case
  * @return The given string converted to capital case
@@ -190,6 +200,18 @@ void clearArea(int x, int y, int width, int height) {
         setCursorPosition(x, y + i);
         for (int j = 0; j < width; j++) {
             cout << " ";
+        }
+    }
+}
+
+void fillArea(int x, int y, int width, int height, int color) {
+    if (x < 0 || y < 0) {
+        return;
+    }
+    for (int i = 0; i < height; i++) {
+        setCursorPosition(x, y + i);
+        for (int j = 0; j < width; j++) {
+            cout << getColorCode(color) << "█";
         }
     }
 }
