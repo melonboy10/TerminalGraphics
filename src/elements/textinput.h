@@ -33,6 +33,12 @@ class TextInput : public WindowElement {
     void setText(string text);
 
     /**
+     * Gets the text input's current text
+     * @return the text input's current text
+     */
+    string getText();
+
+    /**
      * Paints the text input on the screen
      * @param x the x position of the text input on the screen
      * @param y the y position of the text input on the screen
@@ -83,6 +89,9 @@ void TextInput::setTitle(string title) {
 }
 void TextInput::setText(string text) {
     this->text = text;
+}
+string TextInput::getText() {
+    return text;
 }
 void TextInput::setExitAction(function<void(string)> exitAction) {
     this->exitAction = exitAction;
