@@ -47,7 +47,7 @@ void SquareGridLayout::paint(int x, int y, int width, int height, vector<WindowE
     // Q: When is numElements 0?
     // A: When there are no elements in the vector
 
-    drawText("█████████████████████" + to_string(numElements) + "████████████████████", 25, 25, Color::RED);
+    drawText("█████████████████████" + to_string(elements.size()) + "████████████████████", 25, 25, Color::RED);
 
     for (int i = 0; i < numElements; i++) {
         // For debugging draw a rectangle around each element

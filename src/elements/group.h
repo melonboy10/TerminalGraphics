@@ -138,6 +138,8 @@ void Group::addElement(WindowElement* element, int spacer) {
         this->elements.push_back(new Spacer(spacer));
     }
     element->parent = this;
+
+    drawText("█████████████████████" + to_string(elements.size()) + "████████████████████", 25, 22, Color::RED);
     // paint(cachedX, cachedY, cachedWidth, cachedHeight);
 }
 
