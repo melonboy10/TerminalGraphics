@@ -73,11 +73,11 @@ class Button : public WindowElement {
 };
 
 Button::Button(string title, function<void()> action) : WindowElement((int)title.length() + 1, 3), title(title), action(action) {
-    selectable = true;
+    this->selectable = true;
 }
 
 Button::Button(string title, float widthPercent, function<void()> action) : WindowElement(widthPercent, 3), title(title), action(action) {
-    selectable = true;
+    this->selectable = true;
 }
 
 void Button::setTitle(string title) {
@@ -93,7 +93,7 @@ void Button::paint(int x, int y, int width, int height) {
 }
 
 void Button::keyEvent(int key) {
-    if (key == ENTER) {
+    if (key == ArrowKey::ENTER) {
         click();
     }
 }
