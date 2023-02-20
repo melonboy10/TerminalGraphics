@@ -121,7 +121,7 @@ void Terminal::checkInputs() {
     printf("\033[?1003l");
 
     poll(fds, 1, -1);
-    char buf[32];
+    char buf[128];
     int n = read(STDIN_FILENO, buf, sizeof(buf));
 
     if (n == -1) {
