@@ -147,7 +147,7 @@ void Terminal::exit() {
     setCursorPosition(0, 0);
 
     printf("\033[?1000l");  // Disable mouse input
-    oldTerminalSettings.c_lflag ^= (ICANON | ECHO);
+    oldTerminalSettings.c_lflag |= (ICANON | ECHO);
     tcsetattr(STDIN_FILENO, TCSANOW, &oldTerminalSettings);
     tcflush(STDIN_FILENO, TCIFLUSH);
 
