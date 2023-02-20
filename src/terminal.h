@@ -140,7 +140,7 @@ void Terminal::checkInputs() {
             WindowElement::focusedElement->keyEvent(c);
         }
 
-        // rootWindow->paint(0, 0, size.ws_col, size.ws_row);
+        rootWindow->paint(0, 0, size.ws_col, size.ws_row);
         cout.flush();
     }
 }
