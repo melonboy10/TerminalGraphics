@@ -68,9 +68,8 @@ bool ColumnLayout::selectNext(WindowElement* selectedElement, vector<WindowEleme
         if (currentIndex > 0) {
             // search for the next selectable element to the left
             for (int i = currentIndex - 1; i >= 0; i--) {
-                if (elements[i]->isSelectable()) {
-                    nextIndex = i;
-                    break;
+                if (elements[i]->select()) {
+                    return true;
                 }
             }
         }
@@ -78,19 +77,12 @@ bool ColumnLayout::selectNext(WindowElement* selectedElement, vector<WindowEleme
         if (currentIndex < elements.size() - 1) {
             // search for the next selectable element to the right
             for (int i = currentIndex + 1; i < elements.size(); i++) {
-                if (elements[i]->isSelectable()) {
-                    nextIndex = i;
-                    break;
+                if (elements[i]->select()) {
+                    return true;
                 }
             }
         }
     }
 
-    // If a next selectable element was found, select it and return true
-    if (nextIndex != -1 && currentIndex != nextIndex) {
-        elements[nextIndex]->select();
-        return true;
-    } else {
-        return false;
-    }
+    return false;
 }

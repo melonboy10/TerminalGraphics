@@ -155,9 +155,8 @@ bool GridLayout::selectNext(WindowElement* selectedElement, vector<WindowElement
             // search for the previous selectable element in the current column
             for (int i = currentRow - 1; i >= 0; i--) {
                 int index = i * numCols + currentCol;
-                if (elements[index]->isSelectable()) {
-                    nextIndex = index;
-                    break;
+                if (elements[i]->select()) {
+                    return true;
                 }
             }
             // if no selectable element found in the current column, search the previous column
@@ -165,9 +164,8 @@ bool GridLayout::selectNext(WindowElement* selectedElement, vector<WindowElement
                 for (int i = currentCol - 1; i >= 0; i--) {
                     for (int j = numRows - 1; j >= 0; j--) {
                         int index = j * numCols + i;
-                        if (elements[index]->isSelectable()) {
-                            nextIndex = index;
-                            break;
+                        if (elements[i]->select()) {
+                            return true;
                         }
                     }
                     if (nextIndex != -1) {
@@ -181,9 +179,8 @@ bool GridLayout::selectNext(WindowElement* selectedElement, vector<WindowElement
             // search for the next selectable element in the current column
             for (int i = currentRow + 1; i < numRows; i++) {
                 int index = i * numCols + currentCol;
-                if (elements[index]->isSelectable()) {
-                    nextIndex = index;
-                    break;
+                if (elements[i]->select()) {
+                    return true;
                 }
             }
             // if no selectable element found in the current column, search the next column
@@ -191,9 +188,8 @@ bool GridLayout::selectNext(WindowElement* selectedElement, vector<WindowElement
                 for (int i = currentCol + 1; i < numCols; i++) {
                     for (int j = 0; j < numRows; j++) {
                         int index = j * numCols + i;
-                        if (elements[index]->isSelectable()) {
-                            nextIndex = index;
-                            break;
+                        if (elements[i]->select()) {
+                            return true;
                         }
                     }
                     if (nextIndex != -1) {
@@ -203,11 +199,5 @@ bool GridLayout::selectNext(WindowElement* selectedElement, vector<WindowElement
             }
         }
     }
-    // If a next selectable element was found, select it and return true
-    if (nextIndex != -1 && selectedIndex != nextIndex) {
-        elements[nextIndex]->select();
-        return true;
-    } else {
-        return false;
-    }
+    return false;
 }
