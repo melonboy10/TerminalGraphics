@@ -46,12 +46,13 @@ void SquareGridLayout::paint(int x, int y, int width, int height, vector<WindowE
     int numElements = min((int)elements.size(), maxNumberOfRows * numColumns);
 
     for (int i = 0; i < numElements; i++) {
+        elements[i]->paint(22, 22, columnWidth, columnWidth);
+        // elements[i]->paint(x + xOffset, y + yOffset, columnWidth, columnWidth);
+        xOffset += columnWidth;
         if (i % numColumns == 0) {
             xOffset = 0;
             yOffset += columnWidth;
         }
-        elements[i]->paint(x + xOffset, y + yOffset, columnWidth, columnWidth);
-        xOffset += columnWidth;
     }
 }
 

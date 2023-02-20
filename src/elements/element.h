@@ -140,13 +140,13 @@ void WindowElement::setSelected(bool selected) {
     }
     WindowElement::focusedElement = this;
     this->selected = selected;
-    paint(this->cachedX, this->cachedY, this->cachedWidth, this->cachedHeight);
+    // paint(this->cachedX, this->cachedY, this->cachedWidth, this->cachedHeight);
 }
 
 bool WindowElement::select() {
     if (this->selectable) {
         setSelected(true);
-        paint(this->cachedX, this->cachedY, this->cachedWidth, this->cachedHeight);
+        // paint(this->cachedX, this->cachedY, this->cachedWidth, this->cachedHeight);
         return true;
     }
     return false;
