@@ -72,6 +72,7 @@ void GridLayout::paint(int x, int y, int width, int height, vector<WindowElement
     int xOffset = 0;
     int yOffset = 0;
     for (int i = 0; i < elements.size(); i++) {
+        if (elements[i]->hidden) continue;
         elements[i]->paint(x + xOffset, y + yOffset, width / totalWidth * widths[i], height / totalHeight * heights[i]);
         xOffset += width / totalWidth * widths[i];
         if (xOffset >= width) {

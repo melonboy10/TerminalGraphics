@@ -46,9 +46,13 @@ void ColumnLayout::paint(int x, int y, int width, int height, vector<WindowEleme
         totalWidth += widths[i];
     }
     int segment = width / totalWidth;
-    int numElements = min(elements.size(), sizeof(widths) / sizeof(int));
+    unsigned long numNonHidden = 0;
+    for (int i = 0; i < elements.size(); i++)
+        if (!elements[i]->hidden) numNonHidden++;
+    int numElements = min(numNonHidden, sizeof(widths) / sizeof(int));
     int xOffset = 0;
     for (int i = 0; i < numElements; i++) {
+        if (elements[i]->hidden) continue;
         elements[i]->paint(x + xOffset, y, segment * widths[i], height);
         xOffset += segment * widths[i];
     }

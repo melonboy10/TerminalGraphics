@@ -43,9 +43,13 @@ void SquareGridLayout::paint(int x, int y, int width, int height, vector<WindowE
     int xOffset = 0;
     int yOffset = -scrollOffset * columnWidth / 2;
 
-    int numElements = min((int)elements.size(), maxNumberOfRows * numColumns);
+    int numNonHidden = 0;
+    for (int i = 0; i < elements.size(); i++)
+        if (!elements[i]->hidden) numNonHidden++;
+    int numElements = min(numNonHidden, maxNumberOfRows * numColumns);
 
     for (int i = 0; i < numElements; i++) {
+        if (elements[i]->hidden) continue;
         elements[i]->paint(x + xOffset, y + yOffset, columnWidth, columnWidth / 2);
         xOffset += columnWidth;
 

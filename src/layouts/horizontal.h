@@ -37,12 +37,14 @@ void HorizontalLayout::paint(int x, int y, int width, int height, vector<WindowE
     vector<tuple<int, int>> sizes;
     int totalWidth = 0;
     for (int i = 0; i < elements.size(); i++) {
+        if (elements[i]->hidden) continue;
         sizes.push_back(elements[i]->getFixedSize(width - totalWidth, height));
         totalWidth += get<0>(sizes[i]);
     }
 
     int xOffset = 0;
     for (int i = 0; i < elements.size(); i++) {
+        if (elements[i]->hidden) continue;
         elements[i]->paint(x + (width - totalWidth) / 2 + xOffset, y + (height - get<1>(sizes[i])) / 2, get<0>(sizes[i]), get<1>(sizes[i]));
         xOffset += get<0>(sizes[i]);
     }
