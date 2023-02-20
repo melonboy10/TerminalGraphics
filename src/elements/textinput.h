@@ -65,6 +65,7 @@ class TextInput : public WindowElement {
     string text = "";
     string templateText;
     function<void(string)> exitAction;
+    function<void(string)> keyAction;
 };
 
 TextInput::TextInput(string title, string templateText, float widthPercent) : title(title), templateText(templateText), WindowElement(widthPercent, 3) {
@@ -119,6 +120,9 @@ void TextInput::keyEvent(int key) {
         }
     } else {
         text += (char)key;
+        if (keyAction != nullptr) {
+            keyAction(text);
+        }
     }
     paint(cachedX, cachedY, cachedWidth, cachedHeight);
 }
