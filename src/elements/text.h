@@ -62,6 +62,10 @@ Text::Text(string text) : text(text), WindowElement(1, 1) {
 
 Text::Text(string text, float widthPercent) : text(text), WindowElement(widthPercent, 1) {}
 
+void Text::setText(string text) {
+    this->text = text;
+}
+
 void Text::paint(int x, int y, int width, int height) {
     WindowElement::paint(x, y, width, height);
     int line = 0;
