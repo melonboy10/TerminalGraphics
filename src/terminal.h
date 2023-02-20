@@ -119,10 +119,14 @@ void Terminal::checkScreenSize() {
 
 void Terminal::checkInputs() {
     printf("\033[?1003l");
-    poll(fds, 1, -1);
 
-    char buf[1024];
+    poll(fds, 1, -1);
+    char buf[32];
     int n = read(STDIN_FILENO, buf, sizeof(buf));
+
+    if (n == -1) {
+        perror("read");
+    }
     for (int i = 0; i < n; i++) {
         if (buf[i] == '\033' && i + 2 < n && buf[i + 1] == '[' && buf[i + 2] == 'M') {
             int button = buf[i + 3] & 0x03;
@@ -143,7 +147,7 @@ void Terminal::exit() {
     setCursorPosition(0, 0);
 
     printf("\033[?1000l");  // Disable mouse input
-    oldTerminalSettings.c_lflag |= ICANON | ECHO;
+    oldTerminalSettings.c_lflag ^= (ICANON | ECHO);
     tcsetattr(STDIN_FILENO, TCSANOW, &oldTerminalSettings);
     tcflush(STDIN_FILENO, TCIFLUSH);
 
