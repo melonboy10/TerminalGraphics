@@ -146,7 +146,8 @@ void WindowElement::setSelected(bool selected) {
 bool WindowElement::select() {
     if (this->selectable) {
         setSelected(true);
-        // paint(this->cachedX, this->cachedY, this->cachedWidth, this->cachedHeight);
+        paint(this->cachedX, this->cachedY, this->cachedWidth, this->cachedHeight);
+        drawText("void Group::arrowKeyEvent(ArrowKey key, WindowElement* element) {", 0, 0, RED);
         return true;
     }
     return false;
