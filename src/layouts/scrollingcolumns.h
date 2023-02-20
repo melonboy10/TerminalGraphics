@@ -7,12 +7,12 @@ using namespace std;
 /**
  * @param widths an array of integers representing the width of each element in the grid
  */
-class ScrollingColumns : public Layout {
+class ScrollingColumnsLayout : public Layout {
    public:
     /**
      * @param numColumns the number of columns in the grid
      */
-    ScrollingColumns(int numColumns);
+    ScrollingColumnsLayout(int numColumns);
     /**
      * A grid where the width of each element is the same as the height
      * @param x the x coordinate of the top-left corner of the grid
@@ -35,9 +35,9 @@ class ScrollingColumns : public Layout {
     int scrollOffset = 0;
 };
 
-ScrollingColumns::ScrollingColumns(int numColumns) : numColumns(numColumns) {}
+ScrollingColumnsLayout::ScrollingColumnsLayout(int numColumns) : numColumns(numColumns) {}
 
-void ScrollingColumns::paint(int x, int y, int width, int height, vector<WindowElement*> elements) {
+void ScrollingColumnsLayout::paint(int x, int y, int width, int height, vector<WindowElement*> elements) {
     int columnWidth = width / numColumns;
     int xOffset = 0;
 
@@ -48,7 +48,7 @@ void ScrollingColumns::paint(int x, int y, int width, int height, vector<WindowE
     }
 }
 
-bool ScrollingColumns::selectNext(WindowElement* selectedElement, vector<WindowElement*> elements, ArrowKey direction) {
+bool ScrollingColumnsLayout::selectNext(WindowElement* selectedElement, vector<WindowElement*> elements, ArrowKey direction) {
     selectedElement->setState(State::ERROR);
     // Find the index of the selected element in the vector
     int selectedIndex = -1;

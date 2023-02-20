@@ -175,11 +175,17 @@ string getColorCode(int color) {
 }
 
 void drawText(string text, int x, int y, int color) {
+    if (x < 0 || y < 0) {
+        return;
+    }
     setCursorPosition(x, y);
     cout << getColorCode(color) << text << "\033[0m";
 }
 
 void clearArea(int x, int y, int width, int height) {
+    if (x < 0 || y < 0) {
+        return;
+    }
     for (int i = 0; i < height; i++) {
         setCursorPosition(x, y + i);
         for (int j = 0; j < width; j++) {
@@ -220,6 +226,10 @@ void hideCursor() {
 }
 
 void drawBox(int x, int y, int width, int height, int color) {
+    if (x < 0 || y < 0) {
+        return;
+    }
+    // Draw corners
     drawText("╭", x, y, color);
     drawText("╰", x, y + height - 1, color);
     drawText("╮", x + width - 1, y, color);
@@ -241,11 +251,17 @@ void drawBox(int x, int y, int width, int height, int color) {
 }
 
 void drawBox(int x, int y, int width, int height, string title) {
+    if (x < 0 || y < 0) {
+        return;
+    }
     drawBox(x, y, width, height);
     drawText("┤" + title + "├", x + 1, y);
 }
 
 void drawImage(string path, int x, int y, int width, int height) {
+    if (x < 0 || y < 0) {
+        return;
+    }
     vector<vector<int>> image = readImage(path);
     vector<vector<int>> scaledImage = scaleImage(image, width, height);
     for (int j = 0; j < height; j++) {

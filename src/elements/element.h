@@ -111,7 +111,7 @@ class WindowElement {
     int width = -1, height = -1;
     bool selected, selectable;
     bool hidden = false;
-    int cachedX = 0, cachedY = 0, cachedWidth = 0, cachedHeight = 0;
+    int cachedX = -1, cachedY = -1, cachedWidth = -1, cachedHeight = 1;
     State state = DEFAULT;
     WindowElement* parent;  // Group only for now
 };
