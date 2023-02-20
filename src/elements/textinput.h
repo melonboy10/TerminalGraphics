@@ -82,6 +82,10 @@ void TextInput::setExitAction(function<void(string)> exitAction) {
     this->exitAction = exitAction;
 }
 
+void TextInput::setKeyAction(function<void(string)> keyAction) {
+    this->keyAction = keyAction;
+}
+
 void TextInput::paint(int x, int y, int width, int height) {
     WindowElement::paint(x, y, width, height);
     for (int i = 0; i < width; i++) {
