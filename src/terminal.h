@@ -94,13 +94,13 @@ void Terminal::initTerminal() {
     tcgetattr(STDIN_FILENO, &oldTerminalSettings);
     raw_attr = oldTerminalSettings;
     cfmakeraw(&raw_attr);
-    // raw_attr.c_lflag &= ~(ICANON | ECHO);
-    raw_attr.c_lflag &= ~(ICANON);
+    raw_attr.c_lflag &= ~(ICANON | ECHO);
+    // raw_attr.c_lflag &= ~(ICANON);
     tcsetattr(STDIN_FILENO, TCSANOW, &raw_attr);
 
     ioctl(STDOUT_FILENO, TIOCGWINSZ, &size);
 
-    printf("\033[?1000h");  // Enable mouse input
+    // printf("\033[?1000h");  // Enable mouse input
     hideCursor();
 
     fds[0].fd = STDIN_FILENO;
@@ -149,7 +149,7 @@ void Terminal::exit() {
     showCursor();
     setCursorPosition(0, 0);
 
-    printf("\033[?1000l");  // Disable mouse input
+    // printf("\033[?1000l");  // Disable mouse input
     oldTerminalSettings.c_lflag |= (ICANON | ECHO);
     tcsetattr(STDIN_FILENO, TCSANOW, &oldTerminalSettings);
     tcflush(STDIN_FILENO, TCIFLUSH);
