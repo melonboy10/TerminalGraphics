@@ -44,7 +44,7 @@ class Group : public WindowElement {
      * Removes the specified WindowElement from the Group
      * @param element A pointer to the WindowElement to remove
      */
-    void removeElement(WindowElement* element);
+    void removeElement(WindowElement* element, bool remove = true);
     /**
      * Removes all WindowElements from the Group
      */
@@ -169,11 +169,11 @@ WindowElement* Group::getElement(int index) {
     return this->elements[index];
 }
 
-void Group::removeElement(WindowElement* element) {
+void Group::removeElement(WindowElement* element, bool remove) {
     for (int i = 0; i < this->elements.size(); i++) {
         if (this->elements[i] == element) {
             this->elements.erase(this->elements.begin() + i);
-            delete element;
+            if (remove) delete element;
             break;
         }
     }
