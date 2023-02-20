@@ -44,7 +44,7 @@ void VerticalLayout::paint(int x, int y, int width, int height, vector<WindowEle
 
     int yOffset = 0;
     for (int i = 0; i < elements.size(); i++) {
-        elements[i]->paint(x, y + (height - yOffset) / 2, width, get<1>(sizes[i]));
+        elements[i]->paint(x, y + (height - totalHeight) / 2 + yOffset, width, get<1>(sizes[i]));
         yOffset += get<1>(sizes[i]) / totalHeight * height;
     }
 }
