@@ -84,6 +84,10 @@ void Button::setTitle(string title) {
     this->title = title;
 }
 
+void Button::setAction(function<void()> action) {
+    this->action = action;
+}
+
 void Button::paint(int x, int y, int width, int height) {
     WindowElement::paint(x, y, width, height);
     if (hidden) return;
