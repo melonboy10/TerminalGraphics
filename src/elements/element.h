@@ -130,14 +130,12 @@ WindowElement::~WindowElement() {}
 
 bool WindowElement::select() {
     if (this->selectable) {
-        // paint(this->cachedX, this->cachedY, this->cachedWidth, this->cachedHeight);
-        drawText("void Group::arrowKeyEvent(ArrowKey key, WindowElement* element) {", 10, 10, RED);
-
         if (WindowElement::focusedElement != nullptr) {
             WindowElement::focusedElement->selected = false;
         }
         WindowElement::focusedElement = this;
         this->selected = true;
+        paint(this->cachedX, this->cachedY, this->cachedWidth, this->cachedHeight);
         return true;
     }
     return false;
