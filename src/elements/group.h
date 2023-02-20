@@ -164,6 +164,8 @@ void Group::removeAllElements() {
 
 void Group::arrowKeyEvent(ArrowKey key, WindowElement* element) {
     if (!layout->selectNext(element, elements, key)) {
+        cout << "ARROR \nARROR \nARROR \nARROR \nARROR \nARROR \n"
+             << endl;
         if (parent != nullptr) {
             parent->arrowKeyEvent(key, this);
         }
