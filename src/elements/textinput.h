@@ -60,6 +60,12 @@ class TextInput : public WindowElement {
      */
     void setExitAction(function<void(string)> exitAction);
 
+    /**
+     * Sets the key action of the text input
+     * @param keyAction the key action to be set
+     */
+    void setKeyAction(function<void(string)> keyAction);
+
    private:
     string title;
     string text = "";
