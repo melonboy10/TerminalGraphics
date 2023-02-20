@@ -67,7 +67,7 @@ class Group : public WindowElement {
     /**
      * Selects the Group
      */
-    void select() override;
+    bool select() override;
     /**
      * Sets the title of the Group
      * @param title The title of the Group
@@ -173,11 +173,10 @@ void Group::arrowKeyEvent(ArrowKey key) {
     }
 }
 
-void Group::select() {
+bool Group::select() {
     if (!selectable) {
         for (int i = 0; i < elements.size(); i++) {
-            if (elements[i]->selectable) {
-                elements[i]->select();
+            if (elements[i]->select()) {
                 break;
             }
         }

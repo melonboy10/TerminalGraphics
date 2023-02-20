@@ -76,7 +76,7 @@ class WindowElement {
     /**
      * Selects the window element
      */
-    virtual void select();
+    virtual bool select();
 
     /**
      * Sends a key event to the window element
@@ -141,11 +141,13 @@ void WindowElement::setSelected(bool selected) {
     paint(this->cachedX, this->cachedY, this->cachedWidth, this->cachedHeight);
 }
 
-void WindowElement::select() {
+bool WindowElement::select() {
     if (this->selectable) {
         this->selected = true;
         paint(this->cachedX, this->cachedY, this->cachedWidth, this->cachedHeight);
+        return true;
     }
+    return false;
 }
 
 bool WindowElement::isSelectable() {
