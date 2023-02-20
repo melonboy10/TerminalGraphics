@@ -97,12 +97,15 @@ class Group : public WindowElement {
     Layout* layout;
 };
 
-Group::Group(Layout* layout) : title(""), layout(layout), borderHidden(true), WindowElement(1.0, 1.0) {}
+Group::Group(Layout* layout) : title(""), layout(layout), borderHidden(true), backgroundColor(Color::WHITE), WindowElement(1.0, 1.0) {}
 
-Group::Group(Layout* layout, string title) : title(title), layout(layout), borderHidden(false), WindowElement(1.0, 1.0) {}
+Group::Group(Layout* layout, string title) : title(title), layout(layout), borderHidden(false), backgroundColor(Color::WHITE), WindowElement(1.0, 1.0) {}
 
 Group::~Group() {
     delete this->layout;
+    for (WindowElement* element : this->elements) {
+        delete element;
+    }
 }
 
 void Group::paint(int x, int y, int width, int height) {
@@ -110,11 +113,7 @@ void Group::paint(int x, int y, int width, int height) {
     if (this->hidden) return;
     if (!this->borderHidden) {
         // set background color
-        if (backgroundColor != Color::RESET) {
-            drawText("", x, y, backgroundColor + 10);
-        }
-        drawBox(x, y, width, height, title);
-        drawText("", x, y, 0);
+        drawBox(x, y, width, height, title, backgroundColor);
         this->layout->paint(x + 1, y + 1, width - 2, height - 2, this->elements);
     } else {
         this->layout->paint(x, y, width, height, this->elements);

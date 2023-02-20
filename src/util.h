@@ -124,6 +124,7 @@ void hideCursor();
  * @param y The Y coordinate of the position at which to draw the box
  * @param width The width of the box to be drawn on the console
  * @param height The height of the box to be drawn on the console
+ * @param color The color of the box to be drawn on the console
  */
 void drawBox(int x, int y, int width, int height, int color = WHITE);
 
@@ -134,8 +135,9 @@ void drawBox(int x, int y, int width, int height, int color = WHITE);
  * @param width The width of the box to be drawn on the console
  * @param height The height of the box to be drawn on the console
  * @param title The title of the box to be drawn on the console
+ * @param color The color of the box to be drawn on the console
  */
-void drawBox(int x, int y, int width, int height, string title);
+void drawBox(int x, int y, int width, int height, string title, int color = WHITE);
 
 /**
  * Draws an image on the console at the given position with the given width and height
@@ -272,7 +274,7 @@ void drawBox(int x, int y, int width, int height, int color) {
     drawText(border, x + 1, y + height - 1, color);
 }
 
-void drawBox(int x, int y, int width, int height, string title) {
+void drawBox(int x, int y, int width, int height, string title, int color) {
     if (x < 0 || y < 0) {
         return;
     }
