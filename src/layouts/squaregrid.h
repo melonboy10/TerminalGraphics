@@ -44,6 +44,7 @@ void SquareGridLayout::paint(int x, int y, int width, int height, vector<WindowE
     int yOffset = -scrollOffset * columnWidth;
 
     int numElements = min((int)elements.size(), maxNumberOfRows * numColumns);
+    drawText("██████████████████████████████████████████████████████████", 25, 25, Color::RED);
 
     for (int i = 0; i < numElements; i++) {
         // For debugging draw a rectangle around each element
