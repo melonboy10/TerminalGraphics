@@ -47,7 +47,8 @@ void SquareGridLayout::paint(int x, int y, int width, int height, vector<WindowE
 
     for (int i = 0; i < numElements; i++) {
         // For debugging draw a rectangle around each element
-        drawBox(x + xOffset, y + yOffset, columnWidth, columnWidth);
+        // drawBox(x + xOffset, y + yOffset, columnWidth, columnWidth);
+        elements[i]->paint(x + xOffset, y + yOffset, columnWidth, columnWidth);
 
         // elements[i]->paint(22, 22, 22, 22);
         // elements[i]->paint(x + xOffset, y + yOffset, 25, 25);
