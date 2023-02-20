@@ -42,8 +42,7 @@ enum Key {
     ENTER = 10,
     ESC = 27,
     SPACE = 32,
-    BACKSPACE = 127,
-    NONE = -1
+    BACKSPACE = 127
 };
 
 enum ArrowKey {
