@@ -1,3 +1,4 @@
+#include <sstream>
 #include <string>
 #include <vector>
 
@@ -118,14 +119,14 @@ Group::~Group() {
 
 void Group::paint(int x, int y, int width, int height) {
     WindowElement::paint(x, y, width, height);
-    if (hidden) {
-        clearArea(x, y, width, height);
-        return;
-    };
+    if (hidden) return;
 
     if (!this->borderHidden) {
         // set background color
-        drawBox(x, y, width, height, hidden ? "H" : "N", backgroundColor);
+        stringstream stream;
+        stream << this;
+
+        drawBox(x, y, width, height, stream.str(), backgroundColor);
         this->layout->paint(x + 1, y + 1, width - 2, height - 2, this->elements);
     } else {
         this->layout->paint(x, y, width, height, this->elements);
