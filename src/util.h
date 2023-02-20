@@ -38,6 +38,28 @@ enum State {
     ERROR = RED,
 };
 
+enum Key {
+    ENTER = 10,
+    ESC = 27,
+    SPACE = 32,
+    BACKSPACE = 127,
+    NONE = -1
+};
+
+enum ArrowKey {
+    UP = 65,
+    DOWN = 66,
+    RIGHT = 67,
+    LEFT = 68,
+    NONE = -1
+};
+
+/**
+ * Returns the arrow key pressed by the user
+ * @return The arrow key pressed by the user
+ */
+ArrowKey getArrowKey(int key);
+
 /**
  * Returns the color code of the given color
  * @param color The color for which to get the color code
@@ -94,7 +116,7 @@ void hideCursor();
  * @param width The width of the box to be drawn on the console
  * @param height The height of the box to be drawn on the console
  */
-void drawBox(int x, int y, int width, int height);
+void drawBox(int x, int y, int width, int height, int color = WHITE);
 
 /**
  * Draws a box with a title on the console at the given position with the given width, height and title
@@ -133,6 +155,21 @@ vector<vector<int>> readImage(string path);
 vector<vector<int>> scaleImage(vector<vector<int>> image, int width, int height);
 
 //::
+
+ArrowKey getArrowKey(int key) {
+    switch (key) {
+        case UP:
+            return UP;
+        case DOWN:
+            return DOWN;
+        case RIGHT:
+            return RIGHT;
+        case LEFT:
+            return LEFT;
+        default:
+            return NONE;
+    }
+}
 
 string getColorCode(int color) {
     return "\033[" + to_string(color) + "m";
@@ -183,24 +220,25 @@ void hideCursor() {
     cout << "\033[?25l";
 }
 
-void drawBox(int x, int y, int width, int height) {
-    drawText("╭", x, y);
-    drawText("╰", x, y + height - 1);
-
-    drawText("╮", x + width - 1, y);
-    drawText("╯", x + width - 1, y + height - 1);
+void drawBox(int x, int y, int width, int height, int color) {
+    drawText("╭", x, y, color);
+    drawText("╰", x, y + height - 1, color);
+    drawText("╮", x + width - 1, y, color);
+    drawText("╯", x + width - 1, y + height - 1, color);
 
     // Draw side borders
     for (int i = 1; i < height - 1; i++) {
-        drawText("│", x, y + i);
-        drawText("│", x + width - 1, y + i);
+        drawText("│", x, y + i, color);
+        drawText("│", x + width - 1, y + i, color);
     }
 
     // Draw top & bottom border
+    string border = "";
     for (int i = 1; i < width - 1; i++) {
-        drawText("─", x + i, y);
-        drawText("─", x + i, y + height - 1);
+        border += "─";
     }
+    drawText(border, x + 1, y, color);
+    drawText(border, x + 1, y + height - 1, color);
 }
 
 void drawBox(int x, int y, int width, int height, string title) {
@@ -214,7 +252,7 @@ void drawImage(string path, int x, int y, int width, int height) {
     for (int j = 0; j < height; j++) {
         for (int i = 0; i < width; i++) {
             int colorCode = scaledImage[j][i];
-            drawText("█", x + i, y + j, (Color)(colorCode + 30));
+            drawText("█", x + i, y + j, colorCode + 30);
         }
     }
 }

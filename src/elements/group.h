@@ -2,6 +2,7 @@
 #include <vector>
 
 #include "../layouts/layout.h"
+#include "../terminal.h"
 #include "element.h"
 #include "spacer.h"
 
@@ -57,14 +58,17 @@ class Group : public WindowElement {
      * @param height The height of the Group
      */
     void paint(int x, int y, int width, int height) override;
+
     /**
-     * This function is an override to the sendMouseEvent function in the WindowElement class.
-     * It does not send any mouse events.
-     * @param button The button that was pressed
-     * @param x The x coordinate of the mouse
-     * @param y The y coordinate of the mouse
+     * Handles a key press event
+     * @param key The key that was pressed
      */
-    void sendMouseEvent(int button, int x, int y) override;
+    void arrowKeyEvent(ArrowKey key) override;
+
+    /**
+     * Selects the Group
+     */
+    void select() override;
     /**
      * Sets the title of the Group
      * @param title The title of the Group
@@ -130,11 +134,15 @@ void Group::setBackgroundColor(Color color) {
 }
 
 void Group::addElement(WindowElement* element, int spacer) {
+    if (element->parent == nullptr) {
+        return;
+    }
     this->elements.push_back(element);
     if (spacer) {
         this->elements.push_back(new Spacer(spacer));
     }
-    paint(cachedX, cachedY, cachedWidth, cachedHeight);
+    element->parent = this;
+    // paint(cachedX, cachedY, cachedWidth, cachedHeight);
 }
 
 WindowElement* Group::getElement(int index) {
@@ -158,9 +166,21 @@ void Group::removeAllElements() {
     this->elements.clear();
 }
 
-void Group::sendMouseEvent(int button, int x, int y) {
-    if (this->hidden) return;
-    for (int i = 0; i < this->elements.size(); i++) {
-        this->elements[i]->sendMouseEvent(button, x, y);
+void Group::arrowKeyEvent(ArrowKey key) {
+    if (layout->selectNext(Terminal::focusedElement, elements, key)) {
+        if (parent != nullptr) {
+            parent->arrowKeyEvent(key);
+        }
+    }
+}
+
+void Group::select() {
+    if (!selectable) {
+        for (int i = 0; i < elements.size(); i++) {
+            if (elements[i]->selectable) {
+                elements[i]->select();
+                break;
+            }
+        }
     }
 }

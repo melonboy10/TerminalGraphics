@@ -40,3 +40,44 @@ void HorizontalLayout::paint(int x, int y, int width, int height, vector<WindowE
         xOffset += get<0>(sizes[i]);
     }
 }
+
+bool HorizontalLayout::selectNext(WindowElement* selectedElement, vector<WindowElement*> elements, ArrowKey direction) {
+    int currentIndex = -1;
+    for (int i = 0; i < elements.size(); i++) {
+        if (elements[i] == selectedElement) {
+            currentIndex = i;
+            break;
+        }
+    }
+
+    int nextIndex = -1;
+    if (direction == ArrowKey::LEFT) {
+        if (currentIndex > 0) {
+            // search for the next selectable element to the left
+            for (int i = currentIndex - 1; i >= 0; i--) {
+                if (elements[i]->isSelectable()) {
+                    nextIndex = i;
+                    break;
+                }
+            }
+        }
+    } else if (direction == ArrowKey::RIGHT) {
+        if (currentIndex < elements.size() - 1) {
+            // search for the next selectable element to the right
+            for (int i = currentIndex + 1; i < elements.size(); i++) {
+                if (elements[i]->isSelectable()) {
+                    nextIndex = i;
+                    break;
+                }
+            }
+        }
+    }
+
+    // If a next selectable element was found, select it and return true
+    if (nextIndex != -1) {
+        elements[nextIndex]->select();
+        return true;
+    } else {
+        return false;
+    }
+}

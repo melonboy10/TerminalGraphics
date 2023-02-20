@@ -57,12 +57,10 @@ class Button : public WindowElement {
     void paint(int x, int y, int width, int height) override;
 
     /**
-     * Simulates a mouse event on the button.
-     * @param button The button that was pressed.
-     * @param x The x-coordinate of the mouse.
-     * @param y The y-coordinate of the mouse.
+     * Handles key events.
+     * @param key The key that was pressed.
      */
-    void sendMouseEvent(int button, int x, int y) override;
+    void keyEvent(int key) override;
 
     /**
      * Simulates a click of the button by executing its action function.
@@ -74,9 +72,13 @@ class Button : public WindowElement {
     function<void()> action;
 };
 
-Button::Button(string title, function<void()> action) : WindowElement((int)title.length() + 1, 3), title(title), action(action) {}
+Button::Button(string title, function<void()> action) : WindowElement((int)title.length() + 1, 3), title(title), action(action) {
+    selectable = true;
+}
 
-Button::Button(string title, float widthPercent, function<void()> action) : WindowElement(widthPercent, 3), title(title), action(action) {}
+Button::Button(string title, float widthPercent, function<void()> action) : WindowElement(widthPercent, 3), title(title), action(action) {
+    selectable = true;
+}
 
 void Button::setTitle(string title) {
     this->title = title;
@@ -84,27 +86,18 @@ void Button::setTitle(string title) {
 
 void Button::paint(int x, int y, int width, int height) {
     WindowElement::paint(x, y, width, height);
-    for (int i = 0; i < width; i++) {
-        drawText("─", x + i, y, (selected ? CYAN : state));
-        drawText(" ", x + i, y + 1);
-        drawText("─", x + i, y + 2, (selected ? CYAN : state));
-    }
-    drawText("╭", x, y, (selected ? CYAN : state));
-    drawText("╮", x + width, y, (selected ? CYAN : state));
-    drawText("│", x, y + 1, (selected ? CYAN : state));
-    drawText("│", x + width, y + 1, (selected ? CYAN : state));
-    drawText("╰", x, y + 2, (selected ? CYAN : state));
-    drawText("╯", x + width, y + 2, (selected ? CYAN : state));
+    drawBox(x, y, width, height, (selected ? CYAN : state));
 
     int titleX = x + (width / 2) - (title.length() / 2) + 1;
     drawText(title, titleX, y + 1, (selected ? CYAN : state));
 }
 
-void Button::sendMouseEvent(int button, int x, int y) {
-    if (cachedX <= x && x <= cachedX + cachedWidth && cachedY <= y && y <= cachedY + cachedHeight) {
-        if (button == 1) {
-            setSelected(true);
-            action();
-        }
+void Button::keyEvent(int key) {
+    if (key == ENTER) {
+        click();
     }
+}
+
+void Button::click() {
+    action();
 }

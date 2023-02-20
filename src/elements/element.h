@@ -1,3 +1,4 @@
+#include "../terminal.h"
 #include "../util.h"
 
 using namespace std;
@@ -62,23 +63,33 @@ class WindowElement {
     tuple<int, int> getFixedSize(int parentWidth, int parentHeight);
 
     /**
+     * Gets if the element is selectable
+     * @return true if the element is selectable, false otherwise
+     */
+    bool isSelectable();
+
+    /**
      * Sets the selected status of the window element
      * @param selected the new status
      */
     void setSelected(bool selected);
 
     /**
-     * Sends a mouse event to the window element
-     * @param x the x position of the mouse
-     * @param y the y position of the mouse
+     * Selects the window element
      */
-    virtual void sendMouseEvent(int button, int x, int y);
+    void select();
 
     /**
      * Sends a key event to the window element
      * @param key the key code
      */
-    virtual void sendKeyEvent(int key);
+    virtual void keyEvent(int key);
+
+    /**
+     * Sends an arrow key event to the window element
+     * @param key the arrow key
+     */
+    virtual void arrowKeyEvent(ArrowKey key);
 
     /**
      * Sets the state of the window element
@@ -104,10 +115,11 @@ class WindowElement {
 
     double widthPercent = -1, heightPercent = -1;
     int width = -1, height = -1;
-    bool selected;
+    bool selected, selectable;
     bool hidden = false;
     int cachedX = 0, cachedY = 0, cachedWidth = 0, cachedHeight = 0;
     State state = DEFAULT;
+    WindowElement* parent;
 };
 
 WindowElement::WindowElement(int width, int height) : width(width), height(height) {}
@@ -121,8 +133,21 @@ WindowElement::WindowElement(double widthPercent, double heightPercent) : widthP
 WindowElement::~WindowElement() {}
 
 void WindowElement::setSelected(bool selected) {
+    Terminal::focusedElement->setSelected(false);
+    Terminal::focusedElement = this;
     this->selected = selected;
     paint(this->cachedX, this->cachedY, this->cachedWidth, this->cachedHeight);
+}
+
+void WindowElement::select() {
+    if (this->selectable) {
+        this->selected = true;
+        paint(this->cachedX, this->cachedY, this->cachedWidth, this->cachedHeight);
+    }
+}
+
+bool WindowElement::isSelectable() {
+    return this->selectable;
 }
 
 void WindowElement::setState(State state) {
@@ -140,9 +165,13 @@ void WindowElement::paint(int x, int y, int width, int height) {
     setValues(x, y, width, height);
 }
 
-void WindowElement::sendMouseEvent(int button, int x, int y) {}
+void WindowElement::keyEvent(int key) {}
 
-void WindowElement::sendKeyEvent(int key) {}
+void WindowElement::arrowKeyEvent(ArrowKey key) {
+    if (this->parent != nullptr) {
+        this->parent->arrowKeyEvent(key);
+    }
+}
 
 tuple<int, int> WindowElement::getFixedSize(int parentWidth, int parentHeight) {
     int width = this->width;

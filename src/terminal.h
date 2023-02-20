@@ -58,6 +58,7 @@ class Terminal {
     static void exit();
 
     static Group* rootWindow;
+    static WindowElement* focusedElement;
     static termios oldTerminalSettings;
     static struct winsize size;
     static struct pollfd fds[1];
@@ -69,6 +70,7 @@ class Terminal {
 termios Terminal::oldTerminalSettings;
 struct winsize Terminal::size;
 Group* Terminal::rootWindow;
+WindowElement* Terminal::focusedElement;
 struct pollfd Terminal::fds[1];
 bool Terminal::exitFlag = false;
 
@@ -119,36 +121,30 @@ void Terminal::checkScreenSize() {
 }
 
 void Terminal::checkInputs() {
-    printf("\033[?1003l");
+    rootWindow->paint(0, 0, size.ws_col, size.ws_row);
+    cout.flush();
 
-    poll(fds, 1, -1);
-    char buf[128];
-    int n = read(STDIN_FILENO, buf, sizeof(buf));
+    string input;
+    while (true) {
+        int c = getchar();
 
-    if (n == -1) {
-        perror("read");
-    }
-    for (int i = 0; i < n; i++) {
-        if (buf[i] == '\033' && i + 2 < n && buf[i + 1] == '[' && buf[i + 2] == 'M') {
-            int button = buf[i + 3] & 0x03;
-            int col = buf[i + 4];
-            int row = buf[i + 5];
-
-            // Check if the received values are in the valid range
-            if (col >= 32 && col <= 127) {
-                col -= 32;
+        if (c == 3) {  // Check for Control+C
+            exit();
+        } else if (c == 27) {        // Check for escape sequence
+            if (getchar() == '[') {  // Check for arrow keys
+                ArrowKey arrow = getArrowKey(getchar());
+                if (arrow != ArrowKey::NONE) {
+                    focusedElement->arrowKeyEvent(arrow);
+                }
+                continue;  // Skip the rest of the loop
             }
-            if (row >= 32 && row <= 127) {
-                row -= 32;
-            }
-
-            std::cout << "Mouse event:\n\nbutton=" << button << ", \nrow=" << row << ", \ncol=" << col << std::flush;
-            rootWindow->sendMouseEvent(button, col, row);
-        } else if (buf[i] == 'q' || buf[i] == '\33') {
-            Terminal::exit();
+        } else {
+            focusedElement->keyEvent(c);
         }
+
+        rootWindow->paint(0, 0, size.ws_col, size.ws_row);
+        cout.flush();
     }
-    printf("\033[?1003l");
 }
 
 void Terminal::exit() {

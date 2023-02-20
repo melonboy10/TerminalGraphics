@@ -8,9 +8,9 @@ using namespace std;
 class SquareGridLayout : public Layout {
    public:
     /**
-     * @param widths an array of integers representing the width of each element in the grid
+     * @param numColumns the number of columns in the grid
      */
-    SquareGridLayout(int widths[]);
+    SquareGridLayout(int numColumns);
     /**
      * A grid where the width of each element is the same as the height
      * @param x the x coordinate of the top-left corner of the grid
@@ -22,26 +22,26 @@ class SquareGridLayout : public Layout {
     void paint(int x, int y, int width, int height, vector<WindowElement*> elements) override;
 
    private:
-    int* widths;
+    int* numColumns;
     int scrollOffset = 0;
 };
 
-SquareGridLayout::SquareGridLayout(int widths[]) : widths(widths) {}
+SquareGridLayout::SquareGridLayout(int numColumns) : numColumns(numColumns) {}
 
 void SquareGridLayout::paint(int x, int y, int width, int height, vector<WindowElement*> elements) {
-    int totalWidth = 0;
-    for (int i = 0; i < sizeof(widths) / sizeof(int); i++) {
-        totalWidth += widths[i];
-    }
-
+    int columnWidth = width / numColumns;
+    int maxNumberOfRows = height / columnWidth;
     int xOffset = 0;
-    int yOffset = 0;
-    for (int i = 0; i < elements.size(); i++) {
-        elements[i]->paint(x + xOffset, y + yOffset, width / totalWidth * widths[i], width / totalWidth * widths[i]);
-        xOffset += widths[i] / totalWidth * width;
-        if (i % (sizeof(widths) / sizeof(int)) == sizeof(widths) / sizeof(int) - 1) {
+    int yOffset = -scrollOffset * columnWidth;
+
+    int numElements = min(elements.size(), maxNumberOfRows * numColumns);
+
+    for (int i = 0; i < numElements; i++) {
+        if (i % numColumns == 0) {
             xOffset = 0;
-            yOffset += widths[i] / totalWidth * width;
+            yOffset += columnWidth;
         }
+        elements[i]->paint(x + xOffset, y + yOffset, columnWidth, columnWidth);
+        xOffset += columnWidth;
     }
 }
