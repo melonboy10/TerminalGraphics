@@ -156,6 +156,7 @@ void WindowElement::setHidden(bool hidden) {
 }
 
 void WindowElement::paint(int x, int y, int width, int height) {
+    if (this->hidden) return;
     clearArea(cachedX, cachedY, cachedWidth, cachedHeight);
     clearArea(x, y, width, height);
     setValues(x, y, width, height);
