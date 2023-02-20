@@ -2,7 +2,6 @@
 #include <vector>
 
 #include "../layouts/layout.h"
-#include "../terminal.h"
 #include "element.h"
 #include "spacer.h"
 
