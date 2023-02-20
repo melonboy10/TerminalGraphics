@@ -68,12 +68,6 @@ class WindowElement {
     bool isSelectable();
 
     /**
-     * Sets the selected status of the window element
-     * @param selected the new status
-     */
-    void setSelected(bool selected);
-
-    /**
      * Selects the window element
      */
     virtual bool select();
@@ -134,20 +128,16 @@ WindowElement::WindowElement(double widthPercent, double heightPercent) : widthP
 
 WindowElement::~WindowElement() {}
 
-void WindowElement::setSelected(bool selected) {
-    if (WindowElement::focusedElement != nullptr && WindowElement::focusedElement != this) {
-        WindowElement::focusedElement->setSelected(false);
-    }
-    WindowElement::focusedElement = this;
-    this->selected = selected;
-    // paint(this->cachedX, this->cachedY, this->cachedWidth, this->cachedHeight);
-}
-
 bool WindowElement::select() {
     if (this->selectable) {
-        setSelected(true);
         paint(this->cachedX, this->cachedY, this->cachedWidth, this->cachedHeight);
-        drawText("void Group::arrowKeyEvent(ArrowKey key, WindowElement* element) {", 0, 0, RED);
+        drawText("void Group::arrowKeyEvent(ArrowKey key, WindowElement* element) {", 10, 10, RED);
+
+        if (WindowElement::focusedElement != nullptr && WindowElement::focusedElement != this) {
+            WindowElement::focusedElement->selected = false;
+        }
+        WindowElement::focusedElement = this;
+        this->selected = true;
         return true;
     }
     return false;
