@@ -32,7 +32,7 @@ class SquareGridLayout : public Layout {
 
    private:
     int numColumns;
-    int scrollOffset = 0;
+    int scrollOffset = 1;
 };
 
 SquareGridLayout::SquareGridLayout(int numColumns) : numColumns(numColumns) {}
