@@ -57,6 +57,7 @@ void SquareGridLayout::paint(int x, int y, int width, int height, vector<WindowE
 }
 
 bool SquareGridLayout::selectNext(WindowElement* selectedElement, vector<WindowElement*> elements, ArrowKey direction) {
+    // Find the index of the selected element in the vector
     int selectedIndex = -1;
     for (int i = 0; i < elements.size(); i++) {
         if (elements[i] == selectedElement) {
@@ -65,44 +66,36 @@ bool SquareGridLayout::selectNext(WindowElement* selectedElement, vector<WindowE
         }
     }
 
-    if (selectedIndex == -1) {
+    // If the selected element is not found or cannot be selected, return false
+    if (selectedIndex == -1 || !selectedElement->isSelectable()) {
         return false;
     }
 
-    int numColumns = this->numColumns;
-    int numRows = (elements.size() + numColumns - 1) / numColumns;
-
+    // Determine the index of the next selectable element based on the direction
     int nextIndex = -1;
-    if (direction == ArrowKey::UP) {
-        nextIndex = selectedIndex - numColumns;
-    } else if (direction == ArrowKey::DOWN) {
-        nextIndex = selectedIndex + numColumns;
-    } else if (direction == ArrowKey::LEFT) {
-        nextIndex = selectedIndex - 1;
-    } else if (direction == ArrowKey::RIGHT) {
-        nextIndex = selectedIndex + 1;
+    switch (direction) {
+        case ArrowKey::UP:
+            nextIndex = selectedIndex - numColumns;
+            break;
+        case ArrowKey::DOWN:
+            nextIndex = selectedIndex + numColumns;
+            break;
+        case ArrowKey::LEFT:
+            nextIndex = selectedIndex - 1;
+            break;
+        case ArrowKey::RIGHT:
+            nextIndex = selectedIndex + 1;
+            break;
     }
 
-    if (nextIndex < 0 || nextIndex >= elements.size()) {
-        return false;
-    }
-
-    int selectedRow = selectedIndex / numColumns;
-    int selectedCol = selectedIndex % numColumns;
-    int nextRow = nextIndex / numColumns;
-    int nextCol = nextIndex % numColumns;
-
-    if (nextRow < 0 || nextRow >= numRows) {
-        // Scroll to show the selected row
-        int newOffset = scrollOffset;
-        if (nextRow < 0) {
-            newOffset += nextRow;
-        } else {
-            newOffset += nextRow + 1;
-        }
-        scrollOffset = newOffset;
+    // Check if the next index is valid and the element at that index is selectable
+    if (nextIndex >= 0 && nextIndex < elements.size() && elements[nextIndex]->isSelectable()) {
+        // Deselect the current element and select the next one
+        selectedElement->setSelected(false);
+        elements[nextIndex]->setSelected(true);
         return true;
     }
 
+    // Otherwise, return false
     return false;
 }
