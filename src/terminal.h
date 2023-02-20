@@ -119,6 +119,7 @@ void Terminal::checkScreenSize() {
 }
 
 void Terminal::checkInputs() {
+    rootWindow->select();
     rootWindow->paint(0, 0, size.ws_col, size.ws_row);
     cout.flush();
 
@@ -174,4 +175,6 @@ void Terminal::exit() {
     cout << "\033[2J\033[1;1H"
          << "\033[1J"
          << "Goodbye. 👋" << endl;
+
+    std::exit(0);
 }
