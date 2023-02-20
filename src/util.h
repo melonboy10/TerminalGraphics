@@ -40,7 +40,7 @@ enum State {
 
 enum Key {
     ENTER = 10,
-    ESC = 27,
+    ESCAPE = 27,
     SPACE = 32,
     BACKSPACE = 127
 };

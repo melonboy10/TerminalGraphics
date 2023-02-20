@@ -42,15 +42,23 @@ class TextInput : public WindowElement {
     void paint(int x, int y, int width, int height) override;
 
     /**
-     * Gets the input that the user has entered into the text input
-     * @return the user's input
+     * When key is pressed, adds the key to the text input's text
+     * @param key the key that was pressed
      */
-    string getInput();
+    void keyEvent(int key) override;
+
+    /**
+     * When arrow key is pressed, moves the cursor in the text input's text
+     * @param key the key that was pressed
+     * @return true if the key was handled, false otherwise
+     */
+    void arrowKeyEvent(ArrowKey key, WindowElement* element) override;
 
    private:
     string title;
     string text = "";
     string templateText;
+    bool editing = false;
 };
 
 TextInput::TextInput(string title, string templateText, float widthPercent) : title(title), templateText(templateText), WindowElement(widthPercent, 3) {
@@ -89,17 +97,22 @@ void TextInput::paint(int x, int y, int width, int height) {
     drawText("╯", x + width, y + 2, state);
     cout << flush;
 }
-string TextInput::getInput() {
-    // setSelected(true);
 
-    // showCursor();
-    string output;
-    // setCursorPosition(cachedX + 2, cachedY + 1);
-    // getline(cin, output);
+void TextInput::keyEvent(int key) {
+    if (key == Key::BACKSPACE) {
+        if (text.length() > 0) {
+            text = text.substr(0, text.length() - 1);
+        }
+    } else if (key == Key::ENTER) {
+        editing = !editing;
+    } else if (key == Key::ESCAPE) {
+        editing = false;
+    } else {
+        text += (char)key;
+    }
+}
 
-    // setText(output);
-    // hideCursor();
-    // setSelected(false);
-
-    return output;
+void TextInput::arrowKeyEvent(ArrowKey key, WindowElement* element) {
+    editing = false;
+    WindowElement::arrowKeyEvent(key, element);
 }
