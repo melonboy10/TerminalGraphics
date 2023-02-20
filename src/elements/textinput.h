@@ -54,11 +54,17 @@ class TextInput : public WindowElement {
      */
     void arrowKeyEvent(ArrowKey key, WindowElement* element) override;
 
+    /**
+     * Sets the exit action of the text input
+     * @param exitAction the exit action to be set
+     */
+    void setExitAction(function<void()> exitAction);
+
    private:
     string title;
     string text = "";
     string templateText;
-    bool editing = false;
+    function<void()> exitAction;
 };
 
 TextInput::TextInput(string title, string templateText, float widthPercent) : title(title), templateText(templateText), WindowElement(widthPercent, 3) {
@@ -71,8 +77,18 @@ void TextInput::setTitle(string title) {
 void TextInput::setText(string text) {
     this->text = text;
 }
+void TextInput::setExitAction(function<void()> exitAction) {
+    this->exitAction = exitAction;
+}
+
 void TextInput::paint(int x, int y, int width, int height) {
     WindowElement::paint(x, y, width, height);
+    if (selected) {
+        showCursor();
+    } else {
+        hideCursor();
+    }
+
     for (int i = 0; i < width; i++) {
         drawText("─", x + i, y, state);
         drawText(" ", x + i, y + 1, state);
@@ -103,16 +119,19 @@ void TextInput::keyEvent(int key) {
         if (text.length() > 0) {
             text = text.substr(0, text.length() - 1);
         }
-    } else if (key == Key::ENTER) {
-        editing = !editing;
-    } else if (key == Key::ESCAPE) {
-        editing = false;
+    } else if (key != Key::ENTER) {
+        if (exitAction != nullptr) {
+            exitAction();
+        }
     } else {
         text += (char)key;
     }
+    paint(cachedX, cachedY, cachedWidth, cachedHeight);
 }
 
 void TextInput::arrowKeyEvent(ArrowKey key, WindowElement* element) {
-    editing = false;
+    if (exitAction != nullptr) {
+        exitAction();
+    }
     WindowElement::arrowKeyEvent(key, element);
 }
