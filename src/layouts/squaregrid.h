@@ -1,3 +1,5 @@
+#include <cmath>
+
 #include "layout.h"
 
 using namespace std;
@@ -29,7 +31,7 @@ class SquareGridLayout : public Layout {
     bool selectNext(WindowElement* selectedElement, vector<WindowElement*> elements, ArrowKey direction) override;
 
    private:
-    int* numColumns;
+    int numColumns;
     int scrollOffset = 0;
 };
 
