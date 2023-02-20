@@ -83,12 +83,6 @@ void TextInput::setExitAction(function<void()> exitAction) {
 
 void TextInput::paint(int x, int y, int width, int height) {
     WindowElement::paint(x, y, width, height);
-    if (selected) {
-        showCursor();
-    } else {
-        hideCursor();
-    }
-
     for (int i = 0; i < width; i++) {
         drawText("─", x + i, y, state);
         drawText(" ", x + i, y + 1, state);
@@ -102,10 +96,11 @@ void TextInput::paint(int x, int y, int width, int height) {
     drawText("╭┤", x, y, state);
     drawText("├", x + 2 + title.length(), y, state);
     if (text.length() > 0) {
-        drawText(text, x + 2, y + 1, state);
+        drawText(text + (selected ? "░" : ""), x + 2, y + 1, state);
     } else {
-        drawText(templateText, x + 2, y + 1, DIM);
+        drawText((selected ? "░" : "") + templateText, x + 2, y + 1, DIM);
     }
+
     drawText("╮", x + width, y, state);
     drawText("│ ", x, y + 1, state);
     drawText("│", x + width, y + 1, state);
