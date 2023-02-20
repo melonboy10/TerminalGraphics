@@ -68,7 +68,7 @@ bool SquareGridLayout::selectNext(WindowElement* selectedElement, vector<WindowE
     }
 
     // If the selected element is not found or cannot be selected, return false
-    if (selectedIndex == -1 || !selectedElement->isSelectable()) {
+    if (selectedIndex == -1) {
         return false;
     }
 
