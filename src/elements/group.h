@@ -197,7 +197,7 @@ void Group::arrowKeyEvent(ArrowKey key, WindowElement* element) {
 }
 
 bool Group::select() {
-    if (!WindowElement::select()) {
+    if (!WindowElement::select() && !this->hidden) {
         for (int i = 0; i < elements.size(); i++) {
             if (elements[i]->select()) {
                 return true;

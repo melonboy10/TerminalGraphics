@@ -129,7 +129,7 @@ WindowElement::WindowElement(double widthPercent, double heightPercent) : widthP
 WindowElement::~WindowElement() {}
 
 bool WindowElement::select() {
-    if (this->selectable) {
+    if (this->selectable && !hidden) {
         if (WindowElement::focusedElement != nullptr) {
             WindowElement::focusedElement->selected = false;
             WindowElement::focusedElement->paint(WindowElement::focusedElement->cachedX, WindowElement::focusedElement->cachedY, WindowElement::focusedElement->cachedWidth, WindowElement::focusedElement->cachedHeight);
@@ -143,7 +143,7 @@ bool WindowElement::select() {
 }
 
 bool WindowElement::isSelectable() {
-    return this->selectable;
+    return this->selectable && !hidden;
 }
 
 void WindowElement::setState(State state) {
