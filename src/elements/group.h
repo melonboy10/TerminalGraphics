@@ -121,7 +121,7 @@ void Group::paint(int x, int y, int width, int height) {
     if (this->hidden) return;
     if (!this->borderHidden) {
         // set background color
-        drawBox(x, y, width, height, hidden + "", backgroundColor);
+        drawBox(x, y, width, height, hidden ? "H" : "N", backgroundColor);
         this->layout->paint(x + 1, y + 1, width - 2, height - 2, this->elements);
     } else {
         this->layout->paint(x, y, width, height, this->elements);
