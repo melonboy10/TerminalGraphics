@@ -91,7 +91,9 @@ bool SquareGridLayout::selectNext(WindowElement* selectedElement, vector<WindowE
 
     // Check if the next index is valid and the element at that index is selectable
     if (nextIndex >= 0 && nextIndex < elements.size() && elements[nextIndex]->select()) {
-        // Deselect the current element and select the next one
+        // if the next element is not visible, scroll the grid
+        int nextIndexRow = nextIndex / numColumns;
+        scrollOffset = max(0, nextIndexRow - 1);
         return true;
     }
 
