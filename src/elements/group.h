@@ -146,13 +146,13 @@ void Group::setBackgroundColor(Color color) {
 
 void Group::hideAllElements() {
     for (WindowElement* element : this->elements) {
-        element->hide();
+        element->setHidden(true);
     }
 }
 
 void Group::showAllElements() {
     for (WindowElement* element : this->elements) {
-        element->show();
+        element->setHidden(false);
     }
 }
 
