@@ -88,16 +88,16 @@ void TextInput::paint(int x, int y, int width, int height) {
     cout << flush;
 }
 string TextInput::getInput() {
-    setSelected(true);
+    // setSelected(true);
 
-    showCursor();
+    // showCursor();
     string output;
-    setCursorPosition(cachedX + 2, cachedY + 1);
-    getline(cin, output);
+    // setCursorPosition(cachedX + 2, cachedY + 1);
+    // getline(cin, output);
 
-    setText(output);
-    hideCursor();
-    setSelected(false);
+    // setText(output);
+    // hideCursor();
+    // setSelected(false);
 
     return output;
 }
