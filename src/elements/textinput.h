@@ -133,6 +133,9 @@ void TextInput::keyEvent(int key) {
         if (text.length() > 0) {
             text = text.substr(0, text.length() - 1);
         }
+        if (keyAction != nullptr) {
+            keyAction(text);
+        }
     } else if (key == Key::ENTER) {
         if (exitAction != nullptr) {
             exitAction(text);
