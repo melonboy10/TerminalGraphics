@@ -50,6 +50,14 @@ class Group : public WindowElement {
      */
     void removeAllElements();
     /**
+     * Hides all WindowElements in the Group
+     */
+    void hideAllElements();
+    /**
+     * Shows all WindowElements in the Group
+     */
+    void showAllElements();
+    /**
      * Paints the Group to the screen
      * @param x The x coordinate to paint the Group at
      * @param y The y coordinate to paint the Group at
