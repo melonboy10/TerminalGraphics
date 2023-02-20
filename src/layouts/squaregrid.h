@@ -54,3 +54,54 @@ void SquareGridLayout::paint(int x, int y, int width, int height, vector<WindowE
         xOffset += columnWidth;
     }
 }
+
+bool SquareGridLayout::selectNext(WindowElement* selectedElement, vector<WindowElement*> elements, ArrowKey direction) {
+    int selectedIndex = -1;
+    for (int i = 0; i < elements.size(); i++) {
+        if (elements[i] == selectedElement) {
+            selectedIndex = i;
+            break;
+        }
+    }
+
+    if (selectedIndex == -1) {
+        return false;
+    }
+
+    int numColumns = this->numColumns;
+    int numRows = (elements.size() + numColumns - 1) / numColumns;
+
+    int nextIndex = -1;
+    if (direction == ArrowKey::UP) {
+        nextIndex = selectedIndex - numColumns;
+    } else if (direction == ArrowKey::DOWN) {
+        nextIndex = selectedIndex + numColumns;
+    } else if (direction == ArrowKey::LEFT) {
+        nextIndex = selectedIndex - 1;
+    } else if (direction == ArrowKey::RIGHT) {
+        nextIndex = selectedIndex + 1;
+    }
+
+    if (nextIndex < 0 || nextIndex >= elements.size()) {
+        return false;
+    }
+
+    int selectedRow = selectedIndex / numColumns;
+    int selectedCol = selectedIndex % numColumns;
+    int nextRow = nextIndex / numColumns;
+    int nextCol = nextIndex % numColumns;
+
+    if (nextRow < 0 || nextRow >= numRows) {
+        // Scroll to show the selected row
+        int newOffset = scrollOffset;
+        if (nextRow < 0) {
+            newOffset += nextRow;
+        } else {
+            newOffset += nextRow + 1;
+        }
+        scrollOffset = newOffset;
+        return true;
+    }
+
+    return false;
+}
