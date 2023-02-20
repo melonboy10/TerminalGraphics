@@ -38,21 +38,22 @@ class RowLayout : public Layout {
 RowLayout::RowLayout(int heights[]) : heights(heights) {}
 
 void RowLayout::paint(int x, int y, int width, int height, vector<WindowElement*> elements) {
+    const int numberOfRows = sizeof(heights) / sizeof(int);
     int totalHeight = 0;
-    for (int i = 0; i < sizeof(heights) / sizeof(int); i++) {
+    for (int i = 0; i < numberOfRows; i++) {
         totalHeight += heights[i];
     }
-    int segment = height / totalHeight;
-    int numElements = min(elements.size(), (int)sizeof(heights) / sizeof(int));
-    int numHidden = 0;
     int yOffset = 0;
-    for (int i = 0; i < numElements; i++) {
+    int numberOfHiddenElements = 0;
+    for (int i = 0; i < numberOfRows; i++) {
+        if (i >= elements.size()) break;
         if (elements[i]->hidden) {
-            numHidden++;
+            numberOfHiddenElements++;
             continue;
-        };
-        elements[i]->paint(x, y + yOffset, width, segment * heights[i - numHidden]);
-        yOffset += segment * heights[i - numHidden];
+        }
+        int segment = height * heights[i - numberOfHiddenElements] / totalHeight;
+        elements[i]->paint(x, y + yOffset, width, segment);
+        yOffset += segment;
     }
 }
 
