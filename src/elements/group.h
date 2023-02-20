@@ -118,8 +118,11 @@ Group::~Group() {
 
 void Group::paint(int x, int y, int width, int height) {
     WindowElement::paint(x, y, width, height);
-    if (hidden) return;
-    if (this->hidden) return;
+    if (hidden) {
+        clearArea(x, y, width, height);
+        return;
+    };
+
     if (!this->borderHidden) {
         // set background color
         drawBox(x, y, width, height, hidden ? "H" : "N", backgroundColor);
