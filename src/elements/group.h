@@ -176,8 +176,9 @@ bool Group::select() {
     if (!WindowElement::select()) {
         for (int i = 0; i < elements.size(); i++) {
             if (elements[i]->select()) {
-                break;
+                return true;
             }
         }
     }
+    return false;
 }
