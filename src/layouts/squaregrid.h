@@ -57,6 +57,7 @@ void SquareGridLayout::paint(int x, int y, int width, int height, vector<WindowE
 }
 
 bool SquareGridLayout::selectNext(WindowElement* selectedElement, vector<WindowElement*> elements, ArrowKey direction) {
+    selectedElement->setState(State::ERROR);
     // Find the index of the selected element in the vector
     int selectedIndex = -1;
     for (int i = 0; i < elements.size(); i++) {
