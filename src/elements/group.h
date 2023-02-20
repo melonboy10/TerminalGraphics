@@ -62,7 +62,7 @@ class Group : public WindowElement {
      * Handles a key press event
      * @param key The key that was pressed
      */
-    void arrowKeyEvent(ArrowKey key) override;
+    void arrowKeyEvent(ArrowKey key, WindowElement* element) override;
 
     /**
      * Selects the Group
@@ -162,13 +162,13 @@ void Group::removeAllElements() {
     this->elements.clear();
 }
 
-void Group::arrowKeyEvent(ArrowKey key) {
+void Group::arrowKeyEvent(ArrowKey key, WindowElement* element) {
     setState(State::SUCCESS);
-    if (layout->selectNext(WindowElement::focusedElement, elements, key)) {
+    cout << "ARROR \nARROR \nARROR \nARROR \nARROR \nARROR \n"
+         << endl;
+    if (layout->selectNext(element, elements, key)) {
         if (parent != nullptr) {
-            parent->arrowKeyEvent(key);
-            cout << "ARROR \nARROR \nARROR \nARROR \nARROR \nARROR \n"
-                 << endl;
+            parent->arrowKeyEvent(key, this);
         }
     }
 }

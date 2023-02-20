@@ -133,7 +133,7 @@ void Terminal::checkInputs() {
             if (getchar() == '[') {  // Check for arrow keys
                 ArrowKey arrow = getArrowKey(getchar());
                 if (arrow != ArrowKey::NONE) {
-                    WindowElement::focusedElement->arrowKeyEvent(arrow);
+                    WindowElement::focusedElement->arrowKeyEvent(arrow, WindowElement::focusedElement);
                 }
                 continue;  // Skip the rest of the loop
             }

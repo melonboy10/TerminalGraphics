@@ -58,6 +58,10 @@ bool VerticalLayout::selectNext(WindowElement* selectedElement, vector<WindowEle
         }
     }
 
+    if (currentIndex == -1) {
+        return false;
+    }
+
     int nextIndex = -1;
     if (direction == ArrowKey::UP) {
         if (currentIndex > 0) {

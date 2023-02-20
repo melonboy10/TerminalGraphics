@@ -88,7 +88,7 @@ class WindowElement {
      * Sends an arrow key event to the window element
      * @param key the arrow key
      */
-    virtual void arrowKeyEvent(ArrowKey key);
+    virtual void arrowKeyEvent(ArrowKey key, WindowElement* element);
 
     /**
      * Sets the state of the window element
@@ -173,9 +173,9 @@ void WindowElement::paint(int x, int y, int width, int height) {
 
 void WindowElement::keyEvent(int key) {}
 
-void WindowElement::arrowKeyEvent(ArrowKey key) {
+void WindowElement::arrowKeyEvent(ArrowKey key, WindowElement* element) {
     if (this->parent != nullptr) {
-        this->parent->arrowKeyEvent(key);
+        this->parent->arrowKeyEvent(key, element);
     }
 }
 
