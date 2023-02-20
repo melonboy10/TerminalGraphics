@@ -38,6 +38,7 @@ Lock::Lock() : locked(true), WindowElement(20, 15) {}
 
 void Lock::paint(int x, int y, int width, int height) {
     WindowElement::paint(x, y, width, height);
+    if (hidden) return;
     if (locked) {
         drawText("     .--------.     ", x, y);
         drawText("    / .------. \\    ", x, y + 1);

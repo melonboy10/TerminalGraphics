@@ -118,6 +118,7 @@ Group::~Group() {
 
 void Group::paint(int x, int y, int width, int height) {
     WindowElement::paint(x, y, width, height);
+    if (hidden) return;
     if (this->hidden) return;
     if (!this->borderHidden) {
         // set background color

@@ -86,6 +86,7 @@ void Button::setTitle(string title) {
 
 void Button::paint(int x, int y, int width, int height) {
     WindowElement::paint(x, y, width, height);
+    if (hidden) return;
     drawBox(x, y, width, height, (selected ? CYAN : state));
 
     int titleX = x + (width / 2) - (title.length() / 2);

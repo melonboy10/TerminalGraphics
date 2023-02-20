@@ -68,6 +68,7 @@ void Text::setText(string text) {
 
 void Text::paint(int x, int y, int width, int height) {
     WindowElement::paint(x, y, width, height);
+    if (hidden) return;
     int line = 0;
     int start = 0;
     int end = 0;

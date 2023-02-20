@@ -153,13 +153,13 @@ void WindowElement::setState(State state) {
 
 void WindowElement::setHidden(bool hidden) {
     this->hidden = hidden;
-    clearArea(this->cachedX, this->cachedY, this->cachedWidth, this->cachedHeight);
 }
 
 void WindowElement::paint(int x, int y, int width, int height) {
-    if (this->hidden) return;
-    clearArea(cachedX, cachedY, cachedWidth, cachedHeight);
-    clearArea(x, y, width, height);
+    if (!this->hidden) {
+        clearArea(cachedX, cachedY, cachedWidth, cachedHeight);
+        clearArea(x, y, width, height);
+    }
     setValues(x, y, width, height);
 }
 

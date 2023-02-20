@@ -51,6 +51,7 @@ void Icon::setIcon(string path) {
 
 void Icon::paint(int x, int y, int width, int height) {
     WindowElement::paint(x, y, width, height);
+    if (hidden) return;
 
     ifstream file(path);
     string line;
