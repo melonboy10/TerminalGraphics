@@ -36,16 +36,16 @@ VerticalLayout::VerticalLayout() {}
 
 void VerticalLayout::paint(int x, int y, int width, int height, vector<WindowElement*> elements) {
     vector<tuple<int, int>> sizes;
-    int totalHeight = 0;
+    int totalWidth = 0;
     for (int i = 0; i < elements.size(); i++) {
-        sizes.push_back(elements[i]->getFixedSize(width, height));
-        totalHeight += get<1>(sizes[i]);
+        sizes.push_back(elements[i]->getFixedSize(width - totalWidth, height));
+        totalWidth += get<1>(sizes[i]);
     }
 
     int yOffset = 0;
     for (int i = 0; i < elements.size(); i++) {
-        elements[i]->paint(x, y + (height - totalHeight) / 2 + yOffset, width, get<1>(sizes[i]));
-        yOffset += get<1>(sizes[i]) / totalHeight * height + 1;
+        elements[i]->paint(x + (width - get<0>(sizes[i])) / 2, y + (width - totalWidth) / 2 + yOffset, get<0>(sizes[i]), get<1>(sizes[i]));
+        yOffset += get<1>(sizes[i]);
     }
 }
 
