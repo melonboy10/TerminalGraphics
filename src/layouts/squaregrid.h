@@ -39,7 +39,7 @@ SquareGridLayout::SquareGridLayout(int numColumns) : numColumns(numColumns) {}
 
 void SquareGridLayout::paint(int x, int y, int width, int height, vector<WindowElement*> elements) {
     int columnWidth = width / numColumns;
-    int maxNumberOfRows = height / 2 / columnWidth + 1;
+    int maxNumberOfRows = height / columnWidth / 2 + 1;
     int xOffset = 0;
     int yOffset = -scrollOffset * columnWidth;
 
@@ -56,7 +56,7 @@ void SquareGridLayout::paint(int x, int y, int width, int height, vector<WindowE
     for (int i = 0; i < numElements; i++) {
         // For debugging draw a rectangle around each element
         // drawBox(x + xOffset, y + yOffset, columnWidth, columnWidth);
-        elements[i]->paint(x + xOffset, y + yOffset, columnWidth, columnWidth);
+        elements[i]->paint(x + xOffset, y + yOffset, columnWidth, columnWidth / 2);
         // drawText("██████████████████████████████████████████████████████████", 25, 25, Color::RED);
 
         // elements[i]->paint(22, 22, 22, 22);
@@ -64,7 +64,7 @@ void SquareGridLayout::paint(int x, int y, int width, int height, vector<WindowE
         xOffset += columnWidth;
         if (i % numColumns == 0) {
             xOffset = 0;
-            yOffset += columnWidth;
+            yOffset += columnWidth / 2;
         }
     }
 }
