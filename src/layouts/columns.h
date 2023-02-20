@@ -87,9 +87,8 @@ bool ColumnLayout::selectNext(WindowElement* selectedElement, vector<WindowEleme
     }
 
     // If a next selectable element was found, select it and return true
-    if (nextIndex != -1) {
-        selectedElement->setSelected(false);
-        elements[nextIndex]->setSelected(true);
+    if (nextIndex != -1 && currentIndex != nextIndex) {
+        elements[nextIndex]->select();
         return true;
     } else {
         return false;
