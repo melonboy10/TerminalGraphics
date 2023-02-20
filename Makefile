@@ -114,8 +114,8 @@ release: $(LIB)
 clean:
 	$(CLEAN)
 
+# > $(INCLUDEDIR)/$(IBNAME).h
 split:
-	> $(INCLUDEDIR)/$(LIBNAME).h
 	@for file in $(SPLITSRCS); do \
 		./split_file.sh $$file $(SPLITDIR) $(INCLUDEDIR)/$(LIBNAME).h; \
 	done

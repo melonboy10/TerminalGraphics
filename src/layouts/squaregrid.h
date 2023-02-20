@@ -20,6 +20,13 @@ class SquareGridLayout : public Layout {
      * @param elements a vector of pointers to the WindowElements in the grid
      */
     void paint(int x, int y, int width, int height, vector<WindowElement*> elements) override;
+    /**
+     * Selects the next WindowElement in the layout
+     * @param selectedElement the currently selected WindowElement
+     * @param elements a vector of WindowElement objects to be included in the layout
+     * @param direction the direction to select the next WindowElement in
+     */
+    bool selectNext(WindowElement* selectedElement, vector<WindowElement*> elements, ArrowKey direction) override;
 
    private:
     int* numColumns;
