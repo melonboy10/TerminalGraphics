@@ -122,11 +122,7 @@ void Group::paint(int x, int y, int width, int height) {
     if (hidden) return;
 
     if (!this->borderHidden) {
-        // set background color
-        stringstream stream;
-        stream << this;
-
-        drawBox(x, y, width, height, stream.str(), backgroundColor);
+        drawBox(x, y, width, height, title, backgroundColor);
         this->layout->paint(x + 1, y + 1, width - 2, height - 2, this->elements);
     } else {
         this->layout->paint(x, y, width, height, this->elements);
