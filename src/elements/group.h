@@ -144,6 +144,18 @@ void Group::setBackgroundColor(Color color) {
     this->backgroundColor = color;
 }
 
+void Group::hideAllElements() {
+    for (WindowElement* element : this->elements) {
+        element->hide();
+    }
+}
+
+void Group::showAllElements() {
+    for (WindowElement* element : this->elements) {
+        element->show();
+    }
+}
+
 void Group::addElement(WindowElement* element, int spacer) {
     this->elements.push_back(element);
     if (spacer) {
