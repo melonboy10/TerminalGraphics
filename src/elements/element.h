@@ -1,5 +1,4 @@
 #include "../util.h"
-#include "group.h"
 
 using namespace std;
 
@@ -114,7 +113,7 @@ class WindowElement {
     bool hidden = false;
     int cachedX = 0, cachedY = 0, cachedWidth = 0, cachedHeight = 0;
     State state = DEFAULT;
-    Group* parent;
+    WindowElement* parent;  // Group only for now
 };
 
 WindowElement* WindowElement::focusedElement;
