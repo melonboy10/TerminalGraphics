@@ -204,7 +204,7 @@ bool GridLayout::selectNext(WindowElement* selectedElement, vector<WindowElement
         }
     }
     // If a next selectable element was found, select it and return true
-    if (nextIndex != -1 && currentIndex != nextIndex) {
+    if (nextIndex != -1 && selectedIndex != nextIndex) {
         elements[nextIndex]->select();
         return true;
     } else {
