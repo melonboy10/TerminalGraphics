@@ -143,7 +143,7 @@ void WindowElement::setSelected(bool selected) {
 
 bool WindowElement::select() {
     if (this->selectable) {
-        this->selected = true;
+        setSelected(true);
         paint(this->cachedX, this->cachedY, this->cachedWidth, this->cachedHeight);
         return true;
     }
