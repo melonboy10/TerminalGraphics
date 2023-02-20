@@ -132,6 +132,7 @@ bool WindowElement::select() {
     if (this->selectable) {
         if (WindowElement::focusedElement != nullptr) {
             WindowElement::focusedElement->selected = false;
+            WindowElement::focusedElement->paint(WindowElement::focusedElement->cachedX, WindowElement::focusedElement->cachedY, WindowElement::focusedElement->cachedWidth, WindowElement::focusedElement->cachedHeight);
         }
         WindowElement::focusedElement = this;
         this->selected = true;

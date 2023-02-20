@@ -88,7 +88,7 @@ void Button::paint(int x, int y, int width, int height) {
     WindowElement::paint(x, y, width, height);
     drawBox(x, y, width, height, (selected ? CYAN : state));
 
-    int titleX = x + (width / 2) - (title.length() / 2) + 1;
+    int titleX = x + (width / 2) - (title.length() / 2);
     drawText(title, titleX, y + 1, (selected ? CYAN : state));
 }
 
