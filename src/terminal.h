@@ -131,8 +131,16 @@ void Terminal::checkInputs() {
     for (int i = 0; i < n; i++) {
         if (buf[i] == '\033' && i + 2 < n && buf[i + 1] == '[' && buf[i + 2] == 'M') {
             int button = buf[i + 3] & 0x03;
-            int col = buf[i + 4] - 32;
-            int row = buf[i + 5] - 32;
+            int col = buf[i + 4];
+            int row = buf[i + 5];
+
+            // Check if the received values are in the valid range
+            if (col >= 32 && col <= 127) {
+                col -= 32;
+            }
+            if (row >= 32 && row <= 127) {
+                row -= 32;
+            }
 
             std::cout << "Mouse event:\n\nbutton=" << button << ", \nrow=" << row << ", \ncol=" << col << std::flush;
             rootWindow->sendMouseEvent(button, col, row);
