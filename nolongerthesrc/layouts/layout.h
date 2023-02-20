@@ -1,24 +1,12 @@
-#ifndef COLUMNS_H
-#define COLUMNS_H
-
-#include <vector>
-
-#include "layout.h"
+#include "../elements/element.h"
 
 using namespace std;
 
 /**
- * Constructor for ColumnLayout object
- * @param widths an array of integers representing the width of each element in the layout
+ * A base class for creating different Layout objects
  */
-class ColumnLayout : public Layout {
+class Layout {
    public:
-    /**
-     * Constructor for ColumnLayout object
-     * @param widths an array of integers representing the width of each element in the layout
-     */
-    ColumnLayout(int widths[]);
-
     /**
      * Paints the layout on the screen
      * @param x the x position of the layout on the screen
@@ -27,18 +15,14 @@ class ColumnLayout : public Layout {
      * @param height the height of the layout on the screen
      * @param elements a vector of WindowElement objects to be included in the layout
      */
-    void paint(int x, int y, int width, int height, vector<WindowElement*> elements) override;
+    virtual void paint(int x, int y, int width, int height, vector<WindowElement*> elements) = 0;
 
     /**
      * Selects the next WindowElement in the layout
      * @param selectedElement the currently selected WindowElement
      * @param elements a vector of WindowElement objects to be included in the layout
      * @param direction the direction to select the next WindowElement in
+     * @return true if the next element was selected, false if the selected element was not changed
      */
-    bool selectNext(WindowElement* selectedElement, vector<WindowElement*> elements, ArrowKey direction) override;
-
-   private:
-    int* widths;
+    virtual bool selectNext(WindowElement* selectedElement, vector<WindowElement*> elements, ArrowKey direction) = 0;
 };
-
-#endif

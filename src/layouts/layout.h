@@ -1,3 +1,6 @@
+#ifndef LAYOUT_H
+#define LAYOUT_H
+
 #include "../elements/element.h"
 
 using namespace std;
@@ -26,3 +29,4 @@ class Layout {
      */
     virtual bool selectNext(WindowElement* selectedElement, vector<WindowElement*> elements, ArrowKey direction) = 0;
 };
+#endif

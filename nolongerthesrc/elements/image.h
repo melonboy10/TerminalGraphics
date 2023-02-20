@@ -1,6 +1,3 @@
-#ifndef IMAGE_H
-#define IMAGE_H
-
 #include "element.h"
 
 using namespace std;
@@ -42,4 +39,15 @@ class Image : public WindowElement {
     string path = "";
 };
 
-#endif
+Image::Image(string path, int size) : path(path), WindowElement(size, size) {}
+
+void Image::setImage(string path) {
+    this->path = path;
+}
+
+void Image::paint(int x, int y, int width, int height) {
+    WindowElement::paint(x, y, width, height);
+    if (path.length() > 0) {
+        drawImage(path, x, y, width, height);
+    }
+}
