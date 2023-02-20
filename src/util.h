@@ -144,12 +144,12 @@ void drawText(string text, int x, int y, int color) {
 }
 
 void clearArea(int x, int y, int width, int height) {
-    for (int i = 0; i < height; i++) {
-        setCursorPosition(x, y + i);
-        for (int j = 0; j < width; j++) {
-            cout << " ";
-        }
-    }
+    // for (int i = 0; i < height; i++) {
+    //     setCursorPosition(x, y + i);
+    //     for (int j = 0; j < width; j++) {
+    //         cout << " ";
+    //     }
+    // }
 }
 
 string toCapitalCase(string text) {
