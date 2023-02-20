@@ -167,7 +167,7 @@ void Group::removeAllElements() {
 }
 
 void Group::arrowKeyEvent(ArrowKey key) {
-    if (layout->selectNext(Terminal::focusedElement, elements, key)) {
+    if (layout->selectNext(WindowElements::focusedElement, elements, key)) {
         if (parent != nullptr) {
             parent->arrowKeyEvent(key);
         }

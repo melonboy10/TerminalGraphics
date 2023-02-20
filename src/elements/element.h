@@ -1,4 +1,3 @@
-#include "../terminal.h"
 #include "../util.h"
 
 using namespace std;
@@ -112,6 +111,8 @@ class WindowElement {
      */
     void setValues(int x, int y, int width, int height);
 
+    static WindowElement* focusedElement;
+
     double widthPercent = -1, heightPercent = -1;
     int width = -1, height = -1;
     bool selected, selectable;
@@ -120,6 +121,8 @@ class WindowElement {
     State state = DEFAULT;
     WindowElement* parent;
 };
+
+WindowElement* WindowElement::focusedElement;
 
 WindowElement::WindowElement(int width, int height) : width(width), height(height) {}
 
@@ -132,8 +135,8 @@ WindowElement::WindowElement(double widthPercent, double heightPercent) : widthP
 WindowElement::~WindowElement() {}
 
 void WindowElement::setSelected(bool selected) {
-    Terminal::focusedElement->setSelected(false);
-    Terminal::focusedElement = this;
+    WindowElement::focusedElement->setSelected(false);
+    WindowElement::focusedElement = this;
     this->selected = selected;
     paint(this->cachedX, this->cachedY, this->cachedWidth, this->cachedHeight);
 }

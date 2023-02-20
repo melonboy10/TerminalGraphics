@@ -58,7 +58,6 @@ class Terminal {
     static void exit();
 
     static Group* rootWindow;
-    static WindowElement* focusedElement;
     static termios oldTerminalSettings;
     static struct winsize size;
     static struct pollfd fds[1];
@@ -70,7 +69,6 @@ class Terminal {
 termios Terminal::oldTerminalSettings;
 struct winsize Terminal::size;
 Group* Terminal::rootWindow;
-WindowElement* Terminal::focusedElement;
 struct pollfd Terminal::fds[1];
 bool Terminal::exitFlag = false;
 
