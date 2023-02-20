@@ -167,6 +167,8 @@ void Group::arrowKeyEvent(ArrowKey key, WindowElement* element) {
         if (parent != nullptr) {
             parent->arrowKeyEvent(key, this);
         }
+    } else {
+        paint(cachedX, cachedY, cachedWidth, cachedHeight);
     }
 }
 

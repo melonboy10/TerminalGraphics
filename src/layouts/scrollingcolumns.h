@@ -82,4 +82,5 @@ bool ScrollingColumns::selectNext(WindowElement* selectedElement, vector<WindowE
             }
         }
     }
+    return false;
 }
