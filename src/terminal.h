@@ -94,7 +94,8 @@ void Terminal::initTerminal() {
     tcgetattr(STDIN_FILENO, &oldTerminalSettings);
     raw_attr = oldTerminalSettings;
     cfmakeraw(&raw_attr);
-    raw_attr.c_lflag &= ~(ICANON | ECHO);
+    // raw_attr.c_lflag &= ~(ICANON | ECHO);
+    raw_attr.c_lflag &= ~(ICANON);
     tcsetattr(STDIN_FILENO, TCSANOW, &raw_attr);
 
     ioctl(STDOUT_FILENO, TIOCGWINSZ, &size);
