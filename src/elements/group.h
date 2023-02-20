@@ -167,6 +167,8 @@ void Group::arrowKeyEvent(ArrowKey key) {
     if (layout->selectNext(WindowElement::focusedElement, elements, key)) {
         if (parent != nullptr) {
             parent->arrowKeyEvent(key);
+            cout << "ARROR \nARROR \nARROR \nARROR \nARROR \nARROR \n"
+                 << endl;
         }
     }
 }
