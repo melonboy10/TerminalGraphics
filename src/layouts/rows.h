@@ -43,10 +43,7 @@ void RowLayout::paint(int x, int y, int width, int height, vector<WindowElement*
         totalHeight += heights[i];
     }
     int segment = height / totalHeight;
-    unsigned long numNonHidden = 0;
-    for (int i = 0; i < elements.size(); i++)
-        if (!elements[i]->hidden) numNonHidden++;
-    int numElements = min(numNonHidden, sizeof(heights) / sizeof(int));
+    int numElements = min(elements.size(), (int)sizeof(heights) / sizeof(int));
     int yOffset = 0;
     for (int i = 0; i < numElements; i++) {
         if (elements[i]->hidden) continue;
