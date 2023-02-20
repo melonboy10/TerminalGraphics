@@ -91,8 +91,7 @@ bool SquareGridLayout::selectNext(WindowElement* selectedElement, vector<WindowE
     // Check if the next index is valid and the element at that index is selectable
     if (nextIndex >= 0 && nextIndex < elements.size() && elements[nextIndex]->isSelectable()) {
         // Deselect the current element and select the next one
-        selectedElement->setSelected(false);
-        elements[nextIndex]->setSelected(true);
+        elements[nextIndex]->select();
         return true;
     }
 
