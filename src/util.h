@@ -278,8 +278,8 @@ void drawBox(int x, int y, int width, int height, string title, int color) {
     if (x < 0 || y < 0) {
         return;
     }
-    drawBox(x, y, width, height);
-    drawText("┤" + title + "├", x + 1, y);
+    drawBox(x, y, width, height, color);
+    drawText("┤" + title + "├", x + 1, y, color);
 }
 
 void drawImage(string path, int x, int y, int width, int height) {
