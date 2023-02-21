@@ -129,6 +129,7 @@ void Terminal::checkInputs() {
 
         if (c == 3) {  // Check for Control+C
             exit();
+            return;
         } else if (c == 27) {        // Check for escape sequence
             if (getchar() == '[') {  // Check for arrow keys
                 ArrowKey arrow = getArrowKey(getchar());
@@ -172,8 +173,6 @@ void Terminal::exit() {
     //     sleep(1);
     // }
     cout << "\033[2J\033[1;1H"
-         << "\033[1J"
+         //  << "\033[1J"
          << "Goodbye. 👋" << endl;
-
-    std::exit(0);
 }
