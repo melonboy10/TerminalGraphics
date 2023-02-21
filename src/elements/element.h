@@ -54,11 +54,6 @@ class WindowElement {
     virtual void paint(int x, int y, int width, int height);
 
     /**
-     * Paints the element based on the cached size.
-     */
-    void paint();
-
-    /**
      * Gets the fixed size of the window element
      * @param parentWidth the parent's width
      * @param parentHeight the parent's height
@@ -158,10 +153,6 @@ void WindowElement::setState(State state) {
 
 void WindowElement::setHidden(bool hidden) {
     this->hidden = hidden;
-}
-
-void WindowElement::paint() {
-    paint(this->cachedX, this->cachedY, this->cachedWidth, this->cachedHeight);
 }
 
 void WindowElement::paint(int x, int y, int width, int height) {
