@@ -117,14 +117,9 @@ void TextInput::paint(int x, int y, int width, int height) {
     drawText("╭┤", x, y, state);
     drawText("├", x + 2 + title.length(), y, state);
     if (text.length() > 0) {
-        drawText(text + (selected ? Color::UNDERLINED + " " : ""), x + 2, y + 1, state);
+        drawText(text + (selected ? "_" : ""), x + 2, y + 1, state);
     } else {
-        if (selected) {
-            drawText(templateText.substr(0, 1), x + 2, y + 1, UNDERLINED);
-            drawText(templateText.substr(1), x + 3, y + 1, DIM);
-        } else {
-            drawText(templateText, x + 2, y + 1, DIM);
-        }
+        drawText((selected ? "_" : "") + templateText, x + 2, y + 1, DIM);
     }
 
     drawText("╮", x + width, y, state);
