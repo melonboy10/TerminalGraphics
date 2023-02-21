@@ -130,7 +130,7 @@ WindowElement::~WindowElement() {}
 
 bool WindowElement::select() {
     if (this->selectable && !hidden) {
-        if (WindowElement::focusedElement != nullptr) {
+        if (WindowElement::focusedElement != nullptr && WindowElement::focusedElement != 0x0) {
             WindowElement::focusedElement->selected = false;
             WindowElement::focusedElement->paint(WindowElement::focusedElement->cachedX, WindowElement::focusedElement->cachedY, WindowElement::focusedElement->cachedWidth, WindowElement::focusedElement->cachedHeight);
         }
