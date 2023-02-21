@@ -66,18 +66,14 @@ bool ScrollingColumnsLayout::selectNext(WindowElement* selectedElement, vector<W
     if (direction == ArrowKey::LEFT) {
         for (int i = selectedIndex - 1; i >= 0; i--) {
             if (elements[i]->select()) {
-                if (i < scrollOffset + 1 && scrollOffset > 0) {
-                    scrollOffset = max(i - 1, 0);
-                }
+                scrollOffset = max(i - 1, 0);
                 return true;
             }
         }
     } else if (direction == ArrowKey::RIGHT) {
         for (int i = selectedIndex + 1; i < elements.size(); i++) {
             if (elements[i]->select()) {
-                if (i >= scrollOffset + numColumns - 1 && scrollOffset < elements.size() - numColumns) {
-                    scrollOffset = i - numColumns + 2;
-                }
+                scrollOffset = min(i - numColumns + 2, (int)elements.size() - numColumns);
                 return true;
             }
         }
