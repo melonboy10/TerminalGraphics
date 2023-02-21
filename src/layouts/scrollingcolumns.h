@@ -67,7 +67,7 @@ bool ScrollingColumnsLayout::selectNext(WindowElement* selectedElement, vector<W
         for (int i = selectedIndex - 1; i >= 0; i--) {
             if (elements[i]->select()) {
                 if (i < scrollOffset + 1 && scrollOffset > 0) {
-                    scrollOffset = i - 1;
+                    scrollOffset = i;
                 }
                 return true;
             }
