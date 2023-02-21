@@ -124,12 +124,11 @@ void Terminal::checkInputs() {
     cout.flush();
 
     string input;
-    while (true) {
+    while (!exitFlag) {
         int c = getchar();
 
         if (c == 3) {  // Check for Control+C
-            exit();
-            return;
+            exitFlag = true;
         } else if (c == 27) {        // Check for escape sequence
             if (getchar() == '[') {  // Check for arrow keys
                 ArrowKey arrow = getArrowKey(getchar());
@@ -144,6 +143,7 @@ void Terminal::checkInputs() {
         rootWindow->paint(0, 0, size.ws_col, size.ws_row);
         cout.flush();
     }
+    exit();
 }
 
 void Terminal::exit() {
