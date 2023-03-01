@@ -40,6 +40,10 @@ class ColumnLayout : public Layout {
 
 ColumnLayout::ColumnLayout(int widths[]) : widths(widths) {}
 
+ColumnLayout::~ColumnLayout() {
+    delete[] widths;
+}
+
 void ColumnLayout::paint(int x, int y, int width, int height, vector<WindowElement*> elements) {
     int totalWidth = 0;
     for (int i = 0; i < sizeof(widths) / sizeof(int); i++) {

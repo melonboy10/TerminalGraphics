@@ -37,6 +37,10 @@ class RowLayout : public Layout {
 
 RowLayout::RowLayout(int heights[]) : heights(heights) {}
 
+RowLayout::~RowLayout() {
+    delete[] heights;
+}
+
 void RowLayout::paint(int x, int y, int width, int height, vector<WindowElement*> elements) {
     const int numberOfRows = sizeof(heights) / sizeof(int);
     int totalHeight = 0;

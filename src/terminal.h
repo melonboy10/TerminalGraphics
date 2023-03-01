@@ -83,7 +83,7 @@ Terminal::~Terminal() {
     // printf("\033[?25h");    // Show cursor
     // printf("\033[?1000l");  // Disable mouse input
     // tcsetattr(STDIN_FILENO, TCSANOW, &oldTerminalSettings);
-    exit();
+    delete rootWindow;
 }
 
 void Terminal::initTerminal() {

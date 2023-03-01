@@ -58,6 +58,11 @@ class GridLayout : public Layout {
 
 GridLayout::GridLayout(int widths[], int heights[]) : widths(widths), heights(heights) {}
 
+GridLayout::~GridLayout() {
+    delete[] widths;
+    delete[] heights;
+}
+
 void GridLayout::paint(int x, int y, int width, int height, vector<WindowElement*> elements) {
     int totalWidth = 0;
     for (int i = 0; i < sizeof(widths) / sizeof(int); i++) {
