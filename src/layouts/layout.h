@@ -26,5 +26,5 @@ class Layout {
      */
     virtual bool selectNext(WindowElement* selectedElement, vector<WindowElement*> elements, ArrowKey direction) = 0;
 
-    virtual ~Layout();
+    virtual ~Layout(){};
 };
