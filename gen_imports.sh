@@ -1,0 +1,55 @@
+#!/bin/bash
+
+# Check for both arguments <path> <outputFile>
+if [ $# -ne 2 ]; then
+  echo "Usage: $0 <path> <outputFile>"
+  exit 1
+fi
+
+# Change the directory to the one specified in the argument
+cd $1
+
+# Find all the .cpp and .h files in the directory and its subdirectories
+files=$(find . -type f \( -name "*.cpp" -o -name "*.h" \))
+
+# Create an array to hold the unique import statements
+unique_imports=()
+
+# Loop through the files and extract the import statements
+for file in $files; do
+  echo "Processing file: $file"
+  while read line; do
+    if [[ $line == \#include* ]]; then
+      # Extract the file name from the import statement and remove the "#include " prefix
+      import=$(echo $line | cut -d'"' -f2 | sed 's/^#include\s*//')
+      # Add the import statement to the array if it hasn't been added before
+      if ! [[ " ${unique_imports[@]} " =~ " $import " ]]; then
+        unique_imports+=("$import")
+      fi
+    fi
+  done < $file
+done
+
+# Clear the output file
+echo "Clearing contents of $2"
+echo "" > $2
+
+# Loop through the unique import statements and copy the contents of the import files if they exist in the current directory
+for import in "${unique_imports[@]}"; do
+  if [ -e "./$import" ]; then
+    echo "Copying contents of $import to $2"
+    # Create the output file if it doesn't exist
+    touch $2
+    # Read the contents of the import file
+    while read line; do
+      # Remove any lines that use an import from the unique_imports list
+      if ! [[ "$line" == "#include \""* ]]; then
+        echo "$line" >> $2
+      fi
+    done < "./$import"
+    # Add a new line at the end of the file
+    echo "" >> $2
+  fi
+done
+
+# End of script

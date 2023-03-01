@@ -69,7 +69,7 @@ else
 	LIB := lib$(LIBNAME).a
 	MKDIR = mkdir -p $@
 	# Here the if function is used to prevent an error caused by attempting to deleting a file that does not exist
-	CLEAN = $(if $(wildcard $(OBJDIR) $(RELEASEDIR) $(LIB)), rm -rf $(wildcard $(OBJDIR) $(RELEASEDIR) $(LIB))) 
+	CLEAN = $(if $(wildcard $(OBJDIR) $(RELEASEDIR) $(LIB) $(INCLUDEDIR)/$(LIBNAME).h $(SPLITDIR)), rm -rf $(wildcard $(OBJDIR) $(RELEASEDIR) $(LIB) $(INCLUDEDIR)/$(LIBNAME).h $(SPLITDIR))) 
 	
 	UNAME_S := $(shell uname -s)
 	ifeq ($(UNAME_S),Linux)
@@ -119,6 +119,9 @@ split:
 	@for file in $(SPLITSRCS); do \
 		./split_file.sh $$file $(SPLITDIR) $(INCLUDEDIR)/$(LIBNAME).h; \
 	done
+
+genImport:
+	./gen_imports.sh $(SPLITDIR) $(INCLUDEDIR)/$(LIBNAME).h
 
 # Create all neccessary directories
 $(SUBDIRECTORIES):
