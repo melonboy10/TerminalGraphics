@@ -34,6 +34,11 @@ class ColumnLayout : public Layout {
      */
     bool selectNext(WindowElement* selectedElement, vector<WindowElement*> elements, ArrowKey direction) override;
 
+    /**
+     * Destructor for ColumnLayout object
+     */
+    ~ColumnLayout();
+
    private:
     int* widths;
 };

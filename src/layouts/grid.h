@@ -51,6 +51,12 @@ class GridLayout : public Layout {
      */
     bool selectNext(WindowElement* selectedElement, vector<WindowElement*> elements, ArrowKey direction) override;
 
+    /**
+     * A destructor that frees the memory allocated for the widths and heights
+     * arrays.
+     */
+    ~GridLayout();
+
    private:
     int* widths;   // an array of the column widths
     int* heights;  // an array of the row heights

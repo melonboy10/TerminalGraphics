@@ -31,6 +31,11 @@ class RowLayout : public Layout {
      */
     bool selectNext(WindowElement* selectedElement, vector<WindowElement*> elements, ArrowKey direction) override;
 
+    /**
+     * Frees the memory allocated for the heights array
+     */
+    ~RowLayout();
+
    private:
     int* heights;
 };
