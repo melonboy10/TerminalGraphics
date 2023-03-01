@@ -30,8 +30,9 @@ for file in $files; do
   done < $file
 done
 
-# Clear the output file
-echo "Clearing contents of $2"
+# Clear the output file or create it if it doesn't exist
+echo "Clearing output file: $2"
+mkdir -p $(dirname $2)
 echo "" > $2
 
 # Loop through the unique import statements and copy the contents of the import files if they exist in the current directory
