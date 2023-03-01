@@ -59,6 +59,7 @@ Text::Text(string text) : text(text), WindowElement(1, 1) {
     }
 
     width = *max_element(widths, widths + height);
+    delete[] widths;
 }
 
 Text::Text(string text, float widthPercent) : text(text), WindowElement(widthPercent, 1) {}
