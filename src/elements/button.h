@@ -68,8 +68,6 @@ class Button : public WindowElement {
      */
     void click();
 
-    ~Button() override;
-
    private:
     string title;
     function<void()> action;
@@ -81,10 +79,6 @@ Button::Button(string title, function<void()> action) : WindowElement((int)title
 
 Button::Button(string title, float widthPercent, function<void()> action) : WindowElement(widthPercent, 3), title(title), action(action) {
     this->selectable = true;
-}
-
-Button::~Button() {
-    delete &action;
 }
 
 void Button::setTitle(string title) {
