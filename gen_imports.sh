@@ -6,13 +6,11 @@ if [ $# -ne 2 ]; then
   exit 1
 fi
 
-# Clear the output file or create it if it doesn't exist
-echo "Clearing output file: $2"
-mkdir -p $(dirname $2)
-echo "" > $2
+# Change the directory to the one specified in the argument
+cd $1
 
 # Find all the .cpp and .h files in the directory and its subdirectories
-files=$(find $1 -type f \( -name "*.cpp" -o -name "*.h" \))
+files=$(find . -type f \( -name "*.cpp" -o -name "*.h" \))
 
 # Create an array to hold the unique import statements
 unique_imports=()
@@ -32,9 +30,14 @@ for file in $files; do
   done < $file
 done
 
+# Clear the output file or create it if it doesn't exist
+echo "Clearing output file: $2"
+mkdir -p $(dirname $2)
+echo "" > $2
+
 # Loop through the unique import statements and copy the contents of the import files if they exist in the current directory
 for import in "${unique_imports[@]}"; do
-  if [ -e "$1/$import" ]; then
+  if [ -e "./$import" ]; then
     echo "Copying contents of $import to $2"
     # Create the output file if it doesn't exist
     touch $2
@@ -44,7 +47,7 @@ for import in "${unique_imports[@]}"; do
       if ! [[ "$line" == "#include \""* ]]; then
         echo "$line" >> $2
       fi
-    done < "$1/$import"
+    done < "./$import"
     # Add a new line at the end of the file
     echo "" >> $2
   fi
