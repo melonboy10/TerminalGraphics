@@ -25,4 +25,6 @@ class Layout {
      * @return true if the next element was selected, false if the selected element was not changed
      */
     virtual bool selectNext(WindowElement* selectedElement, vector<WindowElement*> elements, ArrowKey direction) = 0;
+
+    virtual ~Layout();
 };

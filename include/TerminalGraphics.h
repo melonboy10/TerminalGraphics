@@ -165,6 +165,122 @@ vector<vector<int>> readImage(string path);
  */
 vector<vector<int>> scaleImage(vector<vector<int>> image, int width, int height);
 
+#include <tuple>
+
+/**
+ * Constructs a new window element with a given width and height.
+ * @param width the width of the window
+ * @param height the height of the window
+ */
+class WindowElement {
+   public:
+    /**
+     * Constructs a new window element with a given width and height.
+     * @param width the width of the window
+     * @param height the height of the window
+     */
+    WindowElement(int width, int height);
+
+    /**
+     * Constructs a new window element with a given width percentage and height.
+     * @param widthPercent the width percentage of the window
+     * @param height the height of the window
+     */
+    WindowElement(double widthPercent, int height);
+
+    /**
+     * Constructs a new window element with a given width and height percentage.
+     * @param width the width of the window
+     * @param heightPercent the height percentage of the window
+     */
+    WindowElement(int width, double heightPercent);
+
+    /**
+     * Constructs a new window element with a given width percentage and height percentage.
+     * @param widthPercent the width percentage of the window
+     * @param heightPercent the height percentage of the window
+     */
+    WindowElement(double widthPercent, double heightPercent);
+
+    /**
+     * Destroys the WindowElement object.
+     */
+    virtual ~WindowElement();
+
+    /*
+     * Paints the element at the given coordinates.
+     * The width and height are the size that the element should be painted at.
+     * The element will fill the entire space given.
+     * @param x the x position of the element
+     * @param y the y position of the element
+     * @param width the width of the element
+     * @param height the height of the element
+     */
+    virtual void paint(int x, int y, int width, int height);
+
+    /**
+     * Gets the fixed size of the window element
+     * @param parentWidth the parent's width
+     * @param parentHeight the parent's height
+     * @return a tuple of width and height
+     */
+    tuple<int, int> getFixedSize(int parentWidth, int parentHeight);
+
+    /**
+     * Gets if the element is selectable
+     * @return true if the element is selectable, false otherwise
+     */
+    bool isSelectable();
+
+    /**
+     * Selects the window element
+     */
+    virtual bool select();
+
+    /**
+     * Sends a key event to the window element
+     * @param key the key code
+     */
+    virtual void keyEvent(int key);
+
+    /**
+     * Sends an arrow key event to the window element
+     * @param key the arrow key
+     */
+    virtual void arrowKeyEvent(ArrowKey key, WindowElement* element);
+
+    /**
+     * Sets the state of the window element
+     * @param state the new state
+     */
+    void setState(State state);
+
+    /**
+     * Sets the hidden status of the window element
+     * @param hidden the new status
+     */
+    void setHidden(bool hidden);
+
+    /**
+     * Sets the values of the cached position and size of the window element
+     * @param x the x position of the window element
+     * @param y the y position of the window element
+     * @param width the width of the window element
+     * @param height the height of the window element
+     */
+    void setValues(int x, int y, int width, int height);
+
+    static WindowElement* focusedElement;
+
+    double widthPercent = -1, heightPercent = -1;
+    int width = -1, height = -1;
+    bool selected, selectable;
+    bool hidden = false;
+    int cachedX = -1, cachedY = -1, cachedWidth = -1, cachedHeight = 1;
+    State state = DEFAULT;
+    WindowElement* parent;  // Group only for now
+};
+
 /**
  * A base class for creating different Layout objects
  */
@@ -427,122 +543,6 @@ class VerticalLayout : public Layout {
      * @param direction the direction to select the next WindowElement in
      */
     bool selectNext(WindowElement* selectedElement, vector<WindowElement*> elements, ArrowKey direction) override;
-};
-
-#include <tuple>
-
-/**
- * Constructs a new window element with a given width and height.
- * @param width the width of the window
- * @param height the height of the window
- */
-class WindowElement {
-   public:
-    /**
-     * Constructs a new window element with a given width and height.
-     * @param width the width of the window
-     * @param height the height of the window
-     */
-    WindowElement(int width, int height);
-
-    /**
-     * Constructs a new window element with a given width percentage and height.
-     * @param widthPercent the width percentage of the window
-     * @param height the height of the window
-     */
-    WindowElement(double widthPercent, int height);
-
-    /**
-     * Constructs a new window element with a given width and height percentage.
-     * @param width the width of the window
-     * @param heightPercent the height percentage of the window
-     */
-    WindowElement(int width, double heightPercent);
-
-    /**
-     * Constructs a new window element with a given width percentage and height percentage.
-     * @param widthPercent the width percentage of the window
-     * @param heightPercent the height percentage of the window
-     */
-    WindowElement(double widthPercent, double heightPercent);
-
-    /**
-     * Destroys the WindowElement object.
-     */
-    virtual ~WindowElement();
-
-    /*
-     * Paints the element at the given coordinates.
-     * The width and height are the size that the element should be painted at.
-     * The element will fill the entire space given.
-     * @param x the x position of the element
-     * @param y the y position of the element
-     * @param width the width of the element
-     * @param height the height of the element
-     */
-    virtual void paint(int x, int y, int width, int height);
-
-    /**
-     * Gets the fixed size of the window element
-     * @param parentWidth the parent's width
-     * @param parentHeight the parent's height
-     * @return a tuple of width and height
-     */
-    tuple<int, int> getFixedSize(int parentWidth, int parentHeight);
-
-    /**
-     * Gets if the element is selectable
-     * @return true if the element is selectable, false otherwise
-     */
-    bool isSelectable();
-
-    /**
-     * Selects the window element
-     */
-    virtual bool select();
-
-    /**
-     * Sends a key event to the window element
-     * @param key the key code
-     */
-    virtual void keyEvent(int key);
-
-    /**
-     * Sends an arrow key event to the window element
-     * @param key the arrow key
-     */
-    virtual void arrowKeyEvent(ArrowKey key, WindowElement* element);
-
-    /**
-     * Sets the state of the window element
-     * @param state the new state
-     */
-    void setState(State state);
-
-    /**
-     * Sets the hidden status of the window element
-     * @param hidden the new status
-     */
-    void setHidden(bool hidden);
-
-    /**
-     * Sets the values of the cached position and size of the window element
-     * @param x the x position of the window element
-     * @param y the y position of the window element
-     * @param width the width of the window element
-     * @param height the height of the window element
-     */
-    void setValues(int x, int y, int width, int height);
-
-    static WindowElement* focusedElement;
-
-    double widthPercent = -1, heightPercent = -1;
-    int width = -1, height = -1;
-    bool selected, selectable;
-    bool hidden = false;
-    int cachedX = -1, cachedY = -1, cachedWidth = -1, cachedHeight = 1;
-    State state = DEFAULT;
-    WindowElement* parent;  // Group only for now
 };
 
 #include <functional>
