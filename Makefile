@@ -121,7 +121,7 @@ split:
 	done
 
 genImport:
-	./gen_imports.sh $(SPLITDIR) $(INCLUDEDIR)/$(LIBNAME).h
+	./gen_imports.sh $(SPLITDIR) ../$(INCLUDEDIR)/$(LIBNAME).h
 
 # Create all neccessary directories
 $(SUBDIRECTORIES):
