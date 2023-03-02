@@ -57,6 +57,14 @@ class Terminal {
      */
     static void exit();
 
+    static void addElement(WindowElement* element);
+
+    static void removeElement(WindowElement* element);
+
+    static void removeAllElements();
+
+    static void select();
+
     static Group* rootWindow;
     static termios oldTerminalSettings;
     static struct winsize size;
@@ -175,4 +183,27 @@ void Terminal::exit() {
     cout << "\033[2J\033[1;1H"
          //  << "\033[1J"
          << "Goodbye. 👋" << endl;
+}
+
+void Terminal::addElement(WindowElement* element) {
+    rootWindow->addElement(element);
+}
+
+void Terminal::removeElement(WindowElement* element) {
+    if (element == rootWindow) {
+        return;
+    }
+    if (element == WindowElement::focusedElement) {
+        WindowElement::focusedElement = rootWindow;
+    }
+    rootWindow->removeElement(element);
+}
+
+void Terminal::removeAllElements() {
+    rootWindow->removeAllElements();
+    WindowElement::focusedElement = rootWindow;
+}
+
+void Terminal::select() {
+    rootWindow->select();
 }
