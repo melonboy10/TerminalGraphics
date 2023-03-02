@@ -1,3 +1,4 @@
+#include <memory>
 #include <tuple>
 
 #include "../util.h"
@@ -9,7 +10,7 @@ using namespace std;
  * @param width the width of the window
  * @param height the height of the window
  */
-class WindowElement {
+class WindowElement : public enable_shared_from_this<WindowElement> {
    public:
     /**
      * Constructs a new window element with a given width and height.
@@ -107,7 +108,7 @@ class WindowElement {
      */
     void setValues(int x, int y, int width, int height);
 
-    static WindowElement* focusedElement;
+    static weak_ptr<WindowElement> focusedElement;
 
     double widthPercent = -1, heightPercent = -1;
     int width = -1, height = -1;
@@ -115,10 +116,10 @@ class WindowElement {
     bool hidden = false;
     int cachedX = -1, cachedY = -1, cachedWidth = -1, cachedHeight = 1;
     State state = DEFAULT;
-    WindowElement* parent;  // Group only for now
+    weak_ptr<WindowElement> parent;  // Group only for now
 };
 
-WindowElement* WindowElement::focusedElement;
+weak_ptr<WindowElement> WindowElement::focusedElement;
 
 WindowElement::WindowElement(int width, int height) : width(width), height(height) {}
 
@@ -132,11 +133,11 @@ WindowElement::~WindowElement() {}
 
 bool WindowElement::select() {
     if (this->selectable && !hidden) {
-        if (WindowElement::focusedElement != nullptr && WindowElement::focusedElement != NULL) {
-            WindowElement::focusedElement->selected = false;
-            WindowElement::focusedElement->paint(WindowElement::focusedElement->cachedX, WindowElement::focusedElement->cachedY, WindowElement::focusedElement->cachedWidth, WindowElement::focusedElement->cachedHeight);
+        if (auto focusedElement = WindowElement::focusedElement.lock()) {
+            focusedElement->selected = false;
+            focusedElement->paint(focusedElement->cachedX, focusedElement->cachedY, focusedElement->cachedWidth, focusedElement->cachedHeight);
         }
-        WindowElement::focusedElement = this;
+        WindowElement::focusedElement = shared_from_this();
         this->selected = true;
         paint(this->cachedX, this->cachedY, this->cachedWidth, this->cachedHeight);
         return true;
@@ -168,8 +169,8 @@ void WindowElement::paint(int x, int y, int width, int height) {
 void WindowElement::keyEvent(int key) {}
 
 void WindowElement::arrowKeyEvent(ArrowKey key, WindowElement* element) {
-    if (this->parent != nullptr) {
-        this->parent->arrowKeyEvent(key, element);
+    if (auto parent = this->parent.lock()) {
+        parent->arrowKeyEvent(key, element);
     }
 }
 

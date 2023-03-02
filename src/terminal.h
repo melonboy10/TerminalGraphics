@@ -65,7 +65,7 @@ class Terminal {
 
     static void select();
 
-    static Group* rootWindow;
+    static shared_ptr<Group> rootWindow;
     static termios oldTerminalSettings;
     static struct winsize size;
     static struct pollfd fds[1];
@@ -76,13 +76,13 @@ class Terminal {
 
 termios Terminal::oldTerminalSettings;
 struct winsize Terminal::size;
-Group* Terminal::rootWindow;
+shared_ptr<Group> Terminal::rootWindow;
 struct pollfd Terminal::fds[1];
 bool Terminal::exitFlag = false;
 
 Terminal::Terminal(Layout* layout) {
     initTerminal();
-    rootWindow = new Group(layout);
+    rootWindow = shared_ptr<Group>(new Group(layout));
     // rootWindow->paint(0, 0, size.ws_col, size.ws_row);
 }
 
@@ -91,7 +91,6 @@ Terminal::~Terminal() {
     // printf("\033[?25h");    // Show cursor
     // printf("\033[?1000l");  // Disable mouse input
     // tcsetattr(STDIN_FILENO, TCSANOW, &oldTerminalSettings);
-    delete rootWindow;
 }
 
 void Terminal::initTerminal() {
@@ -141,11 +140,15 @@ void Terminal::checkInputs() {
             if (getchar() == '[') {  // Check for arrow keys
                 ArrowKey arrow = getArrowKey(getchar());
                 if (arrow != ArrowKey::NONE) {
-                    WindowElement::focusedElement->arrowKeyEvent(arrow, WindowElement::focusedElement);
+                    if (auto focuselement = WindowElement::focusedElement.lock()) {
+                        focuselement->arrowKeyEvent(arrow, focuselement.get());
+                    }
                 }
             }
         } else {
-            WindowElement::focusedElement->keyEvent(c);
+            if (auto focuselement = WindowElement::focusedElement.lock()) {
+                focuselement->keyEvent(c);
+            }
         }
 
         rootWindow->paint(0, 0, size.ws_col, size.ws_row);
@@ -190,11 +193,11 @@ void Terminal::addElement(WindowElement* element) {
 }
 
 void Terminal::removeElement(WindowElement* element) {
-    if (element == rootWindow) {
+    if (element == rootWindow.get()) {
         return;
     }
-    if (element == WindowElement::focusedElement) {
-        WindowElement::focusedElement = rootWindow;
+    if (element == WindowElement::focusedElement.lock().get()) {
+        WindowElement::focusedElement = weak_ptr<Group>(rootWindow);
     }
     rootWindow->removeElement(element);
 }

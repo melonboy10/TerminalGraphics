@@ -24,7 +24,7 @@ class ColumnLayout : public Layout {
      * @param height the height of the layout on the screen
      * @param elements a vector of WindowElement objects to be included in the layout
      */
-    void paint(int x, int y, int width, int height, vector<WindowElement*> elements) override;
+    void paint(int x, int y, int width, int height, vector<shared_ptr<WindowElement>> elements) override;
 
     /**
      * Selects the next WindowElement in the layout
@@ -32,7 +32,7 @@ class ColumnLayout : public Layout {
      * @param elements a vector of WindowElement objects to be included in the layout
      * @param direction the direction to select the next WindowElement in
      */
-    bool selectNext(WindowElement* selectedElement, vector<WindowElement*> elements, ArrowKey direction) override;
+    bool selectNext(WindowElement* selectedElement, vector<shared_ptr<WindowElement>> elements, ArrowKey direction) override;
 
     /**
      * Destructor for ColumnLayout object
@@ -49,7 +49,7 @@ ColumnLayout::~ColumnLayout() {
     delete[] widths;
 }
 
-void ColumnLayout::paint(int x, int y, int width, int height, vector<WindowElement*> elements) {
+void ColumnLayout::paint(int x, int y, int width, int height, vector<shared_ptr<WindowElement>> elements) {
     int totalWidth = 0;
     for (int i = 0; i < sizeof(widths) / sizeof(int); i++) {
         totalWidth += widths[i];
@@ -67,10 +67,10 @@ void ColumnLayout::paint(int x, int y, int width, int height, vector<WindowEleme
     }
 }
 
-bool ColumnLayout::selectNext(WindowElement* selectedElement, vector<WindowElement*> elements, ArrowKey direction) {
+bool ColumnLayout::selectNext(WindowElement* selectedElement, vector<shared_ptr<WindowElement>> elements, ArrowKey direction) {
     int currentIndex = -1;
     for (int i = 0; i < elements.size(); i++) {
-        if (elements[i] == selectedElement) {
+        if (elements[i].get() == selectedElement) {
             currentIndex = i;
             break;
         }

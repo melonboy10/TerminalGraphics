@@ -21,14 +21,14 @@ class ScrollingColumnsLayout : public Layout {
      * @param height the height of the grid
      * @param elements a vector of pointers to the WindowElements in the grid
      */
-    void paint(int x, int y, int width, int height, vector<WindowElement*> elements) override;
+    void paint(int x, int y, int width, int height, vector<shared_ptr<WindowElement>> elements) override;
     /**
      * Selects the next WindowElement in the layout
      * @param selectedElement the currently selected WindowElement
      * @param elements a vector of WindowElement objects to be included in the layout
      * @param direction the direction to select the next WindowElement in
      */
-    bool selectNext(WindowElement* selectedElement, vector<WindowElement*> elements, ArrowKey direction) override;
+    bool selectNext(WindowElement* selectedElement, vector<shared_ptr<WindowElement>> elements, ArrowKey direction) override;
 
    private:
     int numColumns;
@@ -37,7 +37,7 @@ class ScrollingColumnsLayout : public Layout {
 
 ScrollingColumnsLayout::ScrollingColumnsLayout(int numColumns) : numColumns(numColumns) {}
 
-void ScrollingColumnsLayout::paint(int x, int y, int width, int height, vector<WindowElement*> elements) {
+void ScrollingColumnsLayout::paint(int x, int y, int width, int height, vector<shared_ptr<WindowElement>> elements) {
     int columnWidth = width / numColumns;
     int xOffset = 0;
 
@@ -48,12 +48,12 @@ void ScrollingColumnsLayout::paint(int x, int y, int width, int height, vector<W
     }
 }
 
-bool ScrollingColumnsLayout::selectNext(WindowElement* selectedElement, vector<WindowElement*> elements, ArrowKey direction) {
+bool ScrollingColumnsLayout::selectNext(WindowElement* selectedElement, vector<shared_ptr<WindowElement>> elements, ArrowKey direction) {
     selectedElement->setState(State::ERROR);
     // Find the index of the selected element in the vector
     int selectedIndex = -1;
     for (int i = 0; i < elements.size(); i++) {
-        if (elements[i] == selectedElement) {
+        if (elements[i].get() == selectedElement) {
             selectedIndex = i;
             break;
         }

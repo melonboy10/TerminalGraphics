@@ -41,7 +41,7 @@ class GridLayout : public Layout {
      * @param height the height of the grid
      * @param elements the vector of WindowElement objects to be painted
      */
-    void paint(int x, int y, int width, int height, vector<WindowElement*> elements) override;
+    void paint(int x, int y, int width, int height, vector<shared_ptr<WindowElement>> elements) override;
 
     /**
      * Selects the next WindowElement in the layout
@@ -49,7 +49,7 @@ class GridLayout : public Layout {
      * @param elements a vector of WindowElement objects to be included in the layout
      * @param direction the direction to select the next WindowElement in
      */
-    bool selectNext(WindowElement* selectedElement, vector<WindowElement*> elements, ArrowKey direction) override;
+    bool selectNext(WindowElement* selectedElement, vector<shared_ptr<WindowElement>> elements, ArrowKey direction) override;
 
     /**
      * A destructor that frees the memory allocated for the widths and heights
@@ -69,7 +69,7 @@ GridLayout::~GridLayout() {
     delete[] heights;
 }
 
-void GridLayout::paint(int x, int y, int width, int height, vector<WindowElement*> elements) {
+void GridLayout::paint(int x, int y, int width, int height, vector<shared_ptr<WindowElement>> elements) {
     int totalWidth = 0;
     for (int i = 0; i < sizeof(widths) / sizeof(int); i++) {
         totalWidth += widths[i];
@@ -93,11 +93,11 @@ void GridLayout::paint(int x, int y, int width, int height, vector<WindowElement
     }
 }
 
-bool GridLayout::selectNext(WindowElement* selectedElement, vector<WindowElement*> elements, ArrowKey direction) {
+bool GridLayout::selectNext(WindowElement* selectedElement, vector<shared_ptr<WindowElement>> elements, ArrowKey direction) {
     // Find the index of the selected element
     int selectedIndex = -1;
     for (int i = 0; i < elements.size(); i++) {
-        if (elements[i] == selectedElement) {
+        if (elements[i].get() == selectedElement) {
             selectedIndex = i;
             break;
         }
