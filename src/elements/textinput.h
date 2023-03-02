@@ -137,6 +137,7 @@ void TextInput::keyEvent(int key) {
         }
         if (keyAction != nullptr) {
             keyAction(text);
+            paint(cachedX, cachedY, cachedWidth, cachedHeight);
         }
     } else if (key == Key::ENTER) {
         if (exitAction != nullptr) {
@@ -146,9 +147,9 @@ void TextInput::keyEvent(int key) {
         text += (char)key;
         if (keyAction != nullptr) {
             keyAction(text);
+            paint(cachedX, cachedY, cachedWidth, cachedHeight);
         }
     }
-    paint(cachedX, cachedY, cachedWidth, cachedHeight);
 }
 
 void TextInput::arrowKeyEvent(ArrowKey key, WindowElement* element) {
