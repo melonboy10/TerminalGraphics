@@ -38,7 +38,10 @@ void VerticalLayout::paint(int x, int y, int width, int height, vector<WindowEle
     vector<tuple<int, int>> sizes;
     int totalHeight = 0;
     for (int i = 0; i < elements.size(); i++) {
-        if (elements[i]->hidden) continue;
+        if (elements[i]->hidden) {
+            sizes.push_back(make_tuple(0, 0));
+            continue;
+        }
         sizes.push_back(elements[i]->getFixedSize(width, height - totalHeight));
         totalHeight += get<1>(sizes[i]);
     }
