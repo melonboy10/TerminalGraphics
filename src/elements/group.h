@@ -40,12 +40,12 @@ class Group : public WindowElement {
      * @param index The index of the WindowElement to return
      * @return The WindowElement at the specified index
      */
-    shared_ptr<WindowElement> getElement(int index);
+    WindowElement* getElement(int index);
     /**
      * Removes the specified WindowElement from the Group
      * @param element A pointer to the WindowElement to remove
      */
-    void removeElement(WindowElement* element);
+    void removeElement(WindowElement* element, bool remove = true);
     /**
      * Removes all WindowElements from the Group
      */
@@ -102,15 +102,20 @@ class Group : public WindowElement {
     string title;
     bool borderHidden;
     Color backgroundColor;
-    vector<shared_ptr<WindowElement>> elements;
-    shared_ptr<Layout> layout;
+    vector<WindowElement*> elements;
+    Layout* layout;
 };
 
-Group::Group(Layout* layout) : title(""), layout(shared_ptr<Layout>(layout)), borderHidden(true), backgroundColor(Color::WHITE), WindowElement(1.0, 1.0) {}
+Group::Group(Layout* layout) : title(""), layout(layout), borderHidden(true), backgroundColor(Color::WHITE), WindowElement(1.0, 1.0) {}
 
 Group::Group(Layout* layout, string title) : title(title), layout(layout), borderHidden(false), backgroundColor(Color::WHITE), WindowElement(1.0, 1.0) {}
 
-Group::~Group() {}
+Group::~Group() {
+    delete this->layout;
+    for (WindowElement* element : this->elements) {
+        delete element;
+    }
+}
 
 void Group::paint(int x, int y, int width, int height) {
     WindowElement::paint(x, y, width, height);
@@ -133,7 +138,7 @@ void Group::setBorderHidden(bool borderHidden) {
 }
 
 void Group::setLayout(Layout* layout) {
-    this->layout = shared_ptr<Layout>(layout);
+    this->layout = layout;
 }
 
 void Group::setBackgroundColor(Color color) {
@@ -141,46 +146,50 @@ void Group::setBackgroundColor(Color color) {
 }
 
 void Group::hideAllElements() {
-    for (const auto& element : elements) {
+    for (WindowElement* element : this->elements) {
         element->setHidden(true);
     }
 }
 
 void Group::showAllElements() {
-    for (const auto& element : elements) {
+    for (WindowElement* element : this->elements) {
         element->setHidden(false);
     }
 }
 
 void Group::addElement(WindowElement* element, int spacer) {
-    this->elements.push_back(shared_ptr<WindowElement>(element));
+    this->elements.push_back(element);
     if (spacer) {
-        this->elements.push_back(shared_ptr<WindowElement>(new Spacer(spacer)));
+        this->elements.push_back(new Spacer(spacer));
     }
-    element->parent = shared_from_this();
+    element->parent = this;
     // paint(cachedX, cachedY, cachedWidth, cachedHeight);
 }
 
-shared_ptr<WindowElement> Group::getElement(int index) {
+WindowElement* Group::getElement(int index) {
     return this->elements[index];
 }
 
-void Group::removeElement(WindowElement* element) {
+void Group::removeElement(WindowElement* element, bool remove) {
     for (int i = 0; i < this->elements.size(); i++) {
-        if (this->elements[i].get() == element) {
+        if (this->elements[i] == element) {
             this->elements.erase(this->elements.begin() + i);
+            if (remove) delete element;
             break;
         }
     }
 }
 
 void Group::removeAllElements() {
+    for (int i = 0; i < this->elements.size(); i++) {
+        delete this->elements[i];
+    }
     this->elements.clear();
 }
 
 void Group::arrowKeyEvent(ArrowKey key, WindowElement* element) {
     if (!layout->selectNext(element, elements, key)) {
-        if (auto parent = this->parent.lock()) {
+        if (parent != nullptr) {
             parent->arrowKeyEvent(key, this);
         }
     } else {
