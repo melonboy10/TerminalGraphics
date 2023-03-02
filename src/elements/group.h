@@ -182,6 +182,9 @@ void Group::removeElement(WindowElement* element, bool remove) {
 
 void Group::removeAllElements() {
     for (int i = 0; i < this->elements.size(); i++) {
+        if (WindowElement::focusedElement == this->elements[i]) {
+            WindowElement::focusedElement = nullptr;
+        }
         delete this->elements[i];
     }
     this->elements.clear();
