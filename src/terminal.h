@@ -103,7 +103,6 @@ void Terminal::initTerminal() {
     raw_attr = oldTerminalSettings;
     cfmakeraw(&raw_attr);
     raw_attr.c_lflag &= ~(ICANON | ECHO);
-    // raw_attr.c_lflag &= ~(ICANON);
     tcsetattr(STDIN_FILENO, TCSANOW, &raw_attr);
 
     ioctl(STDOUT_FILENO, TIOCGWINSZ, &size);
@@ -160,6 +159,7 @@ void Terminal::exit() {
 
     // printf("\033[?1000l");  // Disable mouse input
     oldTerminalSettings.c_lflag |= (ICANON | ECHO);
+    cfsetspeed(&oldTerminalSettings, B38400);
     tcsetattr(STDIN_FILENO, TCSANOW, &oldTerminalSettings);
     tcflush(STDIN_FILENO, TCIFLUSH);
 

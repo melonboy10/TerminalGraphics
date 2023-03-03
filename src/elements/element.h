@@ -61,7 +61,7 @@ class WindowElement {
      * @param parentHeight the parent's height
      * @return a tuple of width and height
      */
-    tuple<int, int> getFixedSize(int parentWidth, int parentHeight);
+    virtual tuple<int, int> getFixedSize(int parentWidth, int parentHeight);
 
     /**
      * Gets if the element is selectable
