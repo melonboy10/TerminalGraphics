@@ -134,11 +134,11 @@ bool WindowElement::select() {
     if (this->selectable && !hidden) {
         if (WindowElement::focusedElement != nullptr && WindowElement::focusedElement != NULL) {
             WindowElement::focusedElement->selected = false;
-            WindowElement::focusedElement->paint(WindowElement::focusedElement->cachedX, WindowElement::focusedElement->cachedY, WindowElement::focusedElement->cachedWidth, WindowElement::focusedElement->cachedHeight);
+            // WindowElement::focusedElement->paint(WindowElement::focusedElement->cachedX, WindowElement::focusedElement->cachedY, WindowElement::focusedElement->cachedWidth, WindowElement::focusedElement->cachedHeight);
         }
         WindowElement::focusedElement = this;
         this->selected = true;
-        paint(this->cachedX, this->cachedY, this->cachedWidth, this->cachedHeight);
+        // paint(this->cachedX, this->cachedY, this->cachedWidth, this->cachedHeight);
         return true;
     }
     return false;
