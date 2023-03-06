@@ -19,6 +19,14 @@ class Image : public WindowElement {
     Image(string path, int size);
 
     /**
+     * Constructs an Image object with a given path and size.
+     *
+     * @param path The path of the image to be constructed.
+     * @param size The size of the image to be constructed.
+     */
+    Image(string path, int width, int height);
+
+    /**
      * Sets the image of the Image object.
      *
      * @param path The path of the image to be set.
@@ -40,6 +48,8 @@ class Image : public WindowElement {
 };
 
 Image::Image(string path, int size) : path(path), WindowElement(size, size) {}
+
+Image::Image(string path, int width, int height) : path(path), WindowElement(width, height) {}
 
 void Image::setImage(string path) {
     this->path = path;
