@@ -291,7 +291,13 @@ void drawImage(string path, int x, int y, int width, int height) {
     for (int j = 0; j < height; j++) {
         for (int i = 0; i < width; i++) {
             int colorCode = scaledImage[j][i];
-            drawText("█", x + i, y + j, colorCode + 30);
+            // Check if outside color range
+            if (colorCode < 0 || colorCode > 7) {
+                string colorToText = to_string(colorCode);
+                drawText(colorToText, x + i, y + j, 0);
+            } else {
+                drawText("█", x + i, y + j, colorCode + 30);
+            }
         }
     }
 }
