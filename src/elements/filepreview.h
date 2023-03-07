@@ -73,29 +73,41 @@ void FilePreview::paint(int x, int y, int width, int height) {
         if (codeMode) {
             // Text in file: \033[1;32mint\033[0m x = \033[1;32m5\033[0m;
             // Print text in color: int x = 5;
-            // drawRawText(line, x, y + lineNum);
 
-            string::size_type start = 0;
-            string::size_type end = 0;
-            while (start != string::npos) {
-                start = line.find("\\033[", end);
-                if (start != string::npos) {
-                    end = line.find("m", start);
-                    if (end != string::npos) {
-                        string colorCode = line.substr(start, end - start + 1);
-                        string text = line.substr(end + 1);
-                        end = text.find("\\033[");
-                        if (end != string::npos) {
-                            text = text.substr(0, end);
-                            end += start + colorCode.length() + text.length();
-                        } else {
-                            end += start + colorCode.length() + text.length() + 1;
-                        }
-                        drawText(text, x + start, y + lineNum, stoi(colorCode.substr(2)));
+            vector<string> words = vector<string>();
+            // Split the line into asii codes and words
+            // Example: "\033[1;32mint\033[0m x = \033[1;32m5\033[0m;" -> ["\033[1;32m", "int", "\033[0m", "x", "=", "\033[1;32m", "5", "\033[0m", ";"]
+            string word = "";
+            for (int i = 0; i < line.length(); i++) {
+                if (line[i] == '\033') {
+                    if (word != "") {
+                        words.push_back(word);
+                        word = "";
                     }
+                    while (line[i] != 'm') {
+                        word += line[i];
+                        i++;
+                    }
+                    word += line[i];
+                    words.push_back(word);
+                    word = "";
                 } else {
-                    drawText(line, x, y + lineNum);
-                    break;
+                    word += line[i];
+                }
+            }
+            if (word != "") {
+                words.push_back(word);
+            }
+
+            int color = 0;
+            for (int i = 0; i < words.size(); i++) {
+                string word = words[i];
+                // if the word is an asii code then print it in a color
+                if (word[i] == '\033') {
+                    // get the color from the asii code
+                    color = stoi(word.substr(5, 1));
+                } else {
+                    drawText(word, x, y + lineNum, color);
                 }
             }
 
