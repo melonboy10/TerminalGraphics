@@ -73,7 +73,7 @@ void FilePreview::paint(int x, int y, int width, int height) {
         if (codeMode) {
             // Text in file: \033[1;32mint\033[0m x = \033[1;32m5\033[0m;
             // Print text in color: int x = 5;
-            drawText(line, x, y + lineNum);
+            drawRawText(line, x, y + lineNum);
 
             // string::size_type start = 0;
             // string::size_type end = 0;
