@@ -130,7 +130,7 @@ void TextField::paint(int x, int y, int width, int height) {
         for (int i = 0; i < text.size(); i++) {
             if (lineNumbers) {
                 string number = to_string(i + 1);
-                number.resize(numberOffset - 1, ' ');
+                number.resize(numberOffset - 2, ' ');
                 drawText(number + "|", x + 1, y + 1 + i, GRAY);
             }
             drawText(text[i], x + numberOffset, y + 1 + i, WHITE);
