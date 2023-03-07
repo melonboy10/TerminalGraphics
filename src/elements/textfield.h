@@ -85,8 +85,8 @@ class TextField : public WindowElement {
     pair<int, int> selectedText = pair<int, int>(0, 0);
     string templateText;
     bool lineNumbers = false;
-    function<void(vector<string>)> exitAction;
-    function<void(vector<string>)> keyAction;
+    function<void(vector<string>)> exitAction = NULL;
+    function<void(vector<string>)> keyAction = NULL;
 };
 
 TextField::TextField(string title, string templateText, float widthPercent) : title(title), templateText(templateText), WindowElement(widthPercent, 0.9) {
@@ -165,7 +165,7 @@ void TextField::keyEvent(int key) {
         }
     } else if (key == TAB) {
         // Exit text input
-        if (exitAction) {
+        if (exitAction != NULL) {
             exitAction(text);
         }
         WindowElement::arrowKeyEvent(RIGHT, this);
@@ -173,7 +173,7 @@ void TextField::keyEvent(int key) {
         // Add character to current line
         text[selectedText.first].insert(selectedText.second, 1, key);
         selectedText.second++;
-        if (keyAction) {
+        if (keyAction != NULL) {
             keyAction(text);
         }
     }
