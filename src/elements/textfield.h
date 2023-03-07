@@ -129,10 +129,11 @@ void TextField::paint(int x, int y, int width, int height) {
     if (text.size() > 0) {
         for (int i = 0; i < text.size(); i++) {
             if (lineNumbers) {
-                drawText(to_string(i + 1), x + 1, y + 1 + i, DIM);
-                drawText("|", x + numberOffset - 1, y + 1 + i, BLACK);
+                string number = to_string(i + 1);
+                number.resize(numberOffset - 1, ' ');
+                drawText(number, x, y + 1 + i, GRAY);
             }
-            drawText(text[i], x + numberOffset, y + 1 + i, GRAY);
+            drawText(text[i], x + numberOffset, y + 1 + i, WHITE);
 
             printf("\033[48;5;45m");
             setCursorPosition(x + numberOffset + selectedText.second, y + 1 + selectedText.first);

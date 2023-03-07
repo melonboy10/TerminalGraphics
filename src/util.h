@@ -32,7 +32,7 @@ enum Color {
 };
 
 enum State {
-    DEFAULT = WHITE,
+    DEFAULT = LIGHT_WHITE,
     DISABLED = DIM,
     SUCCESS = GREEN,
     ERROR = RED,
@@ -73,7 +73,7 @@ string getColorCode(int color);
  * @param y The Y coordinate of the position at which to draw the text
  * @param color The color of the text to be drawn on the console
  */
-void drawText(string text, int x, int y, int color = WHITE);
+void drawText(string text, int x, int y, int color = LIGHT_WHITE);
 
 /**
  * Draws text on the console at the given position with the given color
@@ -100,7 +100,7 @@ void clearArea(int x, int y, int width, int height);
  * @param height The height of the area to be filled
  * @param color The color of the area to be filled
  */
-void fillArea(int x, int y, int width, int height, int color = WHITE);
+void fillArea(int x, int y, int width, int height, int color = LIGHT_WHITE);
 
 /**
  * Converts the given string to capital case
@@ -134,7 +134,7 @@ void hideCursor();
  * @param height The height of the box to be drawn on the console
  * @param color The color of the box to be drawn on the console
  */
-void drawBox(int x, int y, int width, int height, int color = WHITE);
+void drawBox(int x, int y, int width, int height, int color = LIGHT_WHITE);
 
 /**
  * Draws a box with a title on the console at the given position with the given width, height and title
@@ -145,7 +145,7 @@ void drawBox(int x, int y, int width, int height, int color = WHITE);
  * @param title The title of the box to be drawn on the console
  * @param color The color of the box to be drawn on the console
  */
-void drawBox(int x, int y, int width, int height, string title, int color = WHITE);
+void drawBox(int x, int y, int width, int height, string title, int color = LIGHT_WHITE);
 
 /**
  * Draws an image on the console at the given position with the given width and height
