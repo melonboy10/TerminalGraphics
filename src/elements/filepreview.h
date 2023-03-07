@@ -84,7 +84,7 @@ void FilePreview::paint(int x, int y, int width, int height) {
                     if (end != string::npos) {
                         string colorCode = line.substr(start, end - start + 1);
                         string text = line.substr(end + 1);
-                        end = text.find("\033[");
+                        end = text.find("\\033[");
                         if (end != string::npos) {
                             text = text.substr(0, end);
                         }
