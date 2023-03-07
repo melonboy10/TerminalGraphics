@@ -128,7 +128,7 @@ void TextField::paint(int x, int y, int width, int height) {
         drawText(title, x + 2, y, state);
     }
     if (text.size() > 0) {
-        int scrollOffset = (selectedText.first - height + 3 > 0) ? selectedText.first - height + 3 : 0;
+        int scrollOffset = (selectedText.first - height + 1 > 0) ? selectedText.first - height + 1 : 0;
         for (int i = 0; i < height; i++) {
             if (lineNumbers) {
                 string number = to_string(i + 1);
