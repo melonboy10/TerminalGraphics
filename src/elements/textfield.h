@@ -119,7 +119,7 @@ void TextField::paint(int x, int y, int width, int height) {
 
     int numberOffset = lineNumbers ? 4 : 0;
 
-    drawBox(x, y, width, height, state);
+    drawBox(x, y, width, height, title, state);
     drawText("┤Press Tab to exit├", x + 2, y, state);
 
     if (selected) {
@@ -169,7 +169,7 @@ void TextField::keyEvent(int key) {
         if (exitAction) {
             exitAction(text);
         }
-        arrowKeyEvent(RIGHT, this);
+        WindowElement::arrowKeyEvent(RIGHT, this);
     } else {
         // Add character to current line
         text[selectedText.first].insert(selectedText.second, 1, key);
