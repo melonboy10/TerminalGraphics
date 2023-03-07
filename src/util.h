@@ -194,6 +194,14 @@ void drawText(string text, int x, int y, int color) {
     cout << getColorCode(color) << text << "\033[0m";
 }
 
+void drawRawText(string text, int x, int y) {
+    if (x < 0 || y < 0) {
+        return;
+    }
+    setCursorPosition(x, y);
+    cout << text;
+}
+
 void clearArea(int x, int y, int width, int height) {
     if (x < 0 || y < 0) {
         return;
