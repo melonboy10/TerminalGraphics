@@ -75,7 +75,7 @@ class TextField : public WindowElement {
 
    private:
     string title;
-    vector<string> text = vector<string>();
+    vector<string> text = vector<string>(1, "");
     pair<int, int> selectedText = pair<int, int>(0, 0);
     string templateText;
     function<void(string)> exitAction;
