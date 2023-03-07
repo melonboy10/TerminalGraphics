@@ -63,58 +63,13 @@ void FilePreview::paint(int x, int y, int width, int height) {
     ifstream file(path);
     string line;
     int lineNum = 0;
-    bool codeMode = false;
     while (getline(file, line)) {
-        // if the line is ``` then switch to code mode
-        if (line == "```") {
-            codeMode = !codeMode;
-            continue;
+        for (int i = 0; i < line.length(); i++) {
+            if (line[i] == '\\' && line[i + 1] == '0' && line[i + 2] == '3' && line[i + 3] == '3') {
+                line.replace(i, 4, "\033");
+            }
         }
-        if (codeMode) {
-            // Text in file: \033[1;32mint\033[0m x = \033[1;32m5\033[0m;
-            // Print text in color: int x = 5;
-
-            vector<string> words = vector<string>();
-            // Split the line into asii codes and words
-            // Example: "\033[1;32mint\033[0m x = \033[1;32m5\033[0m;" -> ["\033[1;32m", "int", "\033[0m", "x", "=", "\033[1;32m", "5", "\033[0m", ";"]
-            string word = "";
-            for (int i = 0; i < line.length(); i++) {
-                if (line[i] == '\033') {
-                    if (word != "") {
-                        words.push_back(word);
-                        word = "";
-                    }
-                    while (line[i] != 'm') {
-                        word += line[i];
-                        i++;
-                    }
-                    word += line[i];
-                    words.push_back(word);
-                    word = "";
-                } else {
-                    word += line[i];
-                }
-            }
-            if (word != "") {
-                words.push_back(word);
-            }
-
-            int color = 0;
-            for (int i = 0; i < words.size(); i++) {
-                string word = words[i];
-                // if the word is an asii code then print it in a color
-                if (word[i] == '\033') {
-                    // get the color from the asii code
-                    color = stoi(word.substr(5, 1));
-                } else {
-                    drawText(word, x, y + lineNum, color);
-                }
-            }
-
-        } else {
-            // if the line is not a code line then print it in a normal font
-            drawText(line, x, y + lineNum, BLUE);
-        }
+        drawText(line, x, y + lineNum);
         lineNum++;
     }
 };
