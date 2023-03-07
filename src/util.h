@@ -76,6 +76,14 @@ string getColorCode(int color);
 void drawText(string text, int x, int y, int color = WHITE);
 
 /**
+ * Draws text on the console at the given position with the given color
+ * @param text The text to be drawn on the console
+ * @param x The X coordinate of the position at which to draw the text
+ * @param y The Y coordinate of the position at which to draw the text
+ */
+void drawRawText(string text, int x, int y);
+
+/**
  * Clears the area of the console at the given position
  * @param x The X coordinate of the position to be cleared
  * @param y The Y coordinate of the position to be cleared
