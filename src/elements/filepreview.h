@@ -87,6 +87,9 @@ void FilePreview::paint(int x, int y, int width, int height) {
                         end = text.find("\\033[");
                         if (end != string::npos) {
                             text = text.substr(0, end);
+                            end += start + colorCode.length() + text.length();
+                        } else {
+                            end += start + colorCode.length() + text.length() + 1;
                         }
                         drawText(text, x + start, y + lineNum, stoi(colorCode.substr(2)));
                     }
@@ -95,6 +98,7 @@ void FilePreview::paint(int x, int y, int width, int height) {
                     break;
                 }
             }
+
         } else {
             // if the line is not a code line then print it in a normal font
             drawText(line, x, y + lineNum, BLUE);
