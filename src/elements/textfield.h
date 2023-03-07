@@ -128,7 +128,8 @@ void TextField::paint(int x, int y, int width, int height) {
         drawText(title, x + 2, y, state);
     }
     if (text.size() > 0) {
-        for (int i = 0; i < text.size(); i++) {
+        int scrollOffset = (selectedText.first - height + 3 > 0) ? selectedText.first - height + 3 : 0;
+        for (int i = 0; i < height; i++) {
             if (lineNumbers) {
                 string number = to_string(i + 1);
                 number.resize(numberOffset - 2, ' ');
@@ -136,9 +137,8 @@ void TextField::paint(int x, int y, int width, int height) {
             }
             drawText(text[i], x + numberOffset, y + 1 + i, WHITE);
 
-            printf("\033[48;5;45m");
             setCursorPosition(x + numberOffset + selectedText.second, y + 1 + selectedText.first);
-            printf("\033[7m \033[0m");
+            printf("░");
         }
     } else {
         drawText((selected ? "_" : "") + templateText, x + numberOffset, y + 1, DIM);
