@@ -71,13 +71,13 @@ class TextField : public WindowElement {
      * Sets the exit action of the text input
      * @param exitAction the exit action to be set
      */
-    void setExitAction(function<void(string)> exitAction);
+    void setExitAction(function<void(vector<string>)> exitAction);
 
     /**
      * Sets the key action of the text input
      * @param keyAction the key action to be set
      */
-    void setKeyAction(function<void(string)> keyAction);
+    void setKeyAction(function<void(vector<string>)> keyAction);
 
    private:
     string title;
@@ -85,8 +85,8 @@ class TextField : public WindowElement {
     pair<int, int> selectedText = pair<int, int>(0, 0);
     string templateText;
     bool lineNumbers = false;
-    function<void(string)> exitAction;
-    function<void(string)> keyAction;
+    function<void(vector<string>)> exitAction;
+    function<void(vector<string>)> keyAction;
 };
 
 TextField::TextField(string title, string templateText, float widthPercent) : title(title), templateText(templateText), WindowElement(widthPercent, 0.9) {
@@ -105,11 +105,11 @@ vector<string> TextField::getText() {
 void TextField::setLineNumbers(bool lineNumbers) {
     this->lineNumbers = lineNumbers;
 }
-void TextField::setExitAction(function<void(string)> exitAction) {
+void TextField::setExitAction(function<void(vector<string>)> exitAction) {
     this->exitAction = exitAction;
 }
 
-void TextField::setKeyAction(function<void(string)> keyAction) {
+void TextField::setKeyAction(function<void(vector<string>)> keyAction) {
     this->keyAction = keyAction;
 }
 
@@ -120,6 +120,7 @@ void TextField::paint(int x, int y, int width, int height) {
     int numberOffset = lineNumbers ? 4 : 0;
 
     drawBox(x, y, width, height, state);
+    drawText("┤Press Tab to exit├", x + 2, y, state);
 
     if (selected) {
         drawText(title, x + 2, y, CYAN);
@@ -163,10 +164,19 @@ void TextField::keyEvent(int key) {
             selectedText.first--;
             selectedText.second = text[selectedText.first].length();
         }
+    } else if (key == TAB) {
+        // Exit text input
+        if (exitAction) {
+            exitAction(text);
+        }
+        arrowKeyEvent(RIGHT, this);
     } else {
         // Add character to current line
         text[selectedText.first].insert(selectedText.second, 1, key);
         selectedText.second++;
+        if (keyAction) {
+            keyAction(text);
+        }
     }
 }
 

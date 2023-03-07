@@ -41,8 +41,9 @@ enum State {
 enum Key {
     ENTER = 13,
     ESCAPE = 27,
+    TAB = 9,
     SPACE = 32,
-    BACKSPACE = 127
+    BACKSPACE = 127,
 };
 
 enum ArrowKey {
