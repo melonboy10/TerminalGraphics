@@ -96,7 +96,7 @@ void FilePreview::paint(int x, int y, int width, int height) {
             }
         } else {
             // if the line is not a code line then print it in a normal font
-            drawText(line, x, y + lineNum);
+            drawText(line, x, y + lineNum, BLUE);
         }
         lineNum++;
     }
