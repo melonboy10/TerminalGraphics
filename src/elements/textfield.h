@@ -122,7 +122,7 @@ void TextField::paint(int x, int y, int width, int height) {
     }
     if (text.size() > 0) {
         for (int i = 0; i < header.size(); i++) {
-            drawText("|" + header[i], x + 4, y + 1 + i, DIM);
+            drawText("|" + header[i], x + 3, y + 1 + i, DIM);
         }
         for (int i = 0; i < text.size(); i++) {
             if (lineNumbers) {
@@ -136,7 +136,7 @@ void TextField::paint(int x, int y, int width, int height) {
             printf("▒");
         }
         for (int i = 0; i < footer.size(); i++) {
-            drawText("|" + footer[i], x + 4, y + 1 + i + text.size() + header.size(), DIM);
+            drawText("|" + footer[i], x + 3, y + 1 + i + text.size() + header.size(), DIM);
         }
     } else {
         drawText((selected ? "_" : "") + templateText, x + numberOffset, y + 1, DIM);
