@@ -67,26 +67,12 @@ class TextField : public WindowElement {
      */
     void arrowKeyEvent(ArrowKey key, WindowElement* element) override;
 
-    /**
-     * Sets the exit action of the text input
-     * @param exitAction the exit action to be set
-     */
-    void setExitAction(function<void(vector<string>)> exitAction);
-
-    /**
-     * Sets the key action of the text input
-     * @param keyAction the key action to be set
-     */
-    void setKeyAction(function<void(vector<string>)> keyAction);
-
    private:
     string title;
     vector<string> text = vector<string>(1, "");
     pair<int, int> selectedText = pair<int, int>(0, 0);
     string templateText;
     bool lineNumbers = false;
-    function<void(vector<string>)> exitAction = NULL;
-    function<void(vector<string>)> keyAction = NULL;
 };
 
 TextField::TextField(string title, string templateText, float widthPercent) : title(title), templateText(templateText), WindowElement(widthPercent, 0.9) {
@@ -104,13 +90,6 @@ vector<string> TextField::getText() {
 }
 void TextField::setLineNumbers(bool lineNumbers) {
     this->lineNumbers = lineNumbers;
-}
-void TextField::setExitAction(function<void(vector<string>)> exitAction) {
-    this->exitAction = exitAction;
-}
-
-void TextField::setKeyAction(function<void(vector<string>)> keyAction) {
-    this->keyAction = keyAction;
 }
 
 void TextField::paint(int x, int y, int width, int height) {
@@ -164,18 +143,10 @@ void TextField::keyEvent(int key) {
             selectedText.second = text[selectedText.first].length();
         }
     } else if (key == TAB) {
-        // Exit text input
-        if (exitAction != NULL) {
-            exitAction(text);
-        }
         WindowElement::arrowKeyEvent(RIGHT, this);
     } else {
-        // Add character to current line
         text[selectedText.first].insert(selectedText.second, 1, key);
         selectedText.second++;
-        if (keyAction != NULL) {
-            keyAction(text);
-        }
     }
 }
 
