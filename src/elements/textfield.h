@@ -67,9 +67,15 @@ class TextField : public WindowElement {
      */
     void arrowKeyEvent(ArrowKey key, WindowElement* element) override;
 
+    void setHeader(vector<string> header);
+
+    void setFooter(vector<string> footer);
+
    private:
     string title;
     vector<string> text = vector<string>(1, "");
+    vector<string> header = vector<string>();
+    vector<string> footer = vector<string>();
     pair<int, int> selectedText = pair<int, int>(0, 0);
     string templateText;
     bool lineNumbers = false;
@@ -92,6 +98,14 @@ void TextField::setLineNumbers(bool lineNumbers) {
     this->lineNumbers = lineNumbers;
 }
 
+void TextField::setHeader(vector<string> header) {
+    this->header = header;
+}
+
+void TextField::setFooter(vector<string> footer) {
+    this->footer = footer;
+}
+
 void TextField::paint(int x, int y, int width, int height) {
     WindowElement::paint(x, y, width, height);
     if (hidden) return;
@@ -107,16 +121,22 @@ void TextField::paint(int x, int y, int width, int height) {
         drawText(title, x + 2, y, state);
     }
     if (text.size() > 0) {
+        for (int i = 0; i < header.size(); i++) {
+            drawText(header[i], x + 1, y + 1 + i, DIM);
+        }
         for (int i = 0; i < text.size(); i++) {
             if (lineNumbers) {
                 string number = to_string(i + 1);
                 number.resize(numberOffset - 2, ' ');
-                drawText(number + "|", x + 1, y + 1 + i, GRAY);
+                drawText(number + "|", x + 1, y + 1 + i + header.size(), GRAY);
             }
-            drawText(text[i], x + numberOffset, y + 1 + i, WHITE);
+            drawText(text[i], x + numberOffset, y + 1 + i + header.size(), WHITE);
 
-            setCursorPosition(x + numberOffset + selectedText.second, y + 1 + selectedText.first);
+            setCursorPosition(x + numberOffset + selectedText.second, y + 1 + selectedText.first + header.size());
             printf("▒");
+        }
+        for (int i = 0; i < footer.size(); i++) {
+            drawText(footer[i], x + 1, y + 1 + i + text.size() + header.size(), DIM);
         }
     } else {
         drawText((selected ? "_" : "") + templateText, x + numberOffset, y + 1, DIM);

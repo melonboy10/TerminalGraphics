@@ -62,7 +62,9 @@ Text::Text(string text) : text(text), WindowElement(1, 1) {
     delete[] widths;
 }
 
-Text::Text(string text, float widthPercent) : text(text), WindowElement(widthPercent, 1) {}
+Text::Text(string text, float widthPercent) : text(text), WindowElement(widthPercent, 1) {
+    height = (int)count(text.begin(), text.end(), '\n') + 1;
+}
 
 void Text::setText(string text) {
     this->text = text;
